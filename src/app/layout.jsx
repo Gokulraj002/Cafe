@@ -19,16 +19,16 @@ const manrope = Manrope({
 
 export const metadata = {
   title: {
-    default: 'Maison Lente — Coffee, crafted slowly',
-    template: '%s — Maison Lente',
+    default: 'Kela-Cafe — Coffee, crafted slowly',
+    template: '%s — Kela-Cafe',
   },
-  description: 'A space for coffee, conversation and quiet moments. Four homepage concepts for Maison Lente.',
-  applicationName: 'Maison Lente',
+  description: 'A space for coffee, conversation and quiet moments. Four homepage concepts for Kela-Cafe.',
+  applicationName: 'Kela-Cafe',
   // Added to the home screen it opens full-screen, like an app.
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Lente',
+    title: 'Kela',
   },
   formatDetection: { telephone: false },
 };

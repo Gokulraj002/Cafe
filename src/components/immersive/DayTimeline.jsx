@@ -26,7 +26,7 @@ const firstTime = hours[0].time;
 const lastTime = hours[hours.length - 1].time;
 
 /**
- * "A day at Maison Lente". Everywhere it is a swipeable rail; on desktop
+ * "A day at Kela-Cafe". Everywhere it is a swipeable rail; on desktop
  * (with motion allowed) the section holds still and vertical scroll walks
  * the same rail sideways through the day, with a clock that follows along.
  */
@@ -106,7 +106,7 @@ export default function DayTimeline() {
           <div className="imm-day__header">
             <SectionHeading
               id="day-title"
-              eyebrow="A day at Maison Lente"
+              eyebrow="A day at Kela-Cafe"
               title="From first grind to last pour."
               intro="A weekday at the café, hour by hour — the same slow pace from the morning dial-in to the final cup."
             />
@@ -120,7 +120,7 @@ export default function DayTimeline() {
           </div>
         </div>
 
-        <SwipeRail label="A day at Maison Lente, hour by hour" className="imm-day__rail">
+        <SwipeRail label="A day at Kela-Cafe, hour by hour" className="imm-day__rail">
           {hours.map((hour) => (
             <DayCard key={hour.time} {...hour} />
           ))}

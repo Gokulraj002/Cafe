@@ -28,7 +28,7 @@ export default function Colophon() {
             <FadeReveal as="aside" className="ed-colophon__credits" delay={0.1}>
               <h3 className="type-eyebrow mb-2">Colophon</h3>
               <p className="type-caption">
-                {ISSUE.title} · Issue {ISSUE.number} · {ISSUE.season}. Moving pictures from the Maison Lente house films. Set
+                {ISSUE.title} · Issue {ISSUE.number} · {ISSUE.season}. Moving pictures from the Kela-Cafe house films. Set
                 in Cormorant Garamond and Manrope.
               </p>
               <p className="type-caption mb-2">Photography, used under the Unsplash License:</p>

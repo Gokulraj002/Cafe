@@ -61,7 +61,7 @@ export default function Masthead() {
         </div>
 
         <p className="ed-mast__wordmark reveal-pending" aria-hidden="true">
-          Lente
+          Kela
         </p>
 
         <div className="row gx-lg-5 gy-4 ed-mast__row">

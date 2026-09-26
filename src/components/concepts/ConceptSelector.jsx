@@ -26,7 +26,7 @@ export default function ConceptSelector() {
       <div className="sel-selector__inner container">
         <div className="sel-intro row g-4 align-items-end">
           <div className="col-lg-8">
-            <p className="sel-intro__eyebrow type-eyebrow reveal-pending">Homepage concepts · Maison Lente</p>
+            <p className="sel-intro__eyebrow type-eyebrow reveal-pending">Homepage concepts · Kela-Cafe</p>
             <TextReveal as="h1" id="sel-title" immediate delay={0.1} className="sel-intro__title">
               Four ways to <em>arrive.</em>
             </TextReveal>

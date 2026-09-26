@@ -7,7 +7,7 @@ import CommonGround from '@/components/concepts/CommonGround';
 export const metadata = {
   title: 'Homepage concepts',
   description:
-    'Four homepage concepts for Maison Lente — four films that play as you scroll, four ways to arrive, discover, craft, indulge and stay.',
+    'Four homepage concepts for Kela-Cafe — four films that play as you scroll, four ways to arrive, discover, craft, indulge and stay.',
 };
 
 /** The studio's presentation of the four homepage concepts. */

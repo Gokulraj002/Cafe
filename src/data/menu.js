@@ -32,7 +32,7 @@ const menu = [
     title: 'Signatures',
     note: 'The drinks we are known for.',
     items: [
-      { name: 'Lente Latte', description: 'Espresso, brown-butter milk, a pinch of sea salt.', price: '5.8', signature: true },
+      { name: 'Kela Latte', description: 'Espresso, brown-butter milk, a pinch of sea salt.', price: '5.8', signature: true },
       { name: 'Honey Oat Cortado', description: 'Wildflower honey, oat milk, single origin shot.', price: '5.2' },
       { name: 'Espresso Tonic', description: 'Citrus tonic, espresso poured over ice.', price: '5.5' },
       { name: 'Cascara Soda', description: 'Dried coffee cherry, steeped cold and lightly sparkling.', price: '4.8' },

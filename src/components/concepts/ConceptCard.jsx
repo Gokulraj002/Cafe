@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import cafeVideos from '@/data/videos';
 import VideoStill from '@/components/video/VideoStill';
 import Icon from '@/components/mobile/icons';
@@ -95,9 +94,9 @@ export default function ConceptCard({ concept, isPriority = false }) {
       </div>
 
       {/* The link lies over the whole card, so focus, its ring and every click take in the full card */}
-      <Link href={`/${concept.slug}`} className="sel-card__link" aria-describedby={summaryId}>
+      <a href={`/${concept.slug}`} className="sel-card__link" aria-describedby={summaryId}>
         <span className="visually-hidden">{`Open concept ${concept.number}, ${concept.title}`}</span>
-      </Link>
+      </a>
     </article>
   );
 }

@@ -1,5 +1,5 @@
 /**
- * The "ML" monogram drawn for app icons (rendered by next/og in
+ * The "KC" monogram drawn for app icons (rendered by next/og in
  * app/icon.jsx and app/apple-icon.jsx). Brand hex values are repeated here
  * because image routes cannot read the CSS tokens.
  */
@@ -37,8 +37,8 @@ export default function monogramArt(size, { rounded = false } = {}) {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <path d="M33 60 37 40 42 55 50 40 46 60" />
-          <path d="M57 40 53 60H66" />
+          <path d="M35 40V60M48 40 35.5 51.5M40 47.5 49 60" />
+          <path d="M67 44.5A9.5 10 0 1 0 67 55.5" />
         </g>
       </svg>
     </div>

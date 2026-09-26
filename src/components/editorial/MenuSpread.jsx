@@ -40,7 +40,7 @@ export default function MenuSpread() {
             <Plate
               photo={photos.latteArtPour}
               figure="5"
-              caption="A rosetta for the Lente Latte: brown-butter milk, a pinch of sea salt."
+              caption="A rosetta for the Kela Latte: brown-butter milk, a pinch of sea salt."
               ratio="ed-menu__plate-frame"
               sizes="(min-width: 992px) 30vw, 92vw"
               className="ed-menu__plate"

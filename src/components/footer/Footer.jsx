@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import cafe from '@/data/cafe';
 import concepts from '@/data/concepts';
 import Logo from '@/components/common/Logo';
@@ -45,9 +44,9 @@ export default function Footer({ theme = 'theme-charcoal', homeHref = '#top' }) 
             <ul className="list-unstyled mb-0">
               {concepts.map((concept) => (
                 <li key={concept.slug}>
-                  <Link href={`/${concept.slug}`} className="site-footer__link">
+                  <a href={`/${concept.slug}`} className="site-footer__link">
                     {concept.number} — {concept.title}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

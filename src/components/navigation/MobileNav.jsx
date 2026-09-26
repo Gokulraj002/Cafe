@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from '@/components/common/Logo';
 import Button from '@/components/common/Button';
@@ -58,14 +57,14 @@ export default function MobileNav({ id, isOpen, links, homeHref, reserveHref, on
       <div className="mobile-nav__footer container">
         <div className="d-flex align-items-baseline justify-content-between mb-3">
           <p className="type-eyebrow mb-0">Concepts</p>
-          <Link href="/" className="mobile-nav__all type-caption" onClick={onClose}>
+          <a href="/" className="mobile-nav__all type-caption" onClick={onClose}>
             View all
-          </Link>
+          </a>
         </div>
         <ul className="mobile-nav__concepts list-unstyled mb-4">
           {concepts.map((concept) => (
             <li key={concept.slug}>
-              <Link
+              <a
                 href={`/${concept.slug}`}
                 className="mobile-nav__concept"
                 aria-current={pathname === `/${concept.slug}` ? 'page' : undefined}
@@ -73,7 +72,7 @@ export default function MobileNav({ id, isOpen, links, homeHref, reserveHref, on
               >
                 <span className="mobile-nav__concept-number">{concept.number}</span>
                 <span className="mobile-nav__concept-title">{concept.title}</span>
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

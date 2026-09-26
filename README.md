@@ -1,4 +1,4 @@
-# Maison Lente — café homepage concepts
+# Kela-Cafe — café homepage concepts
 
 Four homepage concepts for a premium café, each built around one of the café's films.
 

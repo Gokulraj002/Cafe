@@ -16,7 +16,7 @@ export default function NewsletterForm() {
   function handleSubmit(event) {
     event.preventDefault();
     const email = new FormData(event.currentTarget).get('email');
-    const subject = encodeURIComponent('Subscribe me to the Lente letter');
+    const subject = encodeURIComponent('Subscribe me to the Kela letter');
     const body = encodeURIComponent(`Please add ${email} to the monthly letter.`);
     window.location.href = `mailto:${cafe.contact.email}?subject=${subject}&body=${body}`;
     setIsSent(true);

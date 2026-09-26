@@ -3,8 +3,8 @@
  * Address, directions, phone and email are placeholders — replace before launch.
  */
 const cafe = {
-  name: 'Maison Lente',
-  shortName: 'Lente',
+  name: 'Kela-Cafe',
+  shortName: 'Kela',
   tagline: 'Coffee, crafted slowly.',
   description: 'A space for coffee, conversation and quiet moments.',
   established: 2026,
@@ -16,7 +16,7 @@ const cafe = {
     'We roast, bake and pour at the pace good things take. Four coffees from growers we know by name, a bakery that starts before dawn, and a room built for staying — not for turning tables.',
 
   story: [
-    'Maison Lente began with a single oak table and one rule: nothing leaves the bar until it is right.',
+    'Kela-Cafe began with a single oak table and one rule: nothing leaves the bar until it is right.',
     'We roast in small batches, dial in every morning and pour each cup by hand — because the best things in a day are rarely the fastest.',
   ],
 
@@ -48,7 +48,7 @@ const cafe = {
     area: 'Old Quarter',
     city: 'Your City',
     postcode: '00000',
-    mapsQuery: 'Maison Lente café',
+    mapsQuery: 'Kela-Cafe café',
     directions: 'Five minutes on foot from the central station, on the corner of the old market square.',
   },
 
@@ -61,9 +61,9 @@ const cafe = {
 
   contact: {
     phone: '+00 000 000 000',
-    email: 'hello@maisonlente.example',
-    reservationsEmail: 'reservations@maisonlente.example',
-    eventsEmail: 'events@maisonlente.example',
+    email: 'hello@kelacafe.example',
+    reservationsEmail: 'reservations@kelacafe.example',
+    eventsEmail: 'events@kelacafe.example',
   },
 
   social: [

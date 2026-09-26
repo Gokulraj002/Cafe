@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Button from '@/components/common/Button';
 
 /** Inline links for large screens (hidden below the lg breakpoint). */
@@ -15,9 +14,9 @@ export default function DesktopNav({ links, reserveHref }) {
         ))}
       </ul>
       <div className="d-flex align-items-center gap-4">
-        <Link href="/" className="nav-link-cafe nav-link-cafe--muted">
+        <a href="/" className="nav-link-cafe nav-link-cafe--muted">
           Concepts
-        </Link>
+        </a>
         <Button href={reserveHref} variant="outline" className="navbar-cafe__cta">
           Reserve
         </Button>

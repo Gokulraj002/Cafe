@@ -144,7 +144,7 @@ export const ritual = [
 export const signatures = [
   {
     id: 'lente-latte',
-    name: 'Lente Latte',
+    name: 'Kela Latte',
     description: 'The house espresso with milk steamed through browned butter and a few flakes of sea salt. Rich, never sweet.',
     pairing: 'Cardamom Bun',
     pairingNote: 'Warm spice cuts through the brown butter.',
@@ -349,7 +349,7 @@ export const beans = [
   },
   {
     id: 'house-espresso',
-    name: 'Lente House Espresso',
+    name: 'Kela House Espresso',
     origin: 'Mantiqueira de Minas, Brazil & Huehuetenango, Guatemala',
     process: 'Natural and washed',
     notes: ['Hazelnut', 'Cocoa', 'Dark cherry'],
@@ -430,7 +430,7 @@ export const faq = [
 ];
 
 /**
- * A weekday at the café, hour by hour, for "A day at Maison Lente".
+ * A weekday at the café, hour by hour, for "A day at Kela-Cafe".
  *
  * @type {{ time: string, title: string, line: string }[]}
  */
@@ -529,7 +529,7 @@ export const privateHire = {
 
 /** Copy for the newsletter sign-up. */
 export const newsletter = {
-  eyebrow: 'The Lente letter',
+  eyebrow: 'The Kela letter',
   title: 'One letter a month. Nothing more.',
   text: 'New arrivals from origin, workshop dates a week before they go public, and the occasional recipe from the bakery.',
   fieldLabel: 'Email address',

@@ -19,7 +19,7 @@ import Events from '@/components/cinematic/Events';
 export const metadata = {
   title: 'Cinematic Luxury',
   description:
-    'Coffee, crafted slowly. A letterboxed morning film that unveils as you scroll, dark espresso rooms and ivory type — Maison Lente, a space for coffee, conversation and quiet moments.',
+    'Coffee, crafted slowly. A letterboxed morning film that unveils as you scroll, dark espresso rooms and ivory type — Kela-Cafe, a space for coffee, conversation and quiet moments.',
 };
 
 const NAV_LINKS = [

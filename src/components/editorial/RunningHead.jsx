@@ -12,7 +12,7 @@ export default function RunningHead({ section }) {
 
   return (
     <p className="ed-running-head" aria-hidden="true">
-      <span>Lente</span>
+      <span>Kela</span>
       <span>{ISSUE.title}</span>
       <span>
         {number} {title}

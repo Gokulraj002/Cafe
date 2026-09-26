@@ -52,7 +52,7 @@ export default function CinemaIntro({ film }) {
       </div>
 
       <div className="cinema-intro__copy container">
-        <p className="cinema-intro__reveal reveal-pending type-eyebrow mb-3 mb-md-4">Maison Lente presents</p>
+        <p className="cinema-intro__reveal reveal-pending type-eyebrow mb-3 mb-md-4">Kela-Cafe presents</p>
         <TextReveal as="h1" id="top-title" immediate className="cinema-intro__title type-display">
           From cherry to cup.
         </TextReveal>
