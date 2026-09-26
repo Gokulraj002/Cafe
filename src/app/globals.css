@@ -1,0 +1,10 @@
+/* Bootstrap 5 is imported first in app/layout.jsx; everything here layers on top. */
+@import '../styles/variables.css';
+@import '../styles/typography.css';
+@import '../styles/base.css';
+@import '../styles/animations.css';
+@import '../styles/navigation.css';
+@import '../styles/video.css';
+@import '../styles/menu.css';
+@import '../styles/sections.css';
+@import '../styles/mobile.css';

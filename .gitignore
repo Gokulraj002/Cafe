@@ -1,0 +1,8 @@
+node_modules/
+.next/
+out/
+.env*.local
+.DS_Store
+# Original masters stay out of the repo and out of production.
+source-videos/
+.claude/

@@ -1,0 +1,1037 @@
+/* ==========================================================================
+   Concept 01 — Cinematic Luxury: the sections after the opening stage
+   Rooms of charcoal and espresso, one ivory interlude, bronze hairlines.
+   The stage has its own sheet (cinematic-stage.css). Global CSS persists
+   across client-side navigation, so every selector here starts `.lux-`.
+   Mobile first: base rules are the phone layout, media queries add to it.
+   ========================================================================== */
+
+.lux-page {
+  --lux-hairline: color-mix(in srgb, var(--caramel) 45%, transparent);
+  /* Space between a section heading and what it introduces */
+  --lux-gap: clamp(2.75rem, 7vw, 6rem);
+}
+
+/* Section eyebrows open with a short rule, like a title card */
+.lux-page .section-heading .type-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lux-page .section-heading .type-eyebrow::before,
+.lux-page .section-heading--center .type-eyebrow::after {
+  content: '';
+  flex: 0 0 2.5rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+/* Frames show a quiet panel, a step off the section colour, until their picture arrives */
+.lux-page .media-frame {
+  background-color: color-mix(in srgb, var(--fg) 6%, var(--bg));
+}
+
+/* Underlined text links are only ~23px tall: on touch screens give them a
+   44px target and keep the underline where it was, under the words. */
+@media (pointer: coarse) {
+  .lux-page .btn-cafe--text {
+    min-height: 44px;
+    padding-block: 1rem;
+  }
+
+  .lux-page .btn-cafe--text::after {
+    bottom: 0.65rem;
+  }
+}
+
+/* Brand story ------------------------------------------------------------ */
+
+.lux-story .lux-story__heading {
+  max-width: 62rem;
+}
+
+.lux-story .lux-story__statement {
+  font-size: clamp(2rem, 3.2vw + 1rem, 4.5rem);
+  line-height: 1.08;
+}
+
+.lux-story__body {
+  margin-top: var(--lux-gap);
+}
+
+/* Photograph top-right; the film still overlaps its lower-left corner */
+.lux-story__media {
+  position: relative;
+  padding: 0 0 16% 18%;
+}
+
+.lux-story__outline {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  bottom: calc(16% - 1.5rem);
+  left: calc(18% - 1.5rem);
+  border: 1px solid var(--lux-hairline);
+  pointer-events: none;
+}
+
+.lux-story__detail {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 42%;
+  box-shadow: 0 2rem 4rem -2rem rgba(0, 0, 0, 0.85);
+}
+
+.lux-story__aside {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.lux-story__signoff {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  line-height: 1.9;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+@media (min-width: 992px) {
+  .lux-story__outline {
+    top: 2rem;
+    right: 2rem;
+    bottom: calc(16% - 2rem);
+    left: calc(18% - 2rem);
+  }
+}
+
+/* House figures: a 2 × 2 ledger on phones, one row from desktop up */
+.lux-figures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: var(--lux-gap);
+  border-top: 1px solid var(--lux-hairline);
+}
+
+.lux-figure {
+  padding: 1.5rem 1rem 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.lux-figure:nth-child(even) {
+  padding-inline: 1.25rem 0;
+  border-left: 1px solid var(--line);
+}
+
+.lux-figure__value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 2.5vw + 1.75rem, 4.5rem);
+  font-weight: 300;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.lux-figure__unit {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.lux-figure__label {
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+@media (min-width: 992px) {
+  .lux-figures {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lux-figure,
+  .lux-figure:nth-child(even) {
+    padding: 2.25rem 1.75rem 0;
+    border-bottom: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  .lux-figure:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+/* Signature coffee ------------------------------------------------------- */
+
+.lux-signature .lux-signature__heading {
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.lux-signature__card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.lux-signature__media {
+  aspect-ratio: 1;
+}
+
+.lux-signature__zoom {
+  position: absolute;
+  inset: 0;
+}
+
+.lux-signature__zoom img {
+  transition: transform 1.8s var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lux-signature__card:hover .lux-signature__zoom img {
+    transform: scale(1.05);
+  }
+}
+
+/* A small slate over the photograph, like a film frame number */
+.lux-signature__number {
+  position: absolute;
+  top: 0.875rem;
+  left: 0.875rem;
+  padding: 0.4rem 0.65rem;
+  background: color-mix(in srgb, var(--charcoal) 60%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--cream);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.lux-signature__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1.5rem;
+}
+
+.lux-signature__title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--lux-hairline);
+}
+
+.lux-signature__price {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--accent-text);
+}
+
+.lux-signature__description {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.lux-signature__pairing {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.lux-signature__pairing-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.lux-signature__pairing-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.lux-signature__pairing-note {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.lux-signature__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+/* Desktop: one staggered row, the even cards set lower */
+@media (min-width: 992px) {
+  .lux-signature__media {
+    aspect-ratio: 3 / 4;
+  }
+
+  .lux-signature__row > li:nth-child(even) {
+    margin-top: 5rem;
+  }
+}
+
+/* The ritual ------------------------------------------------------------- */
+
+.lux-ritual .lux-ritual__heading {
+  margin-bottom: var(--lux-gap);
+}
+
+.lux-ritual__track {
+  position: relative;
+}
+
+.lux-ritual__steps {
+  border-top: 1px solid var(--line);
+}
+
+/* Phones and tablets: an app-style list, words left and a thumbnail right */
+.lux-ritual__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 6.5rem;
+  gap: 1.25rem;
+  padding-block: 1.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.lux-ritual__thumb {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  aspect-ratio: 4 / 5;
+}
+
+.lux-ritual__content {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Small indexes share the eyebrow voice: sans, tracked, bronze */
+.lux-ritual__number,
+.lux-origin__number {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--accent-text);
+}
+
+.lux-ritual__text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.lux-ritual__detail {
+  align-self: flex-start;
+  margin-top: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--lux-hairline);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--accent-text);
+}
+
+.lux-ritual__marker {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .lux-ritual__step {
+    grid-template-columns: minmax(0, 1fr) 10rem;
+    gap: 2.5rem;
+    padding-block: 2.5rem;
+  }
+}
+
+/* Desktop: a sticky frame cross-fades beside a timeline of steps */
+@media (min-width: 992px) {
+  .lux-ritual__stage {
+    position: sticky;
+    top: calc(var(--nav-height) + 2rem);
+    aspect-ratio: 4 / 5;
+    max-height: calc(100vh - var(--nav-height) - 4rem);
+  }
+
+  .lux-ritual__layer,
+  .lux-ritual__picture {
+    position: absolute;
+    inset: 0;
+  }
+
+  .lux-ritual__layer:not(:first-child) {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .lux-ritual__layer::after {
+    content: '';
+    position: absolute;
+    inset: 55% 0 0;
+    background: linear-gradient(to top, color-mix(in srgb, var(--charcoal) 75%, transparent), transparent);
+    pointer-events: none;
+  }
+
+  .lux-ritual__slate {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.75rem;
+    z-index: 1;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .lux-ritual__slate span {
+    color: var(--muted);
+  }
+
+  /* The timeline: a faint rail, a bronze fill that follows scroll, a dot per step */
+  .lux-ritual__track::before,
+  .lux-ritual__progress {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .lux-ritual__progress {
+    background: var(--accent);
+    transform-origin: 50% 0;
+  }
+
+  .lux-ritual__steps {
+    border-top: 0;
+  }
+
+  .lux-ritual__step {
+    display: block;
+    min-height: 38vh;
+    padding: 3rem 0 3rem 3rem;
+  }
+
+  .lux-ritual__step:last-child {
+    border-bottom: 0;
+  }
+
+  .lux-ritual__marker {
+    display: block;
+    position: absolute;
+    top: 3.4rem;
+    left: -4px;
+    width: 9px;
+    height: 9px;
+    border: 1px solid var(--lux-hairline);
+    border-radius: 50%;
+    background: var(--bg);
+    transition:
+      background-color var(--duration-base) ease,
+      border-color var(--duration-base) ease,
+      transform var(--duration-base) var(--ease-out);
+  }
+
+  .lux-ritual__step.is-active .lux-ritual__marker {
+    border-color: var(--accent);
+    background: var(--accent);
+    transform: scale(1.35);
+  }
+}
+
+/* Origins — the ivory interlude ------------------------------------------ */
+
+.lux-origins__intro {
+  margin-bottom: var(--lux-gap);
+}
+
+.lux-origins__banner {
+  aspect-ratio: 4 / 3;
+}
+
+.lux-origins__ledger {
+  border-bottom: 1px solid var(--lux-hairline);
+}
+
+.lux-origin {
+  position: relative;
+  padding-block: 2.25rem;
+}
+
+.lux-origin__rule {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--lux-hairline);
+  transform-origin: 0 50%;
+}
+
+.lux-origin__number {
+  margin-bottom: 0.6rem;
+}
+
+.lux-origin__country {
+  font-size: clamp(2.1rem, 1.8vw + 1.5rem, 3.25rem);
+  font-weight: 300;
+}
+
+.lux-origin__region {
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lux-origin__notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1rem 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.lux-origin__notes li + li::before {
+  content: '·';
+  margin-right: 0.6rem;
+  font-style: normal;
+  color: var(--accent-text);
+}
+
+.lux-origin__story {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.lux-origin__specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem 1.5rem;
+}
+
+.lux-origin__spec dt {
+  margin-bottom: 0.2rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.lux-origin__spec dd {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.lux-origins__footnote {
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .lux-origins__banner {
+    aspect-ratio: 5 / 4;
+  }
+
+  .lux-origin {
+    padding-block: 3rem;
+  }
+}
+
+/* Philosophy ------------------------------------------------------------- */
+
+.lux-philosophy .lux-philosophy__heading {
+  margin-bottom: var(--lux-gap);
+}
+
+.lux-philosophy__list {
+  border-bottom: 1px solid var(--lux-hairline);
+}
+
+.lux-principle {
+  position: relative;
+  padding-block: 2.25rem;
+}
+
+.lux-principle__rule {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--lux-hairline);
+  transform-origin: 0 50%;
+}
+
+.lux-principle__numeral {
+  overflow: hidden;
+  padding-bottom: 0.05em;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 4vw + 2rem, 7rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--accent-text);
+}
+
+.lux-principle__numeral span {
+  display: inline-block;
+}
+
+.lux-principle__body {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.25rem;
+}
+
+/* Desktop: three centred columns divided by vertical hairlines */
+@media (min-width: 992px) {
+  .lux-philosophy__list {
+    border-bottom: 0;
+  }
+
+  .lux-principle {
+    padding: 0.5rem 2.75rem;
+    text-align: center;
+  }
+
+  .lux-principle__rule {
+    inset: 0 auto 0 0;
+    width: 1px;
+    height: auto;
+    transform-origin: 50% 0;
+  }
+
+  .lux-principle:first-child .lux-principle__rule {
+    display: none;
+  }
+}
+
+/* Atmosphere ------------------------------------------------------------- */
+
+.lux-atmosphere .lux-atmosphere__heading {
+  margin-bottom: var(--lux-gap);
+}
+
+.lux-atmosphere__caption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lux-atmosphere__index {
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--accent-text);
+}
+
+.lux-atmosphere__footer {
+  margin-top: var(--lux-gap);
+  padding-top: 2rem;
+  border-top: 1px solid var(--lux-hairline);
+}
+
+.lux-atmosphere__comforts {
+  display: grid;
+  gap: 0.75rem 2.5rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.lux-atmosphere__comforts li {
+  display: flex;
+  gap: 0.85rem;
+}
+
+.lux-atmosphere__comforts li::before {
+  content: '';
+  flex: 0 0 5px;
+  height: 5px;
+  margin-top: 0.6em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Tablet and up: an asymmetric mosaic, placed in gallery order */
+@media (min-width: 768px) {
+  .lux-atmosphere__comforts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lux-atmosphere__mosaic {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    row-gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .lux-atmosphere__item:nth-child(1) {
+    grid-column: 1 / 8;
+  }
+
+  .lux-atmosphere__item:nth-child(2) {
+    grid-column: 9 / 13;
+    margin-top: clamp(4rem, 10vw, 9rem);
+  }
+
+  .lux-atmosphere__item:nth-child(3) {
+    grid-column: 2 / 6;
+  }
+
+  .lux-atmosphere__item:nth-child(4) {
+    grid-column: 7 / 13;
+    margin-top: clamp(3rem, 8vw, 8rem);
+  }
+
+  .lux-atmosphere__item:nth-child(5) {
+    grid-column: 1 / 5;
+  }
+
+  .lux-atmosphere__item:nth-child(6) {
+    grid-column: 6 / 13;
+    margin-top: clamp(4rem, 12vw, 12rem);
+  }
+}
+
+/* Guest notes ------------------------------------------------------------ */
+
+.lux-notes .lux-notes__heading {
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+/* Tablet and up: one note at a time, cross-fading in a single grid cell,
+   so the box always fits the longest note and nothing below it moves. */
+.lux-notes__stage {
+  max-width: 60rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.lux-notes__quotes {
+  display: grid;
+}
+
+.lux-note {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.75rem);
+  transition:
+    opacity 1.2s var(--ease-out),
+    transform 1.2s var(--ease-out),
+    visibility 0s linear 1.2s;
+}
+
+.lux-note.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0.35s, 0.35s, 0s;
+}
+
+.lux-note__quote {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 2.2vw + 1.1rem, 3.4rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.lux-note__quote p::before {
+  content: '“';
+}
+
+.lux-note__quote p::after {
+  content: '”';
+}
+
+.lux-note__byline,
+.lux-note-card__byline {
+  margin-top: 1.75rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.lux-notes__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.lux-notes__button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+  transition:
+    border-color var(--duration-fast) ease,
+    transform 0.2s var(--ease-out);
+}
+
+.lux-notes__button:hover {
+  border-color: currentColor;
+}
+
+.lux-notes__button:active {
+  transform: scale(0.94);
+}
+
+.lux-notes__count {
+  min-width: 4.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.lux-notes__count span {
+  color: var(--muted);
+}
+
+/* How long the current note has left, drawn as a hairline */
+.lux-notes__timer {
+  position: relative;
+  width: 5rem;
+  height: 1px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.lux-notes__timer-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.lux-notes__timer-fill.is-running {
+  animation: lux-timer var(--lux-hold, 7s) linear forwards;
+}
+
+.lux-notes__toggle {
+  min-width: 4.5rem;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  transition: color var(--duration-fast) ease;
+}
+
+.lux-notes__toggle:hover {
+  color: var(--fg);
+}
+
+/* Phones: swipeable note cards */
+.lux-notes__rail {
+  --rail-item-width: 86%;
+}
+
+.lux-note-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 17rem;
+  padding: 1.75rem 1.5rem 1.5rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.lux-note-card__mark {
+  height: 1.75rem;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  line-height: 0.9;
+  color: var(--accent-text);
+}
+
+.lux-note-card__quote {
+  flex: 1;
+  margin-top: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.3;
+}
+
+.lux-note-card__byline {
+  margin-top: 1.5rem;
+}
+
+/* Events and private hire ------------------------------------------------ */
+
+.lux-events__photo {
+  aspect-ratio: 16 / 10;
+  margin-top: 2.5rem;
+}
+
+.lux-events__list {
+  border-top: 1px solid var(--lux-hairline);
+}
+
+.lux-event {
+  display: grid;
+  gap: 0.9rem;
+  padding-block: 2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.lux-event__when {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.lux-event__description {
+  font-size: 0.95rem;
+}
+
+.lux-event__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2.25rem;
+}
+
+.lux-event__facts dt {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lux-event__facts dd {
+  margin: 0.15rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.lux-event .btn-cafe--text {
+  justify-self: start;
+}
+
+.lux-hire {
+  margin-top: var(--lux-gap);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--lux-hairline);
+}
+
+.lux-hire__spaces {
+  border-top: 1px solid var(--line);
+}
+
+.lux-hire__space {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.lux-hire__space dt {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+.lux-hire__space dd {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.lux-hire__availability {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+@media (min-width: 992px) {
+  .lux-events__photo {
+    aspect-ratio: 4 / 5;
+    margin-top: 3.5rem;
+  }
+
+  .lux-event {
+    padding-block: 2.5rem;
+  }
+}
+
+/* Motion ----------------------------------------------------------------- */
+
+@keyframes lux-timer {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lux-signature__card:hover .lux-signature__zoom img {
+    transform: none;
+  }
+
+  .lux-note {
+    transform: none;
+  }
+}

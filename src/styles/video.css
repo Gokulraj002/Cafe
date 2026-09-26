@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Video
+   ========================================================================== */
+
+.cafe-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: var(--espresso);
+}
+
+/* Full-bleed background video with a readable overlay */
+.video-cover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.video-cover .cafe-video {
+  position: absolute;
+  inset: 0;
+}
+
+.video-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(
+    --video-overlay,
+    linear-gradient(180deg, rgba(21, 19, 17, 0.55) 0%, rgba(21, 19, 17, 0.15) 40%, rgba(21, 19, 17, 0.75) 100%)
+  );
+}
+
+/* Scroll-played film (components/video/ScrollVideo): a still first, the film fades in over it once ready */
+.scroll-video {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--espresso);
+}
+
+.video-cover > .scroll-video {
+  position: absolute;
+  inset: 0;
+}
+
+.scroll-video__still {
+  object-fit: cover;
+}
+
+.scroll-video__film {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.scroll-video.is-ready .scroll-video__film {
+  opacity: 1;
+}

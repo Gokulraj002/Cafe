@@ -1,0 +1,264 @@
+/* ==========================================================================
+   Base — document defaults, buttons, focus, layout helpers
+   ========================================================================== */
+
+html {
+  scroll-padding-top: var(--nav-height);
+}
+
+body {
+  background-color: var(--ivory);
+  color: var(--espresso);
+  overflow-x: clip;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--caramel);
+  color: var(--ivory);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--duration-fast) ease;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-text, var(--bronze-on-light));
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2000;
+  padding: 0.75rem 1.25rem;
+  background: var(--espresso);
+  color: var(--cream);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: translateY(-160%);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  color: var(--cream);
+}
+
+/* Touch ------------------------------------------------------------------ */
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Anchor jumps and keyboard focus land clear of the mobile tab bar */
+  scroll-padding-bottom: var(--tabbar-height, 0px);
+}
+
+/* No double-tap-zoom delay on anything you tap */
+a,
+button,
+input,
+select,
+textarea,
+label,
+summary,
+[role='button'] {
+  touch-action: manipulation;
+}
+
+/* Press feedback where there is no hover to tell you a tap registered */
+@media (pointer: coarse) {
+  .btn-cafe {
+    transition:
+      background-color var(--duration-fast) ease,
+      color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease,
+      transform 0.2s var(--ease-out);
+  }
+
+  .btn-cafe:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Bootstrap's 12px container padding is too tight for this design on phones */
+@media (max-width: 575.98px) {
+  .container,
+  .container-fluid {
+    --bs-gutter-x: 2.5rem;
+  }
+
+  /* …and g-5 rows would otherwise poke 4px past that padding, widening the page */
+  .g-5,
+  .gx-5 {
+    --bs-gutter-x: 2.5rem;
+  }
+}
+
+/* Sections --------------------------------------------------------------- */
+
+.section {
+  position: relative;
+  padding-block: var(--section-space);
+}
+
+.section--tight {
+  padding-block: calc(var(--section-space) * 0.6);
+}
+
+.rule {
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: var(--line, var(--bs-border-color));
+  opacity: 1;
+}
+
+/* Buttons ---------------------------------------------------------------- */
+
+.btn-cafe {
+  --btn-fg: var(--fg, var(--espresso));
+  --btn-bg: transparent;
+  --btn-border: currentColor;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding: 0.95rem 2rem;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease;
+}
+
+.btn-cafe:hover {
+  --btn-bg: var(--fg, var(--espresso));
+  --btn-fg: var(--bg, var(--ivory));
+  --btn-border: var(--fg, var(--espresso));
+}
+
+.btn-cafe--solid {
+  --btn-bg: var(--caramel);
+  --btn-fg: var(--ivory);
+  --btn-border: var(--caramel);
+}
+
+.btn-cafe--solid:hover {
+  --btn-bg: var(--bronze);
+  --btn-fg: var(--ivory);
+  --btn-border: var(--bronze);
+}
+
+.btn-cafe--light {
+  --btn-bg: var(--ivory);
+  --btn-fg: var(--espresso);
+  --btn-border: var(--ivory);
+}
+
+.btn-cafe--light:hover {
+  --btn-bg: transparent;
+  --btn-fg: var(--ivory);
+  --btn-border: var(--ivory);
+}
+
+.btn-cafe--text {
+  min-height: auto;
+  padding: 0.35rem 0;
+  border: 0;
+  background: none;
+  position: relative;
+}
+
+.btn-cafe--text::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: currentColor;
+  transform-origin: 100% 50%;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.btn-cafe--text:hover {
+  --btn-bg: none;
+  --btn-fg: var(--accent-text, var(--bronze-on-light));
+}
+
+.btn-cafe--text:hover::after {
+  transform: scaleX(0.35);
+}
+
+.btn-cafe__arrow {
+  display: inline-block;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.btn-cafe:hover .btn-cafe__arrow {
+  transform: translateX(4px);
+}
+
+/* Media ------------------------------------------------------------------ */
+
+.media-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--dark-coffee);
+}
+
+.media-frame img {
+  object-fit: cover;
+}
+
+.ratio-portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.ratio-tall {
+  aspect-ratio: 3 / 4;
+}
+
+.ratio-wide {
+  aspect-ratio: 16 / 9;
+}
+
+.ratio-square {
+  aspect-ratio: 1;
+}
+
+/* Touch devices: text buttons and nav links still get a 44px target */
+@media (pointer: coarse) {
+  .btn-cafe--text,
+  .nav-link-cafe {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}

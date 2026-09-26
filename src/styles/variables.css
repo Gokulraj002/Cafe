@@ -1,0 +1,87 @@
+/* ==========================================================================
+   Design tokens — Maison Lente
+   A restrained palette: five browns, one warm white, one near-black.
+   ========================================================================== */
+
+:root {
+  /* Palette */
+  --espresso: #241a16;
+  --dark-coffee: #34241e;
+  --cream: #f5efe6;
+  --ivory: #faf7f1;
+  --caramel: #a97852;
+  --bronze: #8c6a4d;
+  --charcoal: #151311;
+
+  /* Accent tints tuned for WCAG AA on small text */
+  --caramel-on-dark: #cda883; /* 6.7:1 on espresso */
+  --bronze-on-light: #7e5f45; /* 5.4:1 on ivory */
+
+  /* Typography (font families are injected by next/font in app/layout.jsx) */
+  --font-display: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-body: var(--font-manrope), 'Manrope', system-ui, -apple-system, sans-serif;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 0.25s;
+  --duration-base: 0.6s;
+
+  /* Layout */
+  --nav-height: 5rem;
+  --section-space: clamp(5rem, 12vw, 10rem);
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --radius: 2px;
+
+  /* Bootstrap overrides */
+  --bs-body-font-family: var(--font-body);
+  --bs-body-bg: var(--ivory);
+  --bs-body-color: var(--espresso);
+  --bs-border-color: rgba(36, 26, 22, 0.14);
+  --bs-link-color-rgb: 36, 26, 22;
+  --bs-link-hover-color-rgb: 126, 95, 69;
+}
+
+/* --------------------------------------------------------------------------
+   Themes — wrap any section in one of these and shared components
+   (buttons, headings, menu, forms) pick up the right colours.
+   -------------------------------------------------------------------------- */
+
+.theme-espresso,
+.theme-charcoal,
+.theme-coffee {
+  --bg: var(--espresso);
+  --fg: var(--cream);
+  --muted: rgba(245, 239, 230, 0.72);
+  --line: rgba(245, 239, 230, 0.16);
+  --accent: var(--caramel);
+  --accent-text: var(--caramel-on-dark);
+  --surface: rgba(245, 239, 230, 0.04);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+.theme-charcoal {
+  --bg: var(--charcoal);
+}
+
+.theme-coffee {
+  --bg: var(--dark-coffee);
+}
+
+.theme-ivory,
+.theme-cream {
+  --bg: var(--ivory);
+  --fg: var(--espresso);
+  --muted: rgba(36, 26, 22, 0.72);
+  --line: rgba(36, 26, 22, 0.14);
+  --accent: var(--caramel);
+  --accent-text: var(--bronze-on-light);
+  --surface: rgba(36, 26, 22, 0.035);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+.theme-cream {
+  --bg: var(--cream);
+}

@@ -1,0 +1,439 @@
+/* ==========================================================================
+   Concept 04 — The Moment: the pinned opening sequence.
+   A small print of the pour hangs on a dark wall; scrolling plays the film
+   and grows the print until it fills the screen (choreography in
+   components/immersive/sequence/useMomentTimeline.js).
+   Global CSS outlives client-side navigation, so every selector here is
+   namespaced `.imm-seq`.
+   ========================================================================== */
+
+.imm-seq {
+  position: relative;
+  background-color: var(--charcoal);
+}
+
+/* Stage ------------------------------------------------------------------ */
+
+.imm-seq__stage {
+  /* The print is laid out here and measured by the timeline, so the first
+     paint and the first frame of the animation are the same picture. */
+  --imm-seq-print-w: min(32vw, 50vh);
+  --imm-seq-print-h: calc(var(--imm-seq-print-w) * 1.25);
+  --imm-seq-print-shift: -3vh;
+  --imm-seq-mat: clamp(0.5rem, 0.9vw, 0.875rem);
+  /* Scale of the film inside the print: small enough to show pitcher and cup */
+  --imm-seq-film-from: 0.68;
+  /* Anything anchored to the bottom stays clear of the tab bar and of the
+     part of a 100lvh stage hidden behind an expanded mobile toolbar. */
+  --imm-seq-bottom: calc(var(--tabbar-height) + 1.25rem);
+
+  position: relative;
+  height: 100vh;
+  height: 100lvh;
+  overflow: hidden;
+  overflow: clip;
+  isolation: isolate;
+  background:
+    radial-gradient(50% 60% at 50% 40%, rgba(169, 120, 82, 0.16), transparent 72%),
+    var(--charcoal);
+}
+
+@supports (height: 100svh) {
+  .imm-seq__stage {
+    --imm-seq-bottom: calc(100lvh - 100svh + var(--tabbar-height) + 1.25rem);
+  }
+}
+
+/* Portrait screens: a bigger print, lower film scale (the film is cropped
+   to a sliver of its width here), label under the print. */
+@media (max-aspect-ratio: 1/1) {
+  .imm-seq__stage {
+    --imm-seq-print-w: min(62vw, 29vh);
+    --imm-seq-print-shift: -6vh;
+    --imm-seq-film-from: 0.38;
+  }
+}
+
+/* The print on the wall: a cream mat and a soft shadow. The film's frame
+   sits exactly over its centre and grows out across it. */
+.imm-seq__print {
+  position: absolute;
+  top: calc(50% + var(--imm-seq-print-shift) - var(--imm-seq-print-h) / 2);
+  left: calc(50% - var(--imm-seq-print-w) / 2);
+  width: var(--imm-seq-print-w);
+  height: var(--imm-seq-print-h);
+  border-radius: var(--radius);
+  background-color: var(--dark-coffee);
+  box-shadow:
+    0 0 0 var(--imm-seq-mat) var(--cream),
+    0 0 0 calc(var(--imm-seq-mat) + 1px) rgba(21, 19, 17, 0.4),
+    0 3rem 5rem -1.5rem rgba(0, 0, 0, 0.8);
+}
+
+/* Film ------------------------------------------------------------------- */
+
+.imm-seq__frame {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  clip-path: inset(
+    calc(50% + var(--imm-seq-print-shift) - var(--imm-seq-print-h) / 2)
+      calc(50% - var(--imm-seq-print-w) / 2)
+      calc(50% - var(--imm-seq-print-shift) - var(--imm-seq-print-h) / 2)
+      round var(--radius)
+  );
+}
+
+/* The camera: GSAP scales it to natural size and, on portrait screens, drifts
+   it towards the cup. The film inside is never resized. */
+.imm-seq__camera {
+  position: absolute;
+  inset: 0;
+  /* Scaled about the print's centre, so the small film fills the print exactly */
+  transform-origin: 50% calc(50% + var(--imm-seq-print-shift));
+  transform: scale(var(--imm-seq-film-from));
+  will-change: transform;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .imm-seq__camera {
+    right: auto;
+    left: calc(50% - 100vh * 8 / 9);
+    width: calc(100vh * 16 / 9);
+  }
+}
+
+.imm-seq__film {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 30%;
+}
+
+/* Every frame of this film carries a small generator mark near its
+   bottom-right corner. Portrait screens crop it away on their own; wider ones
+   enlarge the film from its left edge just enough to leave it out of frame. */
+@media (min-aspect-ratio: 27/20) {
+  .imm-seq__film {
+    scale: 1.05;
+  }
+}
+
+@media (min-aspect-ratio: 3/2) {
+  .imm-seq__film {
+    scale: 1.1;
+  }
+}
+
+@media (min-aspect-ratio: 33/20) {
+  .imm-seq__film {
+    scale: 1.14;
+  }
+}
+
+.imm-seq__shade {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(21, 19, 17, 0.72) 0%,
+    rgba(21, 19, 17, 0.4) 38%,
+    rgba(21, 19, 17, 0.45) 62%,
+    rgba(21, 19, 17, 0.85) 100%
+  );
+}
+
+/* Copy ------------------------------------------------------------------- */
+
+/* Headline and invitation share one grid cell and take turns in it. */
+.imm-seq__copy {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  padding: calc(var(--nav-height) + 1.5rem) var(--gutter) var(--imm-seq-bottom);
+  pointer-events: none;
+}
+
+.imm-seq__copy > * {
+  grid-area: 1 / 1;
+}
+
+.imm-seq__headline,
+.imm-seq__invite {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  color: var(--ivory);
+}
+
+.imm-seq__headline {
+  align-self: start;
+  font-size: clamp(2.75rem, 11.5vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.imm-seq__invite {
+  font-size: clamp(2.75rem, 12vw, 3.25rem);
+  font-style: italic;
+  line-height: 0.95;
+}
+
+/* Phones: one part per line. From md up a sentence reads on one line. */
+.imm-seq__sentence {
+  display: block;
+}
+
+.imm-seq__mask {
+  display: block;
+  /* A little room so italics and accents are not shaved by the mask */
+  margin: -0.08em -0.12em;
+  padding: 0.08em 0.12em;
+  overflow: hidden;
+  overflow: clip;
+}
+
+.imm-seq__line {
+  display: block;
+}
+
+.imm-seq__headline .imm-seq__mask + .imm-seq__mask .imm-seq__line {
+  font-style: italic;
+  color: var(--cream);
+}
+
+/* Phones: invitation copy at the top, the button in the thumb zone. */
+.imm-seq__finale {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.imm-seq__finale-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.imm-seq__action {
+  pointer-events: auto;
+}
+
+.imm-seq__cta {
+  width: 100%;
+  min-height: 3.5rem;
+}
+
+@media (min-width: 768px) {
+  .imm-seq__sentence {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 0.26em;
+  }
+
+  .imm-seq__headline {
+    align-self: center;
+    font-size: clamp(3.5rem, 6.6vw, 8.5rem);
+    line-height: 0.92;
+    text-align: center;
+  }
+
+  .imm-seq__invite {
+    font-size: clamp(3.25rem, 5.6vw, 6.75rem);
+  }
+
+  .imm-seq__finale {
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .imm-seq__finale-copy {
+    align-items: center;
+  }
+
+  .imm-seq__cta {
+    width: auto;
+    min-width: 17rem;
+  }
+}
+
+/* Portrait tablets: the cup fills the lower half, so the words take the upper third */
+@media (min-width: 768px) and (max-aspect-ratio: 1/1) {
+  .imm-seq__headline,
+  .imm-seq__finale {
+    align-self: start;
+    margin-top: 10vh;
+  }
+}
+
+/* Wall ------------------------------------------------------------------- */
+
+/* A museum label beside the print — under it on portrait screens. */
+.imm-seq__label {
+  position: absolute;
+  z-index: 1;
+  left: calc(50% + var(--imm-seq-print-w) / 2 + var(--imm-seq-mat) + 2.5rem);
+  bottom: calc(50% - var(--imm-seq-print-shift) - var(--imm-seq-print-h) / 2);
+  max-width: 15rem;
+  color: var(--muted);
+}
+
+.imm-seq__label-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--fg);
+}
+
+.imm-seq__label-text {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .imm-seq__label {
+    top: calc(50% + var(--imm-seq-print-shift) + var(--imm-seq-print-h) / 2 + var(--imm-seq-mat) + 1.75rem);
+    right: var(--gutter);
+    bottom: auto;
+    left: var(--gutter);
+    max-width: none;
+    text-align: center;
+  }
+
+  .imm-seq__label-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* A note that surfaces over the full-bleed film while the rosetta forms */
+.imm-seq__note {
+  position: absolute;
+  z-index: 3;
+  left: var(--gutter);
+  bottom: 2.5rem;
+  max-width: 24rem;
+  text-shadow: 0 1px 1.5rem rgba(21, 19, 17, 0.6);
+}
+
+.imm-seq__note-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 1vw + 1rem, 1.6rem);
+  line-height: 1.3;
+  color: var(--ivory);
+}
+
+/* Portrait: the lower half is the bright cup, so the note reads at the top */
+@media (max-aspect-ratio: 1/1) {
+  .imm-seq__note {
+    top: calc(var(--nav-height) + 1.5rem);
+    right: var(--gutter);
+    bottom: auto;
+  }
+}
+
+.imm-seq__cue {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: var(--imm-seq-bottom);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: max-content;
+  margin-inline: auto;
+  font: 600 0.66rem/1 var(--font-body);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.imm-seq__cue::after {
+  content: '';
+  width: 1px;
+  height: 2.5rem;
+  background: linear-gradient(180deg, var(--caramel), transparent);
+  transform-origin: 50% 0;
+  animation: imm-seq-cue 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes imm-seq-cue {
+  0% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+
+/* Motion ----------------------------------------------------------------- */
+
+/* Hidden until the timeline brings them in; with reduced motion they are simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  .imm-seq__line {
+    transform: translateY(110%);
+  }
+
+  .imm-seq__reveal,
+  .imm-seq__note > * {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Reduced motion: no pin, no film — the still full-bleed, headline and invitation stacked. */
+@media (prefers-reduced-motion: reduce) {
+  .imm-seq__stage {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .imm-seq__frame {
+    clip-path: none;
+  }
+
+  .imm-seq__camera {
+    transform: none;
+  }
+
+  .imm-seq__shade {
+    opacity: 1;
+  }
+
+  .imm-seq__print,
+  .imm-seq__label,
+  .imm-seq__note,
+  .imm-seq__cue {
+    display: none;
+  }
+
+  .imm-seq__copy {
+    position: relative;
+    flex: 1;
+    grid-template-rows: 1fr auto;
+    gap: 3.5rem;
+    padding-bottom: calc(var(--tabbar-height) + 2.5rem);
+  }
+
+  .imm-seq__copy > * {
+    grid-area: auto;
+  }
+}

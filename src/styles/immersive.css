@@ -1,0 +1,770 @@
+/* ==========================================================================
+   Concept 04 — Immersive Experience: the sections after the opening film
+   The film opens as a rounded frame, so everything after it keeps those
+   corners: rounded pictures, cards and pill buttons, timecodes in the
+   display serif. Mobile first. Every selector is namespaced `.imm-`
+   (the opening sequence lives in immersive-sequence.css as `.imm-seq-`).
+   ========================================================================== */
+
+.imm-page {
+  --imm-radius: 1.5rem; /* FrameReveal clips with the same corner */
+  --imm-radius-sm: 1rem;
+  --imm-shadow: 0 24px 48px -28px rgba(21, 19, 17, 0.6);
+}
+
+/* Section eyebrows open with a small dot, like a recording light */
+.imm-page .section-heading .type-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.imm-page .section-heading .type-eyebrow::before {
+  content: '';
+  flex: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Shared pieces ------------------------------------------------------------ */
+
+.imm-frame {
+  border-radius: var(--imm-radius);
+  isolation: isolate;
+}
+
+.imm-frame__image {
+  object-fit: cover;
+}
+
+.imm-reveal {
+  border-radius: var(--imm-radius);
+}
+
+.imm-btn,
+.imm-menu .btn-cafe,
+.imm-reserve .btn-cafe:not(.btn-cafe--text) {
+  border-radius: 999px;
+}
+
+/* A day at Maison Lente ------------------------------------------------------ */
+
+.imm-day .swipe-rail {
+  --rail-item-width: 82%;
+}
+
+.imm-day__rail {
+  margin-top: 3rem;
+}
+
+.imm-day__header {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Only the pinned desktop track shows the running clock */
+.imm-day__clock {
+  display: none;
+}
+
+.imm-day-card__tick {
+  position: relative;
+  display: block;
+  height: 0.5625rem;
+  margin-bottom: 1.25rem;
+}
+
+/* The line runs through the gap to the next card, so the ticks read as one timeline */
+.imm-day-card__tick::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: calc(-1 * var(--rail-gap, var(--rail-gap-default, 1rem)));
+  height: 1px;
+  background: var(--line);
+}
+
+.imm-day .swipe-rail__item:last-child .imm-day-card__tick::before {
+  right: 0;
+}
+
+.imm-day-card__tick::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0.5625rem;
+  border-radius: 50%;
+  background: var(--accent-text);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+
+.imm-day-card__time {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 1.5vw + 1.6rem, 3rem);
+  font-weight: 300;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-text);
+}
+
+.imm-day-card__media {
+  aspect-ratio: 4 / 5;
+}
+
+@media (min-width: 576px) {
+  .imm-day .swipe-rail {
+    --rail-item-width: 58%;
+  }
+}
+
+@media (min-width: 768px) {
+  .imm-day .swipe-rail {
+    --rail-item-width: 40%;
+  }
+}
+
+@media (min-width: 992px) {
+  .imm-day .swipe-rail {
+    --rail-item-width: clamp(17rem, 22vw, 21rem);
+  }
+
+  .imm-day__header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  /* Pinned: a sticky one-screen stage in a section that is taller by the
+     track's travel; the rail becomes a track moved by transform. */
+  .imm-day.is-pinned {
+    height: calc(100vh + var(--imm-day-travel, 0px));
+    padding-block: 0;
+  }
+
+  .imm-day.is-pinned .imm-day__stage {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    padding-block: 5rem 2rem;
+    overflow: clip;
+  }
+
+  .imm-day.is-pinned .section-heading {
+    gap: 0.9rem;
+  }
+
+  .imm-day.is-pinned .type-headline {
+    font-size: clamp(2.5rem, 2.6vw + 0.75rem, 3.75rem);
+  }
+
+  .imm-day.is-pinned .imm-day__rail {
+    margin-top: clamp(1.5rem, 4.5vh, 3rem);
+  }
+
+  .imm-day.is-pinned .swipe-rail__track {
+    overflow: visible;
+    scroll-snap-type: none;
+    will-change: transform;
+  }
+
+  .imm-day.is-pinned .swipe-rail__footer {
+    display: none;
+  }
+
+  .imm-day.is-pinned .imm-day-card__media {
+    aspect-ratio: auto;
+    height: clamp(13rem, 100vh - 35rem, 28rem);
+  }
+
+  /* Headroom for the sideways drift */
+  .imm-day.is-pinned .imm-frame__image {
+    scale: 1.14;
+  }
+
+  .imm-day.is-pinned .imm-day__clock {
+    display: flex;
+    flex: 0 0 min(24rem, 34%);
+    align-items: center;
+    gap: 1.25rem;
+    padding-bottom: 0.4rem;
+  }
+}
+
+.imm-day__clock-now {
+  min-width: 3.3ch;
+  font-family: var(--font-display);
+  font-size: 3.25rem;
+  font-weight: 300;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.imm-day__clock-track {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.imm-day__clock-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent-text);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.imm-day__clock-end {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+/* Signature pairings ------------------------------------------------------- */
+
+.imm-pairings .swipe-rail {
+  --rail-item-width: 82%;
+}
+
+.imm-pairings__aside {
+  max-width: 22rem;
+}
+
+.imm-pairing__media {
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+/* The plate sits over the cup's corner, ringed in the page colour */
+.imm-pairing__plate {
+  position: absolute;
+  right: 1rem;
+  bottom: 0;
+  width: 38%;
+  border-radius: var(--imm-radius-sm);
+  box-shadow:
+    0 0 0 6px var(--bg),
+    var(--imm-shadow);
+}
+
+.imm-pairing__amp {
+  font-style: italic;
+  color: var(--accent-text);
+}
+
+.imm-pairing__note {
+  padding-left: 1rem;
+  border-left: 1px solid var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.imm-pairing__prices {
+  display: flex;
+  gap: 1.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.imm-pairing__prices div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.imm-pairing__prices dt,
+.imm-bean__fact dt,
+.imm-ticket__per {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.imm-pairing__prices dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 576px) {
+  .imm-pairings .swipe-rail {
+    --rail-item-width: 58%;
+  }
+}
+
+@media (min-width: 768px) {
+  .imm-pairings .swipe-rail {
+    --rail-item-width: 42%;
+  }
+}
+
+/* Wide screens: all four side by side, every other one set lower */
+@media (min-width: 1200px) {
+  .imm-pairings .swipe-rail {
+    --rail-item-width: calc((100% - 3 * var(--rail-gap-default)) / 4);
+  }
+
+  .imm-pairings .swipe-rail__item:nth-child(even) {
+    padding-top: 5rem;
+  }
+
+  .imm-pairings .swipe-rail__footer {
+    display: none;
+  }
+}
+
+/* Guest notes as stories ------------------------------------------------- */
+
+.imm-stories .swipe-rail {
+  --rail-item-width: 74%;
+}
+
+.imm-story {
+  position: relative;
+  aspect-ratio: 9 / 15;
+  overflow: hidden;
+  border-radius: var(--imm-radius);
+  background: var(--dark-coffee);
+  color: var(--cream);
+  isolation: isolate;
+}
+
+.imm-story .imm-story__media {
+  position: absolute;
+  inset: 0;
+}
+
+.imm-story__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(21, 19, 17, 0.45) 0%,
+    rgba(21, 19, 17, 0) 22%,
+    rgba(21, 19, 17, 0.25) 45%,
+    rgba(21, 19, 17, 0.88) 100%
+  );
+}
+
+.imm-story__segments {
+  position: absolute;
+  inset: 1rem 1rem auto;
+  z-index: 1;
+  display: flex;
+  gap: 4px;
+}
+
+.imm-story__segment {
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(245, 239, 230, 0.32);
+}
+
+.imm-story__segment.is-seen {
+  background: var(--cream);
+}
+
+.imm-story__content {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.imm-story__quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 0.6vw + 1.15rem, 1.6rem);
+  line-height: 1.25;
+}
+
+.imm-story__caption {
+  margin-top: 1rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 239, 230, 0.78);
+}
+
+.imm-story__name {
+  color: var(--cream);
+}
+
+.imm-story .imm-frame__image {
+  transition: transform 1.2s var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .imm-story:hover .imm-frame__image {
+    transform: scale(1.05);
+  }
+}
+
+@media (min-width: 576px) {
+  .imm-stories .swipe-rail {
+    --rail-item-width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .imm-stories .swipe-rail {
+    --rail-item-width: 36%;
+  }
+}
+
+@media (min-width: 992px) {
+  .imm-stories .swipe-rail {
+    --rail-item-width: calc((100% - 3 * var(--rail-gap-default)) / 4);
+  }
+}
+
+/* Events ------------------------------------------------------------------- */
+
+.imm-events__frame {
+  aspect-ratio: 16 / 10;
+}
+
+.imm-events__list {
+  display: grid;
+  gap: 1rem;
+}
+
+.imm-ticket {
+  --ticket-pad: 1.5rem;
+  --notch: 1.1rem;
+
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  padding: var(--ticket-pad);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--imm-radius);
+  background: var(--cream);
+}
+
+.imm-ticket__day {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.imm-ticket__time {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 300;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.imm-ticket__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.imm-ticket__facts li {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* The tear-off: a dashed line with a notch cut from each end */
+.imm-ticket__stub {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--line);
+}
+
+.imm-ticket__stub::before,
+.imm-ticket__stub::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--notch) / -2);
+  width: var(--notch);
+  height: var(--notch);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.imm-ticket__stub::before {
+  left: calc(-1 * var(--ticket-pad) - var(--notch) / 2);
+}
+
+.imm-ticket__stub::after {
+  right: calc(-1 * var(--ticket-pad) - var(--notch) / 2);
+}
+
+.imm-ticket__price {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.imm-ticket__per {
+  margin-left: 0.4rem;
+  font-family: var(--font-body);
+}
+
+/* Wider screens: the time sits beside the details; the tear-off stays below */
+@media (min-width: 768px) {
+  .imm-ticket {
+    --ticket-pad: 1.75rem;
+
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    column-gap: 1.75rem;
+  }
+
+  .imm-ticket__stub {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 992px) {
+  .imm-events__aside {
+    position: sticky;
+    top: calc(var(--nav-height) + 2rem);
+  }
+
+  .imm-events__frame {
+    aspect-ratio: auto;
+    height: min(40vh, 26rem);
+  }
+}
+
+/* Menu ----------------------------------------------------------------------- */
+
+.imm-menu .menu-panel {
+  padding: 1.75rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--imm-radius);
+  background: var(--surface);
+}
+
+/* Phones: the category pills scroll sideways in one row, edge to edge */
+@media (max-width: 575.98px) {
+  .imm-menu .menu-tabs {
+    flex-wrap: nowrap;
+    margin-inline: -1.25rem;
+    padding: 0.25rem 1.25rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .imm-menu .menu-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .imm-menu .menu-tabs__tab {
+    flex: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .imm-menu .menu-panel {
+    padding: 2.5rem 3rem;
+  }
+}
+
+/* Beans to take home -------------------------------------------------------- */
+
+.imm-beans .swipe-rail {
+  --rail-item-width: 80%;
+}
+
+.imm-beans__photo {
+  aspect-ratio: 3 / 2;
+}
+
+.imm-beans__tip {
+  max-width: 26rem;
+}
+
+.imm-bean {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--imm-radius);
+  background: var(--ivory);
+}
+
+.imm-bean__notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.imm-bean__note {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--caramel) 16%, transparent);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.imm-bean__facts {
+  margin-top: auto;
+  border-top: 1px solid var(--line);
+}
+
+.imm-bean__fact {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.65rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+
+.imm-bean__fact dd {
+  margin: 0;
+  text-align: end;
+}
+
+.imm-bean__fact--price {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.imm-bean__fact--price dd {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 576px) {
+  .imm-beans .swipe-rail {
+    --rail-item-width: 55%;
+  }
+}
+
+@media (min-width: 768px) {
+  .imm-beans .swipe-rail {
+    --rail-item-width: 42%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .imm-beans .swipe-rail {
+    --rail-item-width: calc((100% - 3 * var(--rail-gap-default)) / 4);
+  }
+
+  .imm-beans .swipe-rail__footer {
+    display: none;
+  }
+}
+
+/* Private hire -------------------------------------------------------------- */
+
+.imm-hire__photo {
+  aspect-ratio: 4 / 3;
+}
+
+.imm-hire__spaces {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.imm-hire__space {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--imm-radius-sm);
+  background: var(--surface);
+}
+
+.imm-hire__space-name {
+  font-size: 1.45rem;
+}
+
+.imm-hire__space-when {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.imm-hire__includes li {
+  position: relative;
+  padding: 0.35rem 0 0.35rem 1.5rem;
+}
+
+.imm-hire__includes li::before {
+  content: '';
+  position: absolute;
+  top: 1.1rem;
+  left: 0;
+  width: 0.75rem;
+  height: 1px;
+  background: var(--accent);
+}
+
+@media (min-width: 576px) {
+  .imm-hire__spaces {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 992px) {
+  .imm-hire__photo {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* Visit and reservations ---------------------------------------------------- */
+
+.imm-location .media-frame {
+  border-radius: var(--imm-radius);
+}
+
+/* A full 44px target for thumbs, underline still hugging the text */
+.imm-location .btn-cafe--text {
+  min-height: 44px;
+  padding-block: 0.7rem;
+}
+
+.imm-location .btn-cafe--text::after {
+  bottom: 0.45rem;
+}
+
+.imm-reserve .reservation-form {
+  padding: 1.5rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--imm-radius);
+  background: var(--surface);
+}
+
+@media (min-width: 768px) {
+  .imm-reserve .reservation-form {
+    padding: 2.5rem;
+  }
+}

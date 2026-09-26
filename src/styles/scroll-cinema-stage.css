@@ -1,0 +1,652 @@
+/* ==========================================================================
+   Concept 02 — the Journey stage (components/scroll-cinema/JourneyStage)
+   A tall track with a sticky, full-screen stage inside it: scrolling
+   through the track plays the film. Global CSS outlives client-side
+   navigation, so every selector here is namespaced `.cinema-stage-`.
+   ========================================================================== */
+
+.cinema-stage-journey {
+  /* Scroll distance over which the whole film plays */
+  --cinema-stage-run: 380vh;
+  /* Scale that pushes the film's corner mark off-screen (see .cinema-stage-film) */
+  --cinema-stage-crop: 1;
+  --cinema-stage-shade: rgba(21, 19, 17, 0.9);
+}
+
+@media (min-width: 768px) {
+  .cinema-stage-journey {
+    --cinema-stage-run: 420vh;
+  }
+}
+
+@media (min-width: 992px) {
+  .cinema-stage-journey {
+    --cinema-stage-run: 500vh;
+  }
+}
+
+/* The film carries a small generator mark 90% across and 83% down its
+   frame. Scaling from the top-left corner pushes it past the right edge.
+   Portrait screens crop it away already (object-fit: cover); the closer a
+   screen gets to 16:9, the more scale it takes. */
+@media (min-aspect-ratio: 7/5) {
+  .cinema-stage-journey {
+    --cinema-stage-crop: 1.05;
+  }
+}
+
+@media (min-aspect-ratio: 3/2) {
+  .cinema-stage-journey {
+    --cinema-stage-crop: 1.08;
+  }
+}
+
+@media (min-aspect-ratio: 8/5) {
+  .cinema-stage-journey {
+    --cinema-stage-crop: 1.13;
+  }
+}
+
+/* Track and stage -------------------------------------------------------- */
+
+.cinema-stage-track {
+  position: relative;
+  height: calc(100vh + var(--cinema-stage-run));
+  height: calc(100lvh + var(--cinema-stage-run));
+}
+
+/* 100lvh: the film also fills the strip behind Safari's collapsing toolbar */
+.cinema-stage-screen {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100lvh;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--charcoal);
+}
+
+.cinema-stage-film {
+  position: absolute;
+  inset: 0;
+  scale: var(--cinema-stage-crop);
+  transform-origin: 0 0;
+}
+
+.cinema-stage-film__depth {
+  --video-overlay: none;
+  transform-origin: 50% 45%;
+  will-change: transform;
+}
+
+.cinema-stage-vignette,
+.cinema-stage-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cinema-stage-vignette {
+  background: radial-gradient(ellipse 72% 68% at 50% 42%, rgba(21, 19, 17, 0) 38%, var(--cinema-stage-shade) 100%);
+  opacity: 0.5;
+}
+
+/* Headroom for the story bar at the top */
+.cinema-stage-shade {
+  background:
+    linear-gradient(180deg, rgba(21, 19, 17, 0.75) 0%, rgba(21, 19, 17, 0) 28%),
+    linear-gradient(0deg, rgba(21, 19, 17, 0.6) 0%, rgba(21, 19, 17, 0) 45%);
+}
+
+/* Desktop: captions in the lower left, the chapter rail down the right */
+@media (min-width: 992px) {
+  .cinema-stage-shade {
+    background:
+      linear-gradient(180deg, rgba(21, 19, 17, 0.6) 0%, rgba(21, 19, 17, 0) 22%),
+      linear-gradient(270deg, rgba(21, 19, 17, 0.75) 0%, rgba(21, 19, 17, 0.35) 18%, rgba(21, 19, 17, 0) 32%),
+      linear-gradient(18deg, var(--cinema-stage-shade) 0%, rgba(21, 19, 17, 0.5) 30%, rgba(21, 19, 17, 0) 58%);
+  }
+}
+
+.cinema-stage-ui {
+  position: relative;
+  z-index: 2;
+  /* Keeps small type legible over the brightest frames (the crema, the café window) */
+  text-shadow: 0 1px 14px rgba(21, 19, 17, 0.55);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: var(--nav-height);
+}
+
+/* Header: title and timecode -------------------------------------------- */
+
+.cinema-stage-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cinema-stage-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.cinema-stage-title__kicker {
+  color: var(--accent-text);
+}
+
+.cinema-stage-title__text {
+  color: var(--muted);
+}
+
+.cinema-stage-timecode {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+
+.cinema-stage-timecode__now {
+  color: var(--fg);
+}
+
+/* Story bar (phones and tablets) ----------------------------------------- */
+
+.cinema-stage-stories__segments {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.cinema-stage-stories__item {
+  flex: 1 1 0;
+}
+
+/* A 44px tap target around a 3px bar */
+.cinema-stage-stories__segment {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.cinema-stage-stories__bar {
+  position: absolute;
+  top: 50%;
+  inset-inline: 0;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(245, 239, 230, 0.26);
+  transform: translateY(-50%);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.cinema-stage-stories__segment:active .cinema-stage-stories__bar {
+  transform: translateY(-50%) scaleY(1.8);
+}
+
+.cinema-stage-stories__fill {
+  display: block;
+  height: 100%;
+  background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/* Chapter rail (desktop) -------------------------------------------------- */
+
+.cinema-stage-rail {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .cinema-stage-stories {
+    display: none;
+  }
+
+  .cinema-stage-rail {
+    position: absolute;
+    top: 50%;
+    right: calc(var(--bs-gutter-x) * 0.5);
+    display: block;
+    height: min(46vh, 26rem);
+    transform: translateY(-50%);
+  }
+}
+
+.cinema-stage-rail__track {
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  width: 1px;
+  background: var(--line);
+}
+
+.cinema-stage-rail__fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+}
+
+.cinema-stage-rail__markers {
+  position: relative;
+  height: 100%;
+}
+
+.cinema-stage-rail__marker {
+  position: absolute;
+  top: calc(var(--marker-at) * 100%);
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.cinema-stage-rail__button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 44px;
+  padding: 0 1.4rem 0 0.75rem;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--duration-fast) ease;
+}
+
+/* The marker on the line */
+.cinema-stage-rail__button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -3.5px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border: 1px solid rgba(245, 239, 230, 0.5);
+  border-radius: 50%;
+  background: var(--charcoal);
+  transition:
+    background-color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    transform var(--duration-base) var(--ease-out);
+}
+
+.cinema-stage-rail__button:hover,
+.cinema-stage-rail__button.is-active {
+  color: var(--fg);
+}
+
+.cinema-stage-rail__button.is-past::after {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.cinema-stage-rail__button.is-active::after {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(169, 120, 82, 0.25);
+  transform: scale(1.35);
+}
+
+.cinema-stage-rail__number {
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scroll cue (desktop) ---------------------------------------------------- */
+
+.cinema-stage-cue {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .cinema-stage-cue {
+    position: absolute;
+    right: calc(var(--bs-gutter-x) * 0.5);
+    bottom: clamp(2rem, 7vh, 4.5rem);
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .cinema-stage-cue::after {
+    content: '';
+    width: 3.5rem;
+    height: 1px;
+    background: currentColor;
+  }
+}
+
+/* Chapters: shared type --------------------------------------------------- */
+
+.cinema-stage-chapters {
+  margin: 0;
+}
+
+.cinema-stage-chapter__numeral {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--accent-text);
+}
+
+.cinema-stage-chapter__label {
+  margin: 0;
+}
+
+.cinema-stage-chapter__line {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: var(--fg);
+}
+
+.cinema-stage-chapter__fact {
+  max-width: 30rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* A 44px tap target, with the underline kept close to the words */
+.cinema-stage-chapter__cta.btn-cafe {
+  justify-self: start;
+  min-height: 44px;
+  color: var(--accent-text);
+}
+
+.cinema-stage-chapter__cta.btn-cafe::after {
+  bottom: 0.55rem;
+}
+
+/* Chapters over the film -------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .cinema-stage-chapter__still {
+    display: none;
+  }
+
+  /* The timeline reveals them; hidden until it runs */
+  .cinema-stage-chapter__part {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Phones and tablets: one card above the tab bar; the chapters cross-fade inside it */
+  .cinema-stage-chapters {
+    position: absolute;
+    right: calc(var(--bs-gutter-x) * 0.5);
+    bottom: calc(var(--tabbar-height) + 0.75rem);
+    bottom: calc(100lvh - 100svh + var(--tabbar-height) + 0.75rem);
+    left: calc(var(--bs-gutter-x) * 0.5);
+    display: grid;
+    max-width: 34rem;
+    padding: 1.1rem 1.25rem 1.2rem;
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    background: rgba(21, 19, 17, 0.62);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+    backdrop-filter: blur(16px) saturate(130%);
+    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.7);
+  }
+
+  .cinema-stage-chapter {
+    grid-area: 1 / 1;
+  }
+
+  .cinema-stage-chapter__body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: end;
+    column-gap: 0.75rem;
+    row-gap: 0.6rem;
+  }
+
+  .cinema-stage-chapter__numeral {
+    font-size: 2.6rem;
+  }
+
+  .cinema-stage-chapter__label {
+    padding-bottom: 0.2rem;
+  }
+
+  .cinema-stage-chapter__line,
+  .cinema-stage-chapter__fact,
+  .cinema-stage-chapter__cta {
+    grid-column: 1 / -1;
+  }
+
+  .cinema-stage-chapter__line {
+    margin-top: 0.15rem;
+    font-size: 1.6rem;
+  }
+
+  .cinema-stage-header {
+    margin-top: -0.35rem;
+  }
+}
+
+/* Tablets: the same card, with room for larger type */
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) and (max-width: 991.98px) {
+  .cinema-stage-chapters {
+    padding: 1.5rem 1.75rem 1.6rem;
+    border-radius: 1.5rem;
+  }
+
+  .cinema-stage-chapter__numeral {
+    font-size: 3.4rem;
+  }
+
+  .cinema-stage-chapter__line {
+    font-size: 2.2rem;
+  }
+
+  .cinema-stage-chapter__fact {
+    font-size: 0.95rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (max-width: 767.98px) {
+  /* One line of header on a phone: the kicker still names the section */
+  .cinema-stage-title__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* Desktop: open type in the lower left, over the shade */
+@media (prefers-reduced-motion: no-preference) and (min-width: 992px) {
+  .cinema-stage-ui {
+    padding-top: calc(var(--nav-height) + 1rem);
+  }
+
+  .cinema-stage-header {
+    margin-top: 0;
+  }
+
+  .cinema-stage-chapters {
+    position: static;
+    max-width: 40rem;
+    margin-top: auto;
+    margin-bottom: clamp(2rem, 7vh, 4.5rem);
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  .cinema-stage-chapter {
+    align-self: end;
+  }
+
+  .cinema-stage-chapter__body {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+
+  .cinema-stage-chapter__numeral {
+    margin-bottom: 1.5rem;
+    margin-left: -0.06em;
+    font-size: clamp(9rem, 13vw, 16rem);
+    -webkit-text-stroke-color: rgba(205, 168, 131, 0.75);
+  }
+
+  .cinema-stage-chapter__label {
+    margin-bottom: 1rem;
+    padding-bottom: 0;
+  }
+
+  .cinema-stage-chapter__line {
+    margin: 0 0 1.5rem;
+    font-size: clamp(2.5rem, 2.2vw + 1rem, 4rem);
+  }
+
+  .cinema-stage-chapter__fact {
+    max-width: 27rem;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--accent);
+    font-size: 0.95rem;
+  }
+
+  .cinema-stage-chapter__cta {
+    margin-top: 1rem;
+  }
+}
+
+/* Reduced motion: no film, no scrubbing — five chapter cards ------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .cinema-stage-track {
+    height: auto;
+  }
+
+  .cinema-stage-screen {
+    position: static;
+    height: auto;
+    overflow: visible;
+    padding-block: var(--section-space);
+  }
+
+  .cinema-stage-film,
+  .cinema-stage-vignette,
+  .cinema-stage-shade,
+  .cinema-stage-stories,
+  .cinema-stage-rail,
+  .cinema-stage-cue,
+  .cinema-stage-timecode {
+    display: none;
+  }
+
+  .cinema-stage-ui {
+    height: auto;
+    padding-top: 0;
+  }
+
+  .cinema-stage-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .cinema-stage-title__text {
+    color: var(--fg);
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 4vw + 1rem, 5.25rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    text-transform: none;
+  }
+
+  .cinema-stage-chapters {
+    display: grid;
+    gap: 3.5rem;
+    margin-top: 3rem;
+  }
+
+  .cinema-stage-chapter {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .cinema-stage-chapter__still {
+    aspect-ratio: 4 / 3;
+  }
+
+  .cinema-stage-chapter__body {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .cinema-stage-chapter__numeral {
+    font-size: 4.5rem;
+  }
+
+  .cinema-stage-chapter__line {
+    font-size: clamp(1.75rem, 1.6vw + 1.1rem, 2.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 992px) {
+  .cinema-stage-chapters {
+    gap: 6rem;
+    margin-top: 5rem;
+  }
+
+  .cinema-stage-chapter {
+    grid-template-columns: 7fr 5fr;
+    align-items: center;
+    gap: 5rem;
+  }
+
+  .cinema-stage-chapter:nth-child(even) .cinema-stage-chapter__still {
+    order: 2;
+  }
+
+  .cinema-stage-chapter__numeral {
+    font-size: 7rem;
+  }
+}

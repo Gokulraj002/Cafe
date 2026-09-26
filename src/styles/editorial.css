@@ -1,0 +1,1205 @@
+/* ==========================================================================
+   Concept 03 — Editorial Café, "The Slow Issue"
+   Warm ivory and cream pages, espresso ink, bronze numerals, hairline rules.
+   Global CSS persists across client-side navigation, so every selector here
+   is namespaced `.ed-` (01 — The Space lives in editorial-space.css).
+   Mobile first: base rules are for phones, media queries add the spreads.
+   ========================================================================== */
+
+.ed-page {
+  /* Where Bootstrap's .container content starts, for full-bleed pieces that
+     still line up with the grid. The 100% resolves where the variable is
+     used — in padding or left/right, against the full-width containing block. */
+  --ed-gutter: 1.25rem;
+}
+
+@media (min-width: 576px) {
+  .ed-page {
+    --ed-gutter: calc((100% - 540px) / 2 + 0.75rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .ed-page {
+    --ed-gutter: calc((100% - 720px) / 2 + 0.75rem);
+  }
+}
+
+@media (min-width: 992px) {
+  .ed-page {
+    --ed-gutter: calc((100% - 960px) / 2 + 0.75rem);
+  }
+}
+
+@media (min-width: 1200px) {
+  .ed-page {
+    --ed-gutter: calc((100% - 1140px) / 2 + 0.75rem);
+  }
+}
+
+@media (min-width: 1400px) {
+  .ed-page {
+    --ed-gutter: calc((100% - 1320px) / 2 + 0.75rem);
+  }
+}
+
+/* Text links styled as buttons get a full 44px touch box; the underline
+   stays tucked under the words. */
+.ed-page .btn-cafe--text {
+  min-height: 44px;
+}
+
+.ed-page .btn-cafe--text::after {
+  bottom: 0.65rem;
+}
+
+/* Plate proportions this issue adds to base.css's set */
+.ed-ratio-slim {
+  aspect-ratio: 2 / 3;
+}
+
+.ed-ratio-landscape {
+  aspect-ratio: 3 / 2;
+}
+
+.ed-ratio-banner {
+  aspect-ratio: 3 / 2;
+}
+
+@media (min-width: 768px) {
+  .ed-ratio-banner {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (min-width: 992px) {
+  .ed-ratio-banner {
+    aspect-ratio: 21 / 9;
+  }
+}
+
+/* Running head — rotated down the left margin, wide screens only ---------- */
+
+.ed-running-head {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .ed-running-head {
+    position: absolute;
+    top: var(--section-space);
+    left: 1.1rem;
+    z-index: 1;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  .ed-running-head span + span::before {
+    content: '·';
+    margin-inline-end: 1rem;
+    color: var(--accent-text);
+  }
+}
+
+/* Section opener ---------------------------------------------------------- */
+
+.ed-opener {
+  margin-bottom: clamp(2.75rem, 6vw, 5.5rem);
+}
+
+.ed-opener__label-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: clamp(1.5rem, 4vw, 3.25rem);
+}
+
+.ed-opener__label {
+  flex: none;
+}
+
+.ed-opener__line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--line);
+}
+
+.ed-opener__folio {
+  flex: none;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.ed-opener__numeral {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(4.75rem, 9vw + 1.5rem, 12rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 0.78;
+  letter-spacing: -0.04em;
+  color: var(--bronze);
+}
+
+.ed-opener__title {
+  max-width: 17ch;
+}
+
+.ed-opener__dek {
+  max-width: 38rem;
+  margin-top: 1.25rem;
+  color: var(--muted);
+}
+
+@media (min-width: 992px) {
+  .ed-opener__numeral {
+    margin-bottom: 0;
+  }
+}
+
+/* Plate — captioned photograph or film still ------------------------------ */
+
+.ed-plate {
+  margin: 0;
+}
+
+.ed-plate__frame {
+  position: relative;
+  overflow: hidden;
+  background-color: color-mix(in srgb, var(--espresso) 8%, var(--bg, var(--ivory)));
+}
+
+.ed-plate__inner {
+  position: absolute;
+  inset: 0;
+}
+
+.ed-plate__inner img {
+  object-fit: cover;
+}
+
+/* Drifting plates need headroom so the edges never show */
+.ed-plate__inner--drift {
+  inset: -8% 0;
+  will-change: transform;
+}
+
+.ed-plate__caption {
+  display: flex;
+  gap: 0.85rem;
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.ed-plate__figure {
+  flex: none;
+  padding-top: 0.2em;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.ed-plate__credit {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+/* Masthead — the cover ----------------------------------------------------- */
+
+.ed-mast {
+  position: relative;
+  padding-top: calc(var(--nav-height) + 0.5rem);
+  padding-bottom: clamp(3.5rem, 8vw, 6rem);
+  overflow: clip;
+}
+
+/* The wordmark is sized from the container's width, so LENTE always spans it */
+.ed-mast .container {
+  container-type: inline-size;
+}
+
+.ed-mast__folio {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.7rem;
+  border-block: 1px solid var(--line);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ed-mast__folio span:first-child {
+  color: var(--fg);
+}
+
+.ed-mast__wordmark {
+  margin: clamp(0.75rem, 1.6cqi, 1.5rem) 0 0;
+  font-family: var(--font-display);
+  font-size: 27vw;
+  font-size: 30.5cqi;
+  font-weight: 300;
+  line-height: 0.74;
+  letter-spacing: -0.015em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* The columns' own gutter (gy-4) makes the gap under the wordmark */
+.ed-mast__row {
+  margin-top: 0.5rem;
+}
+
+.ed-mast__plate {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: var(--cream);
+}
+
+.ed-mast__plate img {
+  object-fit: cover;
+}
+
+.ed-mast__caption {
+  margin-top: 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.ed-mast__issue {
+  margin-bottom: 0.6rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 0.8vw + 1.25rem, 2.1rem);
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--accent-text);
+}
+
+.ed-mast__headline {
+  font-size: clamp(2.3rem, 2.2vw + 1.1rem, 3.6rem);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+
+.ed-mast__dek {
+  max-width: 30rem;
+  margin: 1.1rem 0 0;
+  color: var(--muted);
+}
+
+.ed-mast__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 992px) {
+  .ed-mast__plate {
+    aspect-ratio: 1;
+  }
+
+  .ed-mast__story {
+    padding-top: 0.5rem;
+  }
+}
+
+/* Contents ----------------------------------------------------------------- */
+
+.ed-contents__heading {
+  margin-bottom: 0.75rem;
+}
+
+.ed-contents__list {
+  border-top: 2px solid var(--fg);
+}
+
+.ed-contents__link {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 4rem;
+  padding-block: 0.7rem;
+  border-bottom: 1px solid var(--line);
+  transition:
+    color var(--duration-fast) ease,
+    transform 0.2s var(--ease-out);
+}
+
+.ed-contents__link:active {
+  transform: scale(0.98);
+}
+
+.ed-contents__number {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--accent-text);
+}
+
+.ed-contents__title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.15;
+}
+
+.ed-contents__line {
+  display: block;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.ed-contents__folio {
+  display: none;
+}
+
+.ed-contents__chevron {
+  color: var(--muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ed-contents__link:hover .ed-contents__title {
+    color: var(--accent-text);
+  }
+}
+
+@media (min-width: 992px) {
+  .ed-contents__folio {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+  }
+
+  .ed-contents__chevron {
+    display: none;
+  }
+}
+
+/* Swipe rails that become a grid on desktop -------------------------------- */
+
+@media (min-width: 992px) {
+  .ed-grid-rail .swipe-rail__track {
+    display: grid;
+    grid-template-columns: repeat(var(--ed-rail-columns, 3), minmax(0, 1fr));
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .ed-grid-rail .swipe-rail__footer {
+    display: none;
+  }
+}
+
+/* 02 — The Coffee ---------------------------------------------------------- */
+
+.ed-coffee__body {
+  margin-top: clamp(3rem, 7vw, 6rem);
+}
+
+.ed-essay {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+.ed-essay__lede {
+  margin-bottom: 2rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 0.9vw + 1.15rem, 1.85rem);
+  line-height: 1.4;
+}
+
+.ed-dropcap::first-letter {
+  float: left;
+  margin: 0.06em 0.12em 0 0;
+  font-size: 3.4em;
+  line-height: 0.8;
+  color: var(--bronze);
+}
+
+@supports (initial-letter: 3) or (-webkit-initial-letter: 3) {
+  .ed-dropcap::first-letter {
+    float: none;
+    margin: 0 0.3em 0 0;
+    font-size: inherit;
+    line-height: inherit;
+    -webkit-initial-letter: 3;
+    initial-letter: 3;
+  }
+}
+
+.ed-essay__step {
+  margin-bottom: 1.5rem;
+  color: color-mix(in srgb, var(--fg) 86%, transparent);
+}
+
+.ed-essay__runin {
+  margin-right: 0.25rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.ed-essay__detail {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.ed-essay__detail::before {
+  content: '— ';
+}
+
+.ed-pullquote {
+  margin: 2.75rem 0;
+  padding: 1.5rem 0 1.4rem;
+  border-top: 2px solid var(--fg);
+  border-bottom: 1px solid var(--line);
+}
+
+.ed-pullquote p {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 2.2vw + 1.2rem, 3.25rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.ed-pullquote__source {
+  margin-top: 1rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+@media (min-width: 992px) {
+  /* Hangs into the empty column beside the essay */
+  .ed-pullquote {
+    margin-left: -5.5rem;
+  }
+}
+
+/* Origins sidebar */
+
+.ed-origins__header {
+  margin-top: clamp(4.5rem, 9vw, 8rem);
+  margin-bottom: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--fg);
+}
+
+.ed-origins__title {
+  margin: 0.6rem 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1.6vw + 1.3rem, 2.75rem);
+  font-weight: 400;
+}
+
+.ed-origins__intro {
+  max-width: 40rem;
+  color: var(--muted);
+}
+
+.ed-origin {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  height: 100%;
+  padding: 1.5rem 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background-color: var(--ivory);
+}
+
+.ed-origin__country {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  line-height: 1;
+}
+
+.ed-origin__notes {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--accent-text);
+}
+
+.ed-origin__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem 1rem;
+  margin: 0.25rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.ed-origin__fact dt {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ed-origin__fact dd {
+  margin: 0.15rem 0 0;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.ed-origin__story {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+@media (min-width: 992px) {
+  .ed-origins {
+    --ed-rail-columns: 4;
+  }
+}
+
+/* 03 — The Menu ------------------------------------------------------------ */
+
+/* Category title above its note: the spread's columns are narrow */
+.ed-menu .menu-category__header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+/* App-style category index: sticks under the top bar, rides up with it */
+.ed-menu-index {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 10;
+  margin-bottom: 2.25rem;
+  padding-block: 0.625rem;
+  border-block: 1px solid var(--line);
+  background-color: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform 0.5s var(--ease-out);
+}
+
+.navbar-cafe.is-hidden ~ .ed-page .ed-menu-index {
+  transform: translate3d(0, calc(-1 * var(--nav-height)), 0);
+}
+
+.ed-menu-index__list {
+  display: flex;
+  gap: 0.5rem;
+  padding-inline: var(--ed-gutter);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.ed-menu-index__list::-webkit-scrollbar {
+  display: none;
+}
+
+.ed-menu-index__list li {
+  flex: none;
+}
+
+.ed-menu-index__chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--muted);
+  transition:
+    background-color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    transform 0.2s var(--ease-out);
+}
+
+.ed-menu-index__chip[aria-current='true'] {
+  border-color: var(--fg);
+  background-color: var(--fg);
+  color: var(--bg);
+}
+
+.ed-menu-index__chip:active {
+  transform: scale(0.96);
+}
+
+.ed-menu__plate-frame {
+  aspect-ratio: 3 / 2;
+}
+
+.ed-menu__category {
+  scroll-margin-top: calc(var(--nav-height) + 5.5rem);
+}
+
+.ed-menu__category + .ed-menu__category {
+  margin-top: 3.5rem;
+}
+
+.ed-menu__footnote {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 768px) {
+  /* The fold between the two pages of the spread */
+  .ed-menu__page--right {
+    border-left: 1px solid var(--line);
+  }
+}
+
+@media (min-width: 992px) {
+  .ed-menu__plate {
+    position: sticky;
+    top: calc(var(--nav-height) + 2rem);
+  }
+
+  .ed-menu__plate-frame {
+    aspect-ratio: 3 / 4;
+  }
+
+  .ed-menu__category {
+    scroll-margin-top: calc(var(--nav-height) + 2rem);
+  }
+}
+
+/* 04 — The Experience ------------------------------------------------------ */
+
+.ed-experience__pair {
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+@media (min-width: 992px) {
+  .ed-experience__day {
+    padding-top: 5rem;
+  }
+}
+
+.ed-day__title {
+  margin-bottom: 1.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1.4vw + 1.4rem, 2.6rem);
+  font-weight: 400;
+}
+
+.ed-day__list {
+  border-top: 2px solid var(--fg);
+}
+
+.ed-day__entry {
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.ed-day__time {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.25;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--accent-text);
+}
+
+.ed-day__name {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ed-day__line {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Interview and guest notes share a sub-head */
+
+.ed-interview,
+.ed-notes {
+  margin-top: clamp(5rem, 10vw, 9rem);
+}
+
+.ed-subhead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--fg);
+}
+
+.ed-subhead__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 2vw + 1.3rem, 3.25rem);
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+.ed-qa {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  height: 100%;
+  padding: 1.5rem 1.35rem 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background-color: var(--ivory);
+}
+
+.ed-qa__header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.ed-qa__initial {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--accent-text);
+}
+
+.ed-qa__name {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.ed-qa__role {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ed-qa__question {
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.ed-qa__question::before {
+  content: 'Q. ';
+  color: var(--accent-text);
+}
+
+.ed-qa__answer {
+  flex: 1;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.ed-qa__tenure {
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+@media (min-width: 992px) {
+  .ed-interview__rail {
+    --ed-rail-columns: 4;
+  }
+}
+
+.ed-note {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: 100%;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--fg);
+}
+
+.ed-note__mark {
+  display: block;
+  height: 1.75rem;
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  line-height: 0.85;
+  color: var(--bronze);
+}
+
+.ed-note__quote {
+  flex: 1;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.ed-note__source {
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+@media (min-width: 992px) {
+  .ed-notes__rail .swipe-rail__track {
+    row-gap: 3.5rem;
+    column-gap: 3rem;
+  }
+
+  /* The middle column sits lower, like a hand-set page */
+  .ed-notes__rail .swipe-rail__item:nth-child(3n + 2) {
+    margin-top: 3rem;
+  }
+}
+
+/* Journal ------------------------------------------------------------------ */
+
+.ed-story {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ed-story__media {
+  position: relative;
+  flex: none;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background-color: var(--cream);
+}
+
+.ed-story__media img {
+  object-fit: cover;
+}
+
+.ed-story__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-top: 1.1rem;
+}
+
+.ed-story__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 0.8vw + 1.3rem, 2.1rem);
+  line-height: 1.08;
+}
+
+.ed-story__dek {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+@media (min-width: 992px) {
+  .ed-journal__rail .swipe-rail__track {
+    grid-template-columns: 7fr 5fr;
+    gap: 2.5rem 3rem;
+  }
+
+  .ed-journal__rail .swipe-rail__item:first-child {
+    grid-row: span 2;
+  }
+
+  .ed-journal__rail .swipe-rail__item:first-child .ed-story__media {
+    aspect-ratio: 3 / 2;
+  }
+
+  .ed-journal__rail .swipe-rail__item:first-child .ed-story__title {
+    font-size: clamp(2.2rem, 1.6vw + 1.2rem, 3rem);
+  }
+
+  .ed-journal__rail .swipe-rail__item:not(:first-child) .ed-story {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .ed-journal__rail .swipe-rail__item:not(:first-child) .ed-story__body {
+    padding-top: 0;
+  }
+}
+
+/* FAQ ---------------------------------------------------------------------- */
+
+.ed-faq {
+  padding-top: 0;
+}
+
+.ed-faq__rule {
+  margin-bottom: var(--section-space);
+}
+
+.ed-faq .ed-opener {
+  margin-bottom: 1.5rem;
+}
+
+.ed-faq .ed-opener__title {
+  font-size: clamp(2.25rem, 2.2vw + 1.2rem, 3.75rem);
+}
+
+.ed-faq__contact {
+  margin-bottom: 2.5rem;
+}
+
+.ed-faq__link {
+  border-bottom: 1px solid currentColor;
+}
+
+.ed-faq__list {
+  border-top: 2px solid var(--fg);
+  interpolate-size: allow-keywords;
+}
+
+.ed-faq__item {
+  border-bottom: 1px solid var(--line);
+}
+
+.ed-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 4.25rem;
+  padding-block: 1.1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 0.7vw + 1.1rem, 1.8rem);
+  line-height: 1.2;
+  list-style: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) ease;
+}
+
+.ed-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.ed-faq__question:active .ed-faq__icon {
+  transform: scale(0.92);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ed-faq__question:hover {
+    color: var(--accent-text);
+  }
+}
+
+/* A plus that turns into a minus, drawn with two hairlines */
+.ed-faq__icon {
+  position: relative;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition:
+    background-color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    transform 0.2s var(--ease-out);
+}
+
+.ed-faq__icon::before,
+.ed-faq__icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.8rem;
+  height: 1px;
+  background-color: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 0.4s var(--ease-out);
+}
+
+.ed-faq__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.ed-faq__item[open] .ed-faq__icon {
+  border-color: var(--fg);
+  background-color: var(--fg);
+  color: var(--bg);
+}
+
+.ed-faq__item[open] .ed-faq__icon::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.ed-faq__answer {
+  max-width: 38rem;
+  padding: 0 3.5rem 1.6rem 0;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+/* Where supported, answers slide open instead of snapping */
+.ed-faq__item::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 0.45s var(--ease-out),
+    content-visibility 0.45s allow-discrete;
+}
+
+.ed-faq__item[open]::details-content {
+  block-size: auto;
+}
+
+/* 05 — Visit --------------------------------------------------------------- */
+
+.ed-visit {
+  position: relative;
+}
+
+.ed-visit__numeral {
+  display: none;
+}
+
+/* Top right, in the margin above the Location plate */
+@media (min-width: 992px) {
+  .ed-visit__numeral {
+    position: absolute;
+    top: 2rem;
+    right: var(--ed-gutter);
+    z-index: 1;
+    display: block;
+    font-family: var(--font-display);
+    font-size: 8rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 0.78;
+    letter-spacing: -0.04em;
+    color: var(--bronze);
+    pointer-events: none;
+  }
+}
+
+/* Colophon and the letter -------------------------------------------------- */
+
+.ed-colophon__title {
+  margin: 0.9rem 0 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 2.2vw + 1.3rem, 3.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+.ed-colophon__text {
+  max-width: 34rem;
+}
+
+.ed-letter__form {
+  max-width: 34rem;
+  margin-top: 1.75rem;
+}
+
+.ed-letter__field {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ed-letter__field .btn-cafe {
+  min-height: 3.25rem;
+}
+
+@media (min-width: 576px) {
+  .ed-letter__field {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .ed-letter__field .form-control-cafe {
+    flex: 1;
+  }
+}
+
+.ed-colophon__credits {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.ed-colophon__list {
+  columns: 2;
+  column-gap: 1.5rem;
+  font-size: 0.82rem;
+}
+
+.ed-colophon__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ed-colophon__link:hover {
+    color: var(--accent-text);
+  }
+}

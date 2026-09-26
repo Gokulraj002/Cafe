@@ -1,0 +1,1133 @@
+/* ==========================================================================
+   Concept selector — the studio presentation page at "/"
+   Mobile first: a full-height swipe deck on phones, a two-column board on
+   tablets and a staggered four-column wall from lg, followed by the
+   "Common ground" spread on ivory. Every selector is .sel-*.
+   ========================================================================== */
+
+.sel-page {
+  --sel-hairline: color-mix(in srgb, var(--bronze) 55%, transparent);
+  --sel-shade: rgba(21, 19, 17, 0.9);
+  --sel-header-height: calc(3.5rem + env(safe-area-inset-top, 0px));
+  --sel-card-radius: 1.25rem;
+
+  background-color: var(--charcoal);
+}
+
+@media (min-width: 768px) {
+  .sel-page {
+    --sel-header-height: calc(5rem + env(safe-area-inset-top, 0px));
+    --sel-card-radius: var(--radius);
+  }
+}
+
+/* Clear of the notch and rounded corners when a phone is on its side */
+.sel-page .container {
+  padding-inline: max(calc(var(--bs-gutter-x) * 0.5), env(safe-area-inset-left, 0px))
+    max(calc(var(--bs-gutter-x) * 0.5), env(safe-area-inset-right, 0px));
+}
+
+/* Header ----------------------------------------------------------------- */
+
+.sel-header {
+  padding-top: env(safe-area-inset-top, 0px);
+  border-bottom: 1px solid var(--sel-hairline);
+}
+
+.sel-header__inner {
+  min-height: calc(var(--sel-header-height) - env(safe-area-inset-top, 0px));
+}
+
+.sel-header__meta {
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sel-header__year {
+  margin-inline-start: 0.55rem;
+  padding-inline-start: 0.7rem;
+  border-inline-start: 1px solid var(--sel-hairline);
+}
+
+@media (max-width: 767.98px) {
+  .sel-header .cafe-logo {
+    gap: 0.6rem;
+  }
+
+  .sel-header .cafe-logo__mark {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.78rem;
+  }
+
+  .sel-header .cafe-logo__name {
+    font-size: 1.1rem;
+  }
+}
+
+/* Intro ------------------------------------------------------------------ */
+
+/* On phones the title and the deck share exactly one screen */
+.sel-selector {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--sel-header-height));
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+}
+
+.sel-selector__inner {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.sel-intro {
+  padding-block: 1.5rem 1.1rem;
+}
+
+.sel-intro__eyebrow {
+  margin-bottom: 0.85rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+}
+
+.sel-intro__title {
+  /* Two lines — "Four ways / to arrive." — until there is room for one */
+  max-width: 4.6em;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 10.5vw, 3rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.sel-intro__title em {
+  color: var(--accent-text);
+}
+
+.sel-intro__lead {
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.sel-intro__hint {
+  display: none;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* A hairline with a glint crossing it twice — the gesture, drawn */
+.sel-intro__hint-rule {
+  position: relative;
+  width: 3.25rem;
+  height: 1px;
+  overflow: hidden;
+  background: var(--sel-hairline);
+}
+
+.sel-intro__hint-rule::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent-text);
+  transform: translateX(-101%);
+  animation: sel-glint 2.2s var(--ease-in-out) 1.8s 2;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .sel-intro__hint {
+    display: flex;
+  }
+}
+
+@media (min-width: 768px) {
+  .sel-selector {
+    display: block;
+    min-height: 0;
+    padding-bottom: clamp(5rem, 9vw, 8rem);
+  }
+
+  .sel-selector__inner {
+    display: block;
+  }
+
+  .sel-intro {
+    padding-block: clamp(2.5rem, 4vw, 3.5rem) clamp(2.5rem, 3.5vw, 3.25rem);
+  }
+
+  .sel-intro__eyebrow {
+    margin-bottom: 1.25rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+  }
+
+  .sel-intro__title {
+    font-size: clamp(3.75rem, 5vw + 1rem, 6.5rem);
+  }
+}
+
+/* From lg the title runs on one line, so the whole wall fits the first screen */
+@media (min-width: 992px) {
+  .sel-intro__title {
+    max-width: none;
+    font-size: clamp(4.5rem, 4.2vw + 1.5rem, 6.5rem);
+  }
+}
+
+/* Deck: a swipe deck on phones ------------------------------------------- */
+
+.sel-deck {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.sel-deck__track {
+  /* --sel-deck-edge: from the screen edge to the container's content edge */
+  --sel-deck-edge: max(1.25rem, env(safe-area-inset-left, 0px));
+  --sel-deck-card: min(84vw, 26rem);
+
+  position: relative;
+  display: flex;
+  flex: 1;
+  gap: 0.75rem;
+  min-height: 26rem;
+  max-height: 46rem;
+  margin-inline: calc(var(--sel-deck-edge) * -1);
+  /* The end padding lets the last card snap to the same edge as the others */
+  padding: 0.35rem calc(100vw - var(--sel-deck-card) - var(--sel-deck-edge)) 0.35rem var(--sel-deck-edge);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--sel-deck-edge);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sel-deck__track::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .sel-deck__track {
+    --sel-deck-edge: calc((100vw - 540px) / 2 + 0.75rem);
+  }
+}
+
+.sel-deck__item {
+  display: flex;
+  flex: 0 0 var(--sel-deck-card);
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* The card in front is full size; its neighbours recede as they slide away */
+@media (max-width: 767.98px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .sel-deck__item {
+      animation: sel-deck-focus linear both;
+      animation-timeline: view(inline);
+    }
+  }
+
+  @supports not (animation-timeline: view()) {
+    .sel-deck__item {
+      transition:
+        opacity 0.5s ease,
+        transform 0.6s var(--ease-out);
+    }
+
+    .sel-deck__item:not(.is-active) {
+      opacity: 0.55;
+      transform: scale(0.94);
+    }
+  }
+}
+
+.sel-deck__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+}
+
+.sel-deck__dots {
+  display: flex;
+  margin-inline-start: -0.75rem;
+}
+
+.sel-deck__dot {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.sel-deck__dot::before {
+  content: '';
+  width: 1.5rem;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--line);
+  transform: scaleX(0.28);
+  transition:
+    transform 0.5s var(--ease-out),
+    background-color var(--duration-fast) ease;
+}
+
+.sel-deck__dot[aria-current='true']::before {
+  background-color: var(--accent);
+  transform: none;
+}
+
+.sel-deck__dot:focus-visible {
+  outline-offset: -6px;
+}
+
+/* "Swipe" until the first swipe, then the running count */
+.sel-deck__status {
+  display: grid;
+  justify-items: end;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sel-deck__hint,
+.sel-deck__count {
+  display: inline-flex;
+  grid-area: 1 / 1;
+  align-items: center;
+  gap: 0.35rem;
+  transition:
+    opacity 0.4s ease,
+    transform 0.5s var(--ease-out);
+}
+
+.sel-deck__count {
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.sel-deck__total {
+  color: var(--muted);
+}
+
+.sel-deck__status.has-swiped .sel-deck__hint {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.sel-deck__status.has-swiped .sel-deck__count {
+  opacity: 1;
+  transform: none;
+}
+
+.sel-deck__hint-icon {
+  animation: sel-nudge 1.4s var(--ease-in-out) 2s 3;
+}
+
+/* Deck: a board from tablets up ------------------------------------------ */
+
+@media (min-width: 768px) {
+  .sel-deck {
+    display: block;
+  }
+
+  .sel-deck__track {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3.5rem 1.5rem;
+    min-height: 0;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  /* Alternate columns sit lower, like boards pinned along a studio wall */
+  .sel-deck__item:nth-child(even) {
+    padding-top: clamp(2.5rem, 4vw, 3.75rem);
+  }
+
+  .sel-deck__nav {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .sel-deck__track {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: clamp(1.25rem, 1.8vw, 2rem);
+  }
+}
+
+/* Card: full-bleed frame with the copy over it on phones ------------------ */
+
+.sel-card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+  border-radius: var(--sel-card-radius);
+  color: var(--cream);
+  transition:
+    transform 0.25s var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
+}
+
+.sel-card__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: inherit;
+  background-color: var(--dark-coffee);
+}
+
+.sel-card__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.sel-card__still {
+  object-fit: cover;
+}
+
+/* Overscanned by a pixel: the composited film's edge can round short of the
+   still's, which then shows through as a hairline */
+.sel-card__film {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.sel-card.has-film .sel-card__film {
+  opacity: 1;
+}
+
+/* Shade so the type over the frame always reads */
+.sel-card__frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(21, 19, 17, 0.5) 0%,
+    rgba(21, 19, 17, 0) 20%,
+    rgba(21, 19, 17, 0) 36%,
+    rgba(21, 19, 17, 0.82) 70%,
+    var(--sel-shade) 100%
+  );
+}
+
+/* Overlays are decoration: the card's link lies above them and takes every click */
+.sel-card__chip,
+.sel-card__number,
+.sel-card__scrub,
+.sel-card__focus-hint {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.sel-card__chip {
+  top: 1rem;
+  right: 1rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid rgba(245, 239, 230, 0.3);
+  border-radius: 999px;
+  background-color: rgba(21, 19, 17, 0.35);
+  font-size: 0.58rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+.sel-card__number {
+  top: 0.55rem;
+  left: 1.1rem;
+  font-family: var(--font-display);
+  font-size: 3.25rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--ivory);
+  transition:
+    opacity 0.35s ease,
+    transform 0.5s var(--ease-out);
+}
+
+.sel-card__scrub,
+.sel-card__focus-hint {
+  display: none;
+}
+
+.sel-card__body {
+  padding: 1.25rem;
+}
+
+.sel-card__index {
+  display: block;
+  margin-bottom: 0.55rem;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(245, 239, 230, 0.72);
+}
+
+.sel-card__title {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--ivory);
+}
+
+.sel-card__technique {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.25;
+  color: var(--caramel-on-dark);
+}
+
+.sel-card__summary {
+  display: -webkit-box;
+  margin: 0.75rem 0 1.15rem;
+  overflow: hidden;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(245, 239, 230, 0.8);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.sel-card__keywords {
+  display: none;
+}
+
+.sel-card__open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.25rem;
+  padding: 0 1.1rem 0 1.35rem;
+  border-radius: 0.85rem;
+  background-color: var(--ivory);
+  color: var(--espresso);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* The link itself covers the card, so its focus ring and hit area are the whole card */
+.sel-card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+}
+
+.sel-card__link:focus-visible {
+  outline: 2px solid var(--caramel-on-dark);
+  outline-offset: 3px;
+}
+
+.sel-card__open-label {
+  position: relative;
+}
+
+.sel-card__open-icon {
+  flex: none;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+/* Press feedback where there is no hover */
+@media (pointer: coarse) {
+  .sel-card:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Card: a mounted print with a caption board from tablets up -------------- */
+
+@media (min-width: 768px) {
+  .sel-card {
+    display: block;
+    color: var(--fg);
+  }
+
+  .sel-card__media {
+    position: relative;
+    inset: auto;
+    z-index: auto;
+    aspect-ratio: 3 / 4;
+    border: 1px solid var(--sel-hairline);
+  }
+
+  .sel-card__frame::after {
+    background: linear-gradient(180deg, rgba(21, 19, 17, 0.55) 0%, rgba(21, 19, 17, 0) 28%, rgba(21, 19, 17, 0) 58%, rgba(21, 19, 17, 0.7) 100%);
+  }
+
+  .sel-card__chip {
+    top: 1.35rem;
+    right: auto;
+    left: 1.35rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 0.62rem;
+  }
+
+  .sel-card__number {
+    top: auto;
+    bottom: 0.9rem;
+    left: 1.25rem;
+    font-size: clamp(3.5rem, 4.4vw, 5.5rem);
+  }
+
+  .sel-card__body {
+    padding: 1.6rem 0 0;
+  }
+
+  .sel-card__index {
+    color: var(--accent-text);
+  }
+
+  .sel-card__title {
+    font-size: clamp(1.8rem, 1vw + 1.2rem, 2.3rem);
+    color: var(--fg);
+  }
+
+  .sel-card__technique {
+    color: var(--accent-text);
+  }
+
+  .sel-card__summary {
+    display: block;
+    margin: 0.9rem 0 1.25rem;
+    color: var(--muted);
+  }
+
+  .sel-card__keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .sel-card__keyword {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--sel-hairline);
+    border-radius: 999px;
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+
+  .sel-card__open {
+    display: inline-flex;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    min-height: 44px;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--fg);
+  }
+
+  .sel-card__link:focus-visible {
+    outline-offset: 10px;
+  }
+
+  .sel-card__open-label::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -0.4rem;
+    height: 1px;
+    background-color: var(--accent);
+    transform: scaleX(0.3);
+    transform-origin: 0 50%;
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  /* Keyboard focus: the poster stays, and a hint says what Enter does */
+  .sel-card__focus-hint {
+    display: inline-flex;
+    bottom: 1.15rem;
+    left: 50%;
+    padding: 0.55rem 0.95rem;
+    border: 1px solid rgba(245, 239, 230, 0.3);
+    border-radius: 999px;
+    background-color: rgba(21, 19, 17, 0.55);
+    font-size: 0.6rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--cream);
+    opacity: 0;
+    transform: translate(-50%, 8px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.5s var(--ease-out);
+  }
+
+  .sel-card:has(.sel-card__link:focus-visible) .sel-card__focus-hint {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  .sel-card:has(.sel-card__link:focus-visible) .sel-card__number {
+    opacity: 0;
+  }
+
+  .sel-card:has(.sel-card__link:focus-visible) .sel-card__open-label::after {
+    transform: none;
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .sel-card:has(.sel-card__link:focus-visible) .sel-card__focus-hint {
+    animation: sel-breathe 1.8s var(--ease-in-out) 0.6s 3;
+  }
+}
+
+/* Hover — precise pointers only ------------------------------------------ */
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  /* At rest the frame sits inside its hairline like a mounted print; the
+     active card opens to the edge while the others step back. */
+  .sel-card__frame {
+    clip-path: inset(0.55rem);
+    transition: clip-path 0.9s var(--ease-out);
+  }
+
+  .sel-card:hover .sel-card__frame,
+  .sel-card:has(.sel-card__link:focus-visible) .sel-card__frame {
+    clip-path: inset(0);
+  }
+
+  .sel-deck__track:has(.sel-card:hover) .sel-card:not(:hover) {
+    opacity: 0.42;
+  }
+
+  .sel-card:hover .sel-card__open-label::after {
+    transform: none;
+  }
+
+  .sel-card:hover .sel-card__open-icon {
+    transform: translateX(4px);
+  }
+}
+
+/* Pointer scrub: a hairline and a timecode replace the numeral while you move */
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .sel-card__scrub {
+    display: flex;
+    right: 1.35rem;
+    bottom: 1.2rem;
+    left: 1.35rem;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.58rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.5s var(--ease-out);
+  }
+
+  .sel-card:hover .sel-card__scrub {
+    opacity: 1;
+    transform: none;
+  }
+
+  .sel-card:hover .sel-card__number {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .sel-card__scrub-track {
+    position: relative;
+    flex: 1;
+    height: 1px;
+    overflow: hidden;
+    background-color: rgba(245, 239, 230, 0.3);
+  }
+
+  .sel-card__scrub-fill {
+    position: absolute;
+    inset: 0;
+    background-color: var(--caramel-on-dark);
+    transform: scaleX(var(--sel-scrub, 0));
+    transform-origin: 0 50%;
+    transition: transform 0.2s var(--ease-out);
+  }
+
+  .sel-card.is-loading .sel-card__scrub-track::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(245, 239, 230, 0.8), transparent);
+    animation: sel-glint 1.1s ease-in-out infinite;
+  }
+
+  .sel-card__timecode {
+    letter-spacing: 0.12em;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Common ground ---------------------------------------------------------- */
+
+.sel-common {
+  padding-top: clamp(4.5rem, 10vw, 8.5rem);
+}
+
+.sel-common__head {
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.sel-common__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 3.6vw + 1rem, 4.75rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+.sel-common__title em {
+  color: var(--accent-text);
+}
+
+/* The visit: a numbered list on phones, one row of five beats on desktop */
+.sel-visit {
+  display: grid;
+  margin: 0 0 clamp(3.5rem, 7vw, 6rem);
+  border-top: 1px solid var(--line);
+}
+
+.sel-visit__step {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.sel-visit__step > * {
+  grid-column: 2;
+}
+
+.sel-visit__number {
+  grid-row: 1 / span 3;
+  grid-column: 1;
+  padding-top: 0.6rem;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--accent-text);
+}
+
+.sel-visit__name {
+  font-size: 1.75rem;
+}
+
+.sel-visit__line {
+  margin: 0.35rem 0 0.55rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.sel-visit__film {
+  margin: 0;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+@media (min-width: 768px) {
+  .sel-visit {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem 1.5rem;
+    border-top: 0;
+  }
+
+  .sel-visit__step {
+    display: block;
+    padding: 1.25rem 0 0;
+    border-top: 1px solid var(--fg);
+    border-bottom: 0;
+  }
+
+  .sel-visit__number {
+    display: block;
+    margin-bottom: 1.75rem;
+    padding: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .sel-visit {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* Brand sheet: palette and type */
+.sel-sheet {
+  padding-bottom: clamp(3.5rem, 7vw, 6rem);
+}
+
+.sel-sheet__label {
+  margin-bottom: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.sel-swatches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1rem;
+}
+
+/* Phones: chip beside name and value, like a printed spec list */
+.sel-swatch {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  column-gap: 0.85rem;
+  align-items: center;
+}
+
+.sel-swatch__chip {
+  grid-row: span 2;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+@media (min-width: 576px) {
+  .sel-swatches {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+  }
+
+  .sel-swatch {
+    display: grid;
+    grid-template-columns: none;
+    gap: 0.15rem;
+  }
+
+  .sel-swatch__chip {
+    grid-row: auto;
+    aspect-ratio: 4 / 3;
+    margin-bottom: 0.65rem;
+  }
+}
+
+.sel-swatch__name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.15;
+}
+
+.sel-swatch__hex {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.sel-specimen {
+  margin: 0 0 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.sel-specimen:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.sel-specimen__display {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 2.6vw + 1.2rem, 3.75rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.sel-specimen__text {
+  line-height: 1.75;
+}
+
+.sel-specimen__caption {
+  margin-top: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* Photography rail */
+.sel-photos {
+  padding-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+.sel-photos__head {
+  margin-bottom: 1.5rem;
+}
+
+.sel-photos__note {
+  max-width: 26rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.sel-photos__rail {
+  --rail-item-width: 68%;
+}
+
+@media (min-width: 576px) {
+  .sel-photos__rail {
+    --rail-item-width: 42%;
+  }
+}
+
+@media (min-width: 768px) {
+  .sel-photos__rail {
+    --rail-item-width: 31%;
+  }
+}
+
+@media (min-width: 992px) {
+  .sel-photos__rail {
+    --rail-item-width: calc((100% - 3 * var(--rail-gap-default)) / 4);
+  }
+}
+
+.sel-photo__frame {
+  border-radius: var(--radius);
+}
+
+.sel-photo__caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.8rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.sel-photo__category {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+/* Footer ----------------------------------------------------------------- */
+
+.sel-footer {
+  padding-block: 1.75rem max(1.75rem, env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--line);
+}
+
+/* Keyframes -------------------------------------------------------------- */
+
+@keyframes sel-deck-focus {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sel-glint {
+  from {
+    transform: translateX(-101%);
+  }
+
+  to {
+    transform: translateX(101%);
+  }
+}
+
+@keyframes sel-nudge {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes sel-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}

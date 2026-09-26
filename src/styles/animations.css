@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Animation helpers
+   GSAP drives everything; these rules only set up initial states and
+   motion-safe fallbacks.
+   ========================================================================== */
+
+/* Above-the-fold text that GSAP reveals on load starts hidden to avoid a
+   flash of the final state. A <noscript> style in the layout and the
+   reduced-motion rule below make it visible again. */
+.reveal-pending {
+  visibility: hidden;
+}
+
+/* Masked line wrapper produced by TextReveal (GSAP SplitText) */
+.text-reveal .line-mask {
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+/* Image reveal: clip-path wipes, inner image settles from a slight zoom */
+.image-reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-reveal__inner {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.image-reveal__inner img {
+  object-fit: cover;
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1040;
+  height: 2px;
+  background: var(--caramel);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-pending {
+    visibility: visible;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Drifting images need headroom so the edges never show */
+.image-reveal__inner--drift {
+  inset: -8% 0;
+}

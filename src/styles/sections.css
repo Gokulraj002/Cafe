@@ -1,0 +1,160 @@
+/* ==========================================================================
+   Shared sections — Location, Reservation, Footer
+   ========================================================================== */
+
+/* Location --------------------------------------------------------------- */
+
+.location__details {
+  display: grid;
+  gap: 2rem;
+}
+
+.location__block {
+  font-style: normal;
+}
+
+.location__hours-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 0.55rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.location__hours-row dt {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.location__hours-row dd {
+  font-variant-numeric: tabular-nums;
+}
+
+.location a:not(.btn-cafe):hover {
+  color: var(--accent-text);
+}
+
+/* Reservation form ------------------------------------------------------- */
+
+.form-label-cafe {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.form-control-cafe {
+  display: block;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.6rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--font-display);
+  /* Never below 16px: iOS zooms into smaller fields on focus */
+  font-size: max(1.3rem, 16px);
+  line-height: 1.4;
+  transition: border-color var(--duration-fast) ease;
+  color-scheme: dark;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.theme-ivory .form-control-cafe,
+.theme-cream .form-control-cafe {
+  color-scheme: light;
+}
+
+.form-control-cafe:hover {
+  border-bottom-color: var(--muted);
+}
+
+.form-control-cafe:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+  box-shadow: 0 1px 0 0 var(--accent);
+}
+
+.form-control-cafe option {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Native pickers stay (they are the best phone UI) — only the chrome goes. */
+select.form-control-cafe {
+  padding-right: 1.25rem;
+  /* A hairline chevron drawn in currentColor, so it follows the theme */
+  background-image:
+    linear-gradient(45deg, transparent calc(50% - 0.6px), currentColor calc(50% - 0.6px) calc(50% + 0.6px), transparent calc(50% + 0.6px)),
+    linear-gradient(-45deg, transparent calc(50% - 0.6px), currentColor calc(50% - 0.6px) calc(50% + 0.6px), transparent calc(50% + 0.6px));
+  background-position:
+    calc(100% - 7px) 52%,
+    calc(100% - 1px) 52%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+input[type='date'].form-control-cafe {
+  text-align: start;
+}
+
+input[type='date'].form-control-cafe::-webkit-date-and-time-value {
+  text-align: start;
+}
+
+textarea.form-control-cafe {
+  resize: vertical;
+}
+
+/* In a bottom sheet: one column, full-width submit that stays in reach. */
+
+.reservation-form--compact .reservation-form__actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  /* Swallow the sheet body's bottom padding so the pinned button keeps it */
+  margin-bottom: -1.5rem;
+  padding-bottom: 1.5rem;
+  background: linear-gradient(to bottom, transparent, var(--bg) 1.25rem);
+}
+
+.reservation-form--compact .btn-cafe {
+  width: 100%;
+  min-height: 3.5rem;
+}
+
+/* Footer ----------------------------------------------------------------- */
+
+.site-footer {
+  /* Keeps the last line clear of the mobile tab bar (0 from lg up) */
+  padding-block: clamp(4rem, 8vw, 6rem) calc(2rem + var(--tabbar-height, 0px));
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+.site-footer__tagline {
+  max-width: 18rem;
+  color: var(--muted);
+}
+
+.site-footer__muted {
+  color: var(--muted);
+}
+
+.site-footer__link:hover,
+.site-footer a:hover {
+  color: var(--accent-text);
+}
+
+.site-footer__base {
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+  color: var(--muted);
+}

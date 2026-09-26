@@ -1,0 +1,959 @@
+/* ==========================================================================
+   Concept 02 — Scroll Cinema: title card and the sections after the film.
+   The pinned Journey stage has its own sheet (scroll-cinema-stage.css).
+   Global CSS outlives client-side navigation, so every selector here is
+   namespaced `.cinema-`.
+   ========================================================================== */
+
+.cinema-page {
+  --cinema-radius: 1rem;
+  --cinema-label: 600 0.66rem/1.3 var(--font-body);
+}
+
+/* Section eyebrows open with a small caramel light, like a projector's */
+.cinema-page .section-heading .type-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.75rem;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: 0.1em;
+}
+
+/* Tasting-note chips, shared by origins and beans */
+.cinema-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cinema-chip {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+}
+
+/* Title card ------------------------------------------------------------- */
+
+.cinema-intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-block: calc(var(--nav-height) + 2rem) calc(var(--tabbar-height) + 8rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cinema-intro__still {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.cinema-intro__still img {
+  object-fit: cover;
+}
+
+/* Phones read the copy low on the frame, so the shade gathers at the bottom */
+.cinema-intro__still::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(21, 19, 17, 0.55) 0%,
+    rgba(21, 19, 17, 0.05) 22%,
+    rgba(21, 19, 17, 0.62) 46%,
+    rgba(21, 19, 17, 0.9) 66%,
+    var(--charcoal) 100%
+  );
+}
+
+.cinema-intro__line {
+  max-width: 30rem;
+  color: var(--muted);
+}
+
+.cinema-intro__chapters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.25rem;
+  margin: 2rem 0 0;
+  font: var(--cinema-label);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cinema-intro__chapter-number {
+  margin-right: 0.5rem;
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.cinema-intro__hint {
+  position: absolute;
+  bottom: calc(var(--tabbar-height) + 1rem);
+  inset-inline: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: max-content;
+  min-height: 44px;
+  margin-inline: auto;
+  padding: 0.5rem 1rem;
+  font: var(--cinema-label);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cinema-intro__hint:hover {
+  color: var(--fg);
+}
+
+/* A single drop of espresso, falling on a loop */
+.cinema-intro__drip {
+  position: relative;
+  width: 1px;
+  height: 2.5rem;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.cinema-intro__drip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: translateY(-100%);
+  animation: cinema-drip 2.6s var(--ease-in-out) infinite;
+}
+
+@keyframes cinema-drip {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@media (min-width: 768px) {
+  .cinema-intro {
+    justify-content: center;
+    padding-bottom: calc(var(--tabbar-height) + 9rem);
+    text-align: center;
+  }
+
+  .cinema-intro__still::after {
+    background:
+      radial-gradient(ellipse at 50% 45%, rgba(21, 19, 17, 0.3) 0%, rgba(21, 19, 17, 0.8) 75%),
+      linear-gradient(180deg, rgba(21, 19, 17, 0.5) 0%, rgba(21, 19, 17, 0) 40%, var(--charcoal) 100%);
+  }
+
+  .cinema-intro__line {
+    margin-inline: auto;
+  }
+
+  .cinema-intro__chapters {
+    justify-content: center;
+    gap: 0.6rem 2.25rem;
+    margin-top: 3rem;
+  }
+
+  .cinema-intro__drip {
+    height: 3.25rem;
+  }
+}
+
+/* Origins ---------------------------------------------------------------- */
+
+.cinema-origins__media {
+  position: relative;
+  margin-top: 3rem;
+  padding-bottom: 2.5rem;
+}
+
+.cinema-origins__photo {
+  width: 78%;
+  aspect-ratio: 4 / 5;
+}
+
+.cinema-origins__inset {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 48%;
+  aspect-ratio: 3 / 2;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+}
+
+@media (min-width: 768px) {
+  .cinema-origins__photo {
+    width: 56%;
+  }
+
+  .cinema-origins__inset {
+    right: 12%;
+    width: 38%;
+  }
+}
+
+/* The heading and photographs hold still while the list scrolls — only where
+   the whole column fits on screen. */
+@media (min-width: 992px) {
+  .cinema-origins__photo {
+    width: 62%;
+  }
+
+  .cinema-origins__inset {
+    right: 0;
+    width: 48%;
+  }
+}
+
+@media (min-width: 992px) and (min-height: 760px) {
+  .cinema-origins__aside {
+    position: sticky;
+    top: calc(var(--nav-height) + 1.5rem);
+  }
+}
+
+.cinema-origins__legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.cinema-origins__legend-scale {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.cinema-origins__legend-line {
+  width: 3.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), var(--accent));
+}
+
+.cinema-origin {
+  display: grid;
+  gap: 1.25rem;
+  padding-block: 2.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.cinema-origin__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.cinema-origin__number {
+  min-width: 2.5rem;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 300;
+  line-height: 0.9;
+  color: var(--accent-text);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.cinema-origin__region {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.cinema-origin__specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--line);
+}
+
+.cinema-origin__spec--wide {
+  grid-column: 1 / -1;
+}
+
+.cinema-origin__specs dt,
+.cinema-bean__facts dt,
+.cinema-ticket__facts dt {
+  margin-bottom: 0.3rem;
+  font: var(--cinema-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cinema-origin__specs dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+/* Altitude, drawn on the scale in the legend above the list */
+.cinema-altitude {
+  position: relative;
+  display: block;
+  height: 2px;
+  margin-top: 0.75rem;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.cinema-altitude__fill {
+  position: absolute;
+  inset-block: -1px;
+  left: calc(var(--from) * 100%);
+  width: max(0.5rem, calc((var(--to) - var(--from)) * 100%));
+  border-radius: 2px;
+  background: var(--accent);
+  transform-origin: 0 50%;
+}
+
+@media (min-width: 992px) {
+  .cinema-origin {
+    grid-template-columns: 4rem minmax(0, 1fr);
+    column-gap: 1.5rem;
+  }
+
+  .cinema-origin > :not(.cinema-origin__head) {
+    grid-column: 2;
+  }
+
+  /* The number moves into the first column, level with the country */
+  .cinema-origin__head {
+    display: contents;
+  }
+
+  .cinema-origin__number {
+    font-size: 3.25rem;
+  }
+}
+
+/* The craft, in numbers -------------------------------------------------- */
+
+.cinema-craft__banner {
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 768px) {
+  .cinema-craft__banner {
+    aspect-ratio: 21 / 9;
+  }
+}
+
+.cinema-stat__value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  margin-bottom: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.cinema-stat__number {
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 5vw + 1.5rem, 7rem);
+  font-weight: 300;
+  line-height: 0.9;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.cinema-stat__unit {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1vw + 1rem, 2rem);
+  font-style: italic;
+  color: var(--accent-text);
+}
+
+.cinema-stat__label {
+  max-width: 15rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* Beans to take home ----------------------------------------------------- */
+
+.cinema-beans__photo {
+  aspect-ratio: 3 / 2;
+}
+
+.cinema-beans__rail {
+  --rail-item-width: 80%;
+}
+
+@media (min-width: 576px) {
+  .cinema-beans__rail {
+    --rail-item-width: 55%;
+  }
+}
+
+@media (min-width: 768px) {
+  .cinema-beans__rail {
+    --rail-item-width: 42%;
+  }
+}
+
+/* From desktop up all four bags fit, side by side, so the rail stands still */
+@media (min-width: 992px) {
+  .cinema-beans__rail {
+    --rail-item-width: calc((100% - 3 * var(--rail-gap-default)) / 4);
+  }
+
+  .cinema-beans__rail .swipe-rail__footer {
+    display: none;
+  }
+}
+
+.cinema-bean {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--cinema-radius);
+  background: var(--ivory);
+}
+
+.cinema-bean__label {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+  font: var(--cinema-label);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.cinema-bean__origin {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.cinema-bean__facts {
+  display: grid;
+  gap: 1rem;
+}
+
+.cinema-bean__facts dd {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.cinema-bean__use {
+  color: var(--muted);
+}
+
+.cinema-roast {
+  display: flex;
+  gap: 3px;
+  margin-block: 0.2rem 0.5rem;
+}
+
+.cinema-roast > span {
+  width: 1.4rem;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.cinema-roast > .is-filled {
+  background: var(--accent);
+}
+
+.cinema-bean__price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.cinema-bean__amount {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+}
+
+.cinema-bean__per {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cinema-beans__cupping {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--cinema-radius);
+  background: var(--surface);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .cinema-beans__cupping {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .cinema-beans__cupping .btn-cafe {
+    flex: none;
+  }
+}
+
+/* Workshops -------------------------------------------------------------- */
+
+.cinema-workshops__note {
+  max-width: 22rem;
+  line-height: 1.7;
+}
+
+.cinema-ticket {
+  --ticket-pad: 1.5rem;
+  --ticket-notch: 0.7rem;
+
+  /* Tickets adapt to their own width: about 350px on phones and in the
+     tablet grid, twice that on desktop */
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+  padding: var(--ticket-pad) var(--ticket-pad) 0;
+  overflow: hidden;
+  border-radius: var(--cinema-radius);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.cinema-ticket__head {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: 1.25rem;
+}
+
+@container (min-width: 30rem) {
+  .cinema-ticket__head {
+    grid-template-columns: 7rem minmax(0, 1fr);
+  }
+}
+
+.cinema-ticket__poster {
+  aspect-ratio: 4 / 5;
+  border-radius: 0.6rem;
+}
+
+.cinema-ticket__when {
+  font: var(--cinema-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.cinema-ticket__host {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.cinema-ticket__description {
+  flex: 1;
+}
+
+/* The tear-off stub: a perforated line with a notch cut from each side */
+.cinema-ticket__stub {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-inline: calc(var(--ticket-pad) * -1);
+  padding: 1.25rem var(--ticket-pad) var(--ticket-pad);
+  border-top: 1px dashed var(--line);
+}
+
+.cinema-ticket__stub::before,
+.cinema-ticket__stub::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--ticket-notch) * -1);
+  width: calc(var(--ticket-notch) * 2);
+  height: calc(var(--ticket-notch) * 2);
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.cinema-ticket__stub::before {
+  left: calc(var(--ticket-notch) * -1);
+}
+
+.cinema-ticket__stub::after {
+  right: calc(var(--ticket-notch) * -1);
+}
+
+.cinema-ticket__facts {
+  display: flex;
+  gap: 2rem;
+}
+
+.cinema-ticket__facts dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+}
+
+/* Full width in thumb reach on a narrow ticket; beside the facts on a wide one */
+.cinema-ticket__cta {
+  flex: 1 1 100%;
+}
+
+@container (min-width: 30rem) {
+  .cinema-ticket__cta {
+    flex: none;
+    padding-inline: 1.4rem;
+  }
+}
+
+/* Private screening (private hire) */
+.cinema-screening {
+  overflow: hidden;
+  border-radius: var(--cinema-radius);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.cinema-screening__photo {
+  aspect-ratio: 4 / 3;
+}
+
+.cinema-screening__body {
+  padding: 2rem 1.5rem;
+}
+
+.cinema-screening__spaces {
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0 1.5rem;
+}
+
+.cinema-screening__spaces > div {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.cinema-screening__spaces dt {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.cinema-screening__spaces dd {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.cinema-screening__when {
+  display: block;
+  color: var(--accent-text);
+}
+
+.cinema-screening__includes {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.cinema-screening__includes li {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.cinema-screening__includes li::before {
+  content: '';
+  flex: none;
+  width: 0.9rem;
+  height: 1px;
+  margin-top: 0.7em;
+  background: var(--accent);
+}
+
+.cinema-screening__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+@media (min-width: 576px) {
+  .cinema-screening__cta {
+    align-items: flex-start;
+  }
+
+  .cinema-screening__spaces {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 992px) {
+  .cinema-screening__photo {
+    height: 100%;
+    min-height: 32rem;
+    aspect-ratio: auto;
+  }
+
+  .cinema-screening__body {
+    padding: 3.5rem;
+  }
+}
+
+/* Journal ---------------------------------------------------------------- */
+
+.cinema-entry {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.cinema-entry__cover {
+  border-radius: var(--cinema-radius);
+}
+
+.cinema-entry--featured .cinema-entry__cover {
+  aspect-ratio: 3 / 2;
+}
+
+.cinema-entry__meta {
+  font: var(--cinema-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.cinema-entry__title {
+  font-size: 1.35rem;
+  line-height: 1.15;
+}
+
+.cinema-entry__excerpt {
+  max-width: 36rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.cinema-entry__read {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Compact rows: square thumbnail beside the text */
+.cinema-entry:not(.cinema-entry--featured) {
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  align-items: start;
+  gap: 1rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.cinema-entry:not(.cinema-entry--featured) .cinema-entry__cover {
+  aspect-ratio: 1;
+  border-radius: 0.6rem;
+}
+
+.cinema-entry:not(.cinema-entry--featured) .cinema-entry__excerpt {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+@media (min-width: 992px) {
+  .cinema-entry--featured .cinema-entry__cover {
+    aspect-ratio: 4 / 3;
+  }
+
+  .cinema-entry:not(.cinema-entry--featured) {
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 2rem;
+  }
+
+  .cinema-journal__list > li:first-child .cinema-entry {
+    padding-top: 0;
+    border-top: 0;
+  }
+}
+
+/* Visit — closing credits ------------------------------------------------ */
+
+.cinema-visit__frame {
+  aspect-ratio: 4 / 3;
+  margin-bottom: 3.5rem;
+}
+
+@media (min-width: 768px) {
+  .cinema-visit__frame {
+    aspect-ratio: 21 / 9;
+    margin-bottom: 5rem;
+  }
+}
+
+.cinema-visit__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 22rem;
+  margin: 2.5rem auto 0;
+}
+
+.cinema-visit__actions .btn-cafe > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+@media (min-width: 576px) {
+  .cinema-visit__actions {
+    flex-direction: row;
+    justify-content: center;
+    max-width: none;
+  }
+}
+
+.cinema-credits {
+  max-width: 44rem;
+  margin: 4rem auto 0;
+}
+
+.cinema-credits__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr);
+  gap: 1rem;
+  padding-block: 1.1rem;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 576px) {
+  .cinema-credits__row {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: 1.25rem;
+  }
+}
+
+.cinema-credits__row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.cinema-credits dt {
+  padding-top: 0.45rem;
+  font: var(--cinema-label);
+  letter-spacing: 0.22em;
+  text-align: right;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.cinema-credits dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.cinema-credits a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-block: -0.5rem;
+}
+
+.cinema-credits a:hover {
+  color: var(--accent-text);
+}
+
+/* Days above times on phones; one line each from sm up */
+.cinema-credits__hours {
+  display: block;
+}
+
+.cinema-credits__hours + .cinema-credits__hours {
+  margin-top: 0.35rem;
+}
+
+.cinema-credits__time {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (min-width: 576px) {
+  .cinema-credits__hours {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .cinema-credits__hours + .cinema-credits__hours {
+    margin-top: 0;
+  }
+}
+
+.cinema-credits__small {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
