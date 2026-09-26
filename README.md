@@ -16,11 +16,15 @@ Four homepage concepts for a premium café, each built around one of the café's
 
 ```bash
 npm install
-cp .env.example .env.local   # then set NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 npm run dev
 ```
 
-Open http://localhost:3000.
+Open http://localhost:3000. The public Cloudinary cloud name is in the committed `.env`.
+
+## Deploying to Netlify
+
+Connect the GitHub repo in Netlify — `netlify.toml` sets the build command and Node 22, and Netlify's
+Next.js runtime is applied automatically. No environment variables are required.
 
 ## Cloudinary
 
