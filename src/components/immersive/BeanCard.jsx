@@ -1,3 +1,5 @@
+import { formatPrice } from '@/lib/format';
+
 /** One bag of beans: where it comes from, how it tastes, how it is roasted and what it costs. */
 export default function BeanCard({ name, origin, process, notes, roast, weight, price }) {
   return (
@@ -24,7 +26,7 @@ export default function BeanCard({ name, origin, process, notes, roast, weight, 
         </div>
         <div className="imm-bean__fact imm-bean__fact--price">
           <dt>{weight}</dt>
-          <dd>{price}</dd>
+          <dd>{formatPrice(price)}</dd>
         </div>
       </dl>
     </article>

@@ -35,8 +35,8 @@ export default function Workshops() {
           </div>
           <div className="col-lg-4 offset-lg-1">
             <FadeReveal as="p" className="cinema-workshops__note type-caption mb-0">
-              {Math.min(...classSizes)} to {Math.max(...classSizes)} seats a class. Request one by email and we reply
-              within the day.
+              {Math.min(...classSizes)} to {Math.max(...classSizes)} seats a class. Write to us and we reply within the
+              day.
             </FadeReveal>
           </div>
         </div>

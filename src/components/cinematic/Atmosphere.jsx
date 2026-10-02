@@ -69,7 +69,7 @@ export default function Atmosphere() {
           id="atmosphere-title"
           eyebrow="Atmosphere"
           title="A room that asks you to stay."
-          intro="Tall windows, oak and worn leather, the low murmur of the grinder. Morning light does most of the work."
+          intro="Tall windows, teak and cane, the low murmur of the grinder. Morning light does most of the work."
           className="lux-atmosphere__heading"
         />
 
@@ -109,7 +109,7 @@ export default function Atmosphere() {
             </ul>
             <div className="col-lg-4 text-lg-end">
               <Button href="#reserve" variant="light" arrow data-reserve-sheet>
-                Reserve a window seat
+                Reserve for a group
               </Button>
             </div>
           </div>

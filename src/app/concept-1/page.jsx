@@ -19,7 +19,7 @@ import Events from '@/components/cinematic/Events';
 export const metadata = {
   title: 'Cinematic Luxury',
   description:
-    'Coffee, crafted slowly. A letterboxed morning film that unveils as you scroll, dark espresso rooms and ivory type — Kela-Cafe, a space for coffee, conversation and quiet moments.',
+    'Coffee, crafted slowly. A letterboxed morning film that unveils as you scroll, dark espresso rooms and ivory type — Kela-Cafe, an Indian specialty coffee house in Indiranagar, Bengaluru.',
 };
 
 const NAV_LINKS = [
@@ -47,7 +47,7 @@ export default function CinematicLuxuryPage() {
         <MenuSection
           theme="theme-espresso"
           title="Made to order, never rushed."
-          intro="A short menu, done properly — the espresso bar, the slow bar, our signatures and a bakery that starts before dawn."
+          intro="A short menu, done properly — espresso bar, slow bar, signatures and a bakery that starts before dawn. Prices include GST."
         />
         <Philosophy />
         <Atmosphere />
@@ -60,7 +60,7 @@ export default function CinematicLuxuryPage() {
         />
         <Reservation
           theme="theme-espresso"
-          intro="A third of our tables are always kept for walk-ins. For weekend mornings, the long table or a particular window seat, send us a note and we will hold it for you."
+          intro="Most of our tables are kept for walk-ins. For groups of six or more, the long table or a weekend morning, send us a note and we will hold it for you."
         />
       </main>
       <Footer />

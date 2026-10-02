@@ -9,7 +9,7 @@ export default function MomentWall() {
   return (
     <>
       <div className="imm-seq__label">
-        <p className="type-eyebrow mb-2">N° 04 — Now pouring</p>
+        <p className="type-eyebrow mb-2">No. 04 — Now pouring</p>
         <p className="imm-seq__label-title mb-1">The pour</p>
         <p className="imm-seq__label-text mb-0">Eight seconds, one cup — played by your scroll.</p>
       </div>

@@ -17,7 +17,7 @@ import PrivateHire from '@/components/immersive/PrivateHire';
 export const metadata = {
   title: 'Immersive Experience',
   description:
-    'Come for the coffee. Stay for the moment. A single pour, framed like a photograph, grows until it fills the screen — then the day at Kela-Cafe unfolds around your table.',
+    'Come for the coffee. Stay for the moment. A single pour, framed like a photograph, grows until it fills the screen — then the day at Kela-Cafe in Indiranagar, Bengaluru unfolds around your table.',
 };
 
 const NAV_LINKS = [

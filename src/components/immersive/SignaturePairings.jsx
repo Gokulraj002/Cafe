@@ -8,10 +8,10 @@ import PairingCard from './PairingCard';
 
 /** Pictures for each pairing, keyed by the signature's id. */
 const PAIRING_MEDIA = {
-  'lente-latte': { drink: { video: cafeVideos.concept4, moment: 'art' }, plate: { photo: photos.cardamomKnot } },
+  'kela-latte': { drink: { video: cafeVideos.concept4, moment: 'art' }, plate: { photo: photos.cardamomKnot } },
   'flat-white': { drink: { photo: photos.latteGreenCup }, plate: { photo: photos.painAuChocolat } },
   siphon: { drink: { photo: photos.chemexSlowBar }, plate: { photo: photos.basqueCheesecake } },
-  'espresso-tonic': { drink: { photo: photos.espressoDoubleShot }, plate: { video: cafeVideos.concept4, moment: 'table' } },
+  'elaichi-cortado': { drink: { photo: photos.espressoDoubleShot }, plate: { video: cafeVideos.concept4, moment: 'table' } },
 };
 
 const menuItems = menu.flatMap((category) => category.items);
@@ -41,7 +41,7 @@ export default function SignaturePairings() {
           </div>
           <div className="col-lg-4 offset-lg-1">
             <p className="imm-pairings__aside type-caption mb-0">
-              Every pastry is baked in the house before sunrise. Oat, whole or skimmed milk at no extra cost.
+              Baked in the house before sunrise, with eggless and vegan bakes daily. Full-cream, oat or almond milk at no extra cost.
             </p>
           </div>
         </div>

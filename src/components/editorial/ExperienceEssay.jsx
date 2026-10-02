@@ -29,7 +29,7 @@ export default function ExperienceEssay() {
             <Plate
               photo={photos.windowBar}
               figure="7"
-              caption="The window counter at three: sun, sockets and no time limit."
+              caption="The window counter at three on a weekday: sun, sockets and no time limit."
               ratio="ed-ratio-slim"
               sizes="(min-width: 992px) 38vw, (min-width: 768px) 48vw, 72vw"
               drift

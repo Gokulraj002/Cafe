@@ -22,7 +22,7 @@ export const metadata = {
     default: 'Kela-Cafe — Coffee, crafted slowly',
     template: '%s — Kela-Cafe',
   },
-  description: 'A space for coffee, conversation and quiet moments. Four homepage concepts for Kela-Cafe.',
+  description: 'A Bengaluru space for Indian specialty coffee, conversation and quiet moments. Four homepage concepts for Kela-Cafe.',
   applicationName: 'Kela-Cafe',
   // Added to the home screen it opens full-screen, like an app.
   appleWebApp: {
@@ -44,7 +44,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${manrope.variable}`}>
+    <html lang="en-IN" className={`${cormorant.variable} ${manrope.variable}`}>
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
         <noscript>

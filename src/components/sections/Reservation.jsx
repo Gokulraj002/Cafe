@@ -10,7 +10,7 @@ export default function Reservation({
   id = 'reserve',
   eyebrow = 'Reservations',
   title = 'Your table is waiting.',
-  intro = 'Walk-ins are always welcome. For groups, quiet corners or a particular window seat, send us a note.',
+  intro = 'Walk-ins are always welcome. For groups of six or more, the long table or a private event, send us a note.',
   theme = 'theme-espresso',
   className = '',
 }) {

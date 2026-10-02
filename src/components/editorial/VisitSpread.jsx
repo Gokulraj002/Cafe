@@ -19,7 +19,7 @@ export default function VisitSpread() {
       <Location
         theme="theme-cream"
         eyebrow={sectionLabel('visit')}
-        title="On the corner of the old market square."
+        title="Just off 12th Main, in Indiranagar."
         still={{ video: cafeVideos.concept3, moment: 'arch' }}
       />
       <Reservation

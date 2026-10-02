@@ -1,25 +1,5 @@
 import Image from 'next/image';
-
-const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
-/** '2026-09-18' → '18 September 2026', without locale APIs so server and client always agree. */
-function formatDate(isoDate) {
-  const [year, month, day] = isoDate.split('-').map(Number);
-  return `${day} ${MONTHS[month - 1]} ${year}`;
-}
+import { formatDate } from '@/lib/format';
 
 /**
  * A journal story in the Kinfolk manner: plate, category and number, headline,

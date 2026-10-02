@@ -52,7 +52,7 @@ export default function VisitCredits() {
             <dd>
               {address.street}
               <br />
-              {address.area}, {address.city}
+              {address.area}, {address.city}&nbsp;{address.postcode}
             </dd>
           </div>
           <div className="cinema-credits__row">

@@ -1,5 +1,6 @@
 import cafe from '@/data/cafe';
 import Button from '@/components/common/Button';
+import { formatPrice } from '@/lib/format';
 
 /**
  * One workshop in the roastery room: when it runs, what you learn, who
@@ -26,7 +27,7 @@ export default function EventRow({ title, day, time, duration, price, seats, hos
         </div>
         <div>
           <dt>Per person</dt>
-          <dd>{price}</dd>
+          <dd>{formatPrice(price)}</dd>
         </div>
       </dl>
       <Button href={enquiry} variant="text" arrow>

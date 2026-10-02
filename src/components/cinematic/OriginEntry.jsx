@@ -5,7 +5,7 @@
 export default function OriginEntry({ number, country, region, producer, farm, altitude, variety, process, harvest, notes, story }) {
   const specs = [
     ['Producer', producer],
-    ['Farm', farm],
+    ['Estate', farm],
     ['Altitude', altitude],
     ['Variety', variety],
     ['Process', process],

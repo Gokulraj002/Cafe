@@ -4,7 +4,7 @@ import FadeReveal from '@/components/animations/FadeReveal';
 
 const enquiry = `mailto:${privateHire.email}?subject=${encodeURIComponent(privateHire.emailSubject)}`;
 
-/** The after-hours offer that closes the events section: two spaces and one way to ask. */
+/** The private-hire offer that closes the events section: two spaces and one way to ask. */
 export default function PrivateHire() {
   return (
     <FadeReveal className="lux-hire">

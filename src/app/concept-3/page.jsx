@@ -16,7 +16,7 @@ import Colophon from '@/components/editorial/Colophon';
 export const metadata = {
   title: 'Editorial Café',
   description:
-    'The Slow Issue — a café magazine in five features: a room that builds itself as you read, four single origins, a short menu, the people behind the bar and a table waiting for you.',
+    'The Slow Issue — a Bengaluru café magazine in five features: a room that builds itself as you read, four coffees from the southern hills, a short menu, the people behind the bar and a table waiting for you.',
 };
 
 const NAV_LINKS = [

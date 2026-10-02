@@ -14,7 +14,7 @@ import { ISSUE } from './issue';
 const COVER = photos.goldenHourRoom;
 
 /**
- * The cover of The Slow Issue: the issue line, the oversized LENTE wordmark,
+ * The cover of The Slow Issue: the issue line, the oversized KELA wordmark,
  * the cover plate, the cover story (the page's h1) and the contents.
  *
  * On load the wordmark rises letter by letter while the plate settles; on
@@ -71,8 +71,8 @@ export default function Masthead() {
               A café built slowly, around a single lamp.
             </TextReveal>
             <p className="ed-mast__dek ed-mast__rise reveal-pending">
-              Inside: the room, four coffees from growers we know by name, a menu without hurry, the people behind the
-              bar — and a table waiting for you.
+              Inside: the room, four coffees from the southern hills, a menu without hurry, the people behind the bar —
+              and a table waiting for you.
             </p>
             <div className="ed-mast__actions ed-mast__rise reveal-pending">
               <Button href="#space" variant="solid" arrow>

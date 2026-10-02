@@ -72,7 +72,7 @@ export default function BrandStory() {
               <p className="type-body mb-0">{cafe.manifesto}</p>
               <p className="lux-story__signoff mb-0">
                 Roasting since {cafe.roastingSince} <span aria-hidden="true">·</span> Café est. {cafe.established}{' '}
-                <span aria-hidden="true">·</span> {cafe.address.area}
+                <span aria-hidden="true">·</span> {cafe.address.city}
               </p>
               <div>
                 <Button href="#signature" variant="text" arrow>

@@ -26,7 +26,7 @@ function EssayStep({ step }) {
 /**
  * 02 — The Coffee. A photo essay: a wide roastery plate, the essay with a drop
  * cap and a pull quote beside two tall plates, then the boxed-out sidebar of
- * this season's four origins (a swipe rail on phones, four columns on desktop).
+ * this harvest's four origins (a swipe rail on phones, four columns on desktop).
  */
 export default function CoffeeEssay() {
   return (
@@ -37,7 +37,7 @@ export default function CoffeeEssay() {
         <SectionOpener
           section="coffee"
           titleId="coffee-title"
-          title="Four farms, one bar, and no shortcuts."
+          title="Four hills, one bar, and no shortcuts."
           dek={cafe.philosophy[1].text}
         />
 
@@ -94,16 +94,16 @@ export default function CoffeeEssay() {
         <header className="ed-origins__header">
           <p className="type-eyebrow mb-0">Sidebar</p>
           <h3 className="ed-origins__title">
-            On the bar this season
+            On the bar this harvest
           </h3>
           <p className="ed-origins__intro mb-0">
-            Four single origins from growers we know by name — each roasted to its own profile, all of them on the
+            Three family estates and a farmers’ cooperative — each roasted to its own profile, all of them on the
             slow bar and in bags to take home.
           </p>
         </header>
       </div>
 
-      <SwipeRail label="Single origins on the bar this season" className="ed-origins ed-grid-rail" progress="bar">
+      <SwipeRail label="Origins on the bar this harvest" className="ed-origins ed-grid-rail" progress="bar">
         {origins.map((origin, index) => (
           <OriginCard key={origin.id} origin={origin} index={index} />
         ))}

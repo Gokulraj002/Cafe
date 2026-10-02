@@ -5,6 +5,7 @@ import { beans, origins } from '@/data/content';
 import photos from '@/data/images';
 import useGsap from '@/hooks/useGsap';
 import { gsap, EASE } from '@/lib/animations';
+import { formatPrice } from '@/lib/format';
 import SectionHeading from '@/components/common/SectionHeading';
 import RevealFrame from './RevealFrame';
 import OriginEntry from './OriginEntry';
@@ -40,8 +41,8 @@ export default function OriginsLedger() {
             <SectionHeading
               id="origins-title"
               eyebrow="Origins"
-              title="Four farms, one season."
-              intro="Every coffee on the bar this season, and the people who grew it. We buy from growers we know by name, pay well above fair-trade minimums and roast within the week it lands."
+              title="Four growers, one harvest."
+              intro="Every coffee on the bar this season, and the people who grew it. We buy from estates and cooperatives we know by name, pay well above the market rate and roast within the week it arrives."
             />
           </div>
           <div className="col-lg-5 offset-lg-1">
@@ -62,7 +63,7 @@ export default function OriginsLedger() {
         </ol>
 
         <p className="lux-origins__footnote type-caption mb-0">
-          Roasted every week, and sold at the bar in {beans[0].weight} bags from {lowestBagPrice}.
+          Roasted every week, and sold at the bar in {beans[0].weight} bags from {formatPrice(lowestBagPrice)}.
         </p>
       </div>
     </section>

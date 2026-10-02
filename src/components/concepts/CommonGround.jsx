@@ -39,7 +39,7 @@ export default function CommonGround() {
           </div>
           <div className="col-md-10 col-lg-4 offset-lg-1">
             <p className="type-body mb-0">
-              Every concept is built from the same brand and the same real content — menu, origins, team, events,
+              Every concept is built from the same brand and the same content — menu, Indian origins, team, events,
               journal. Only the telling changes, and each film plays a different part of the visit.
             </p>
           </div>

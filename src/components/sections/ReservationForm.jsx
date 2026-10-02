@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import cafe from '@/data/cafe';
+import { formatDate } from '@/lib/format';
 
-const TIMES = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
-const PARTY_SIZES = ['1', '2', '3', '4', '5', '6'];
+const TIMES = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
+const PARTY_SIZES = ['2', '3', '4', '5', '6', '8', '10', '12+'];
 
 // Bootstrap classes per field: roomy on the page, one thumb-wide column in a sheet.
 const LAYOUTS = {
@@ -51,11 +52,12 @@ export default function ReservationForm({ idPrefix = 'reserve', compact = false,
   function handleSubmit(event) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget));
-    const subject = `Table request — ${data.date} at ${data.time}, ${data.guests} guests`;
+    const date = formatDate(data.date);
+    const subject = `Table request — ${date} at ${data.time}, ${data.guests} guests`;
     const body = [
       `Name: ${data.name}`,
       `Email: ${data.email}`,
-      `Date: ${data.date}`,
+      `Date: ${date}`,
       `Time: ${data.time}`,
       `Guests: ${data.guests}`,
       data.note ? `Note: ${data.note}` : '',

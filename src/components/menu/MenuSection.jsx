@@ -17,7 +17,7 @@ export default function MenuSection({
   id = 'menu',
   eyebrow = 'The Menu',
   title = 'Made to order, never rushed.',
-  intro = 'A short menu, done properly. Oat, whole or skimmed milk at no extra cost.',
+  intro = 'A short menu, done properly, priced inclusive of GST. Oat or almond milk at no extra cost.',
   theme = 'theme-espresso',
   className = '',
 }) {

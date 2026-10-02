@@ -40,7 +40,7 @@ export default function MenuSpread() {
             <Plate
               photo={photos.latteArtPour}
               figure="5"
-              caption="A rosetta for the Kela Latte: brown-butter milk, a pinch of sea salt."
+              caption="A rosetta for the Kela Latte: brown-butter milk, a few flakes of sea salt."
               ratio="ed-menu__plate-frame"
               sizes="(min-width: 992px) 30vw, 92vw"
               className="ed-menu__plate"
@@ -61,7 +61,7 @@ export default function MenuSpread() {
             </div>
 
             <p className="ed-menu__footnote type-caption mb-0">
-              Prices in local currency. {cafe.hoursNote}
+              Prices in rupees, inclusive of GST. {cafe.hoursNote}
             </p>
           </div>
         </div>

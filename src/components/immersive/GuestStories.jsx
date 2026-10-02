@@ -7,12 +7,12 @@ import StoryCard from './StoryCard';
 
 /** Where each note was written, as a picture — keyed by the note's id. */
 const STORY_MEDIA = {
-  amara: { photo: photos.morningCup },
-  jonas: { photo: photos.handsAroundCup },
-  mei: { photo: photos.coffeeCherries },
-  rafael: { photo: photos.windowBar },
-  clara: { video: cafeVideos.concept4, moment: 'steam' },
-  idris: { video: cafeVideos.concept3, moment: 'breakfast' },
+  priya: { photo: photos.morningCup },
+  arjun: { photo: photos.handsAroundCup },
+  meera: { photo: photos.coffeeCherries },
+  nikhil: { photo: photos.windowBar },
+  sneha: { video: cafeVideos.concept4, moment: 'steam' },
+  imran: { video: cafeVideos.concept3, moment: 'breakfast' },
 };
 
 /** Guest notes as a swipeable row of story cards, on every screen size. */
@@ -26,7 +26,7 @@ export default function GuestStories() {
               id="notes-title"
               eyebrow="Guest notes"
               title="Moments, in their words."
-              intro="The small things guests tell us they remember about a morning here — rarely the coffee alone."
+              intro="The small things guests tell us they remember about a visit here — rarely the coffee alone."
             />
           </div>
         </div>

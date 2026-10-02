@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { formatDate } from './formatters';
+import { formatDate } from '@/lib/format';
 
 /**
  * One journal story. The featured one leads with a wide cover; the others

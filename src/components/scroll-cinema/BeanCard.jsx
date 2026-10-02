@@ -1,3 +1,4 @@
+import { formatPrice } from '@/lib/format';
 import { padNumber, parseRoast, ROAST_STEPS } from './formatters';
 
 /**
@@ -50,7 +51,7 @@ export default function BeanCard({ bean, number }) {
       </dl>
 
       <p className="cinema-bean__price mb-0">
-        <span className="cinema-bean__amount">{bean.price}</span>
+        <span className="cinema-bean__amount">{formatPrice(bean.price)}</span>
         <span className="cinema-bean__per">per bag</span>
       </p>
     </article>

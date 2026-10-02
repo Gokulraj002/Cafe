@@ -8,7 +8,7 @@ import JournalCard from './JournalCard';
 const STORY_PHOTOS = {
   'why-we-rest-our-espresso': photos.roasterCoolingTray,
   'seventy-two-hours-of-croissant': photos.croissantsBakingTray,
-  'a-letter-from-huila': photos.coffeeCherries,
+  'a-letter-from-coorg': photos.coffeeCherries,
 };
 
 /** The lead story is printed large on desktop; the other two as small plates beside it. */

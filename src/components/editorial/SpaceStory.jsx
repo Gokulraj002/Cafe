@@ -6,7 +6,7 @@ import SpaceStage from './space/SpaceStage';
 const OPENING_TIME = cafe.hours[0].time.split(' – ')[0];
 
 /**
- * 01 — The Space. A single lamp over an oak table, and then the room builds
+ * 01 — The Space. A single lamp over a teak table, and then the room builds
  * itself around it as the reader scrolls through the five paragraphs of its
  * story (see space/SpaceStage).
  */
@@ -24,7 +24,7 @@ export default function SpaceStory() {
               It began with <em>a single lamp.</em>
             </>
           }
-          dek={`Before there was a floor plan there was one pendant, hung low over the oak table the roastery has worked at since ${cafe.roastingSince}. Everything else was built outwards from its light.`}
+          dek={`Before there was a floor plan there was one pendant, hung low over the teak table the roastery has worked at since ${cafe.roastingSince}. Everything else was built outwards from its light.`}
           className="ed-space-opener"
         />
       </div>

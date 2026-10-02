@@ -3,10 +3,10 @@ import SwipeRail from '@/components/mobile/SwipeRail';
 
 /** The one question each person was asked; the answer is their line in data/content.js. */
 const QUESTIONS = {
-  elodie: 'When is a roast finished?',
-  tomas: 'What does the last shot of the day deserve?',
-  noor: 'What does a croissant really need?',
-  daniel: 'What is the one rule of the floor?',
+  ananya: 'When is a roast finished?',
+  karthik: 'What does the last shot of the day deserve?',
+  farah: 'What does a croissant really need?',
+  joseph: 'What is the one rule of the floor?',
 };
 
 const tenure = (years) => `${years} ${years === 1 ? 'year' : 'years'} with the house`;

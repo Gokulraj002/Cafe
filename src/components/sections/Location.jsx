@@ -45,7 +45,7 @@ export default function Location({
                 <p className="type-lead mb-0">
                   {address.street}
                   <br />
-                  {address.area}, {address.city}
+                  {address.area}, {address.city}&nbsp;{address.postcode}
                 </p>
               </address>
 

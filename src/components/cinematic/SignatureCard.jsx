@@ -1,3 +1,4 @@
+import { formatPrice } from '@/lib/format';
 import LuxMedia from './LuxMedia';
 
 /**
@@ -22,7 +23,7 @@ export default function SignatureCard({ number, name, price, description, pairin
           <h3 className="type-title mb-0">{name}</h3>
           <p className="lux-signature__price mb-0">
             <span className="visually-hidden">Price </span>
-            {price}
+            {formatPrice(price)}
           </p>
         </div>
         <p className="lux-signature__description mb-0">{description}</p>

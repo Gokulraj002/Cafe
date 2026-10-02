@@ -8,7 +8,7 @@ import photos from '@/data/images';
 export const ISSUE = {
   title: 'The Slow Issue',
   number: '01',
-  season: 'Autumn 2026',
+  season: 'October 2026',
 };
 
 /**
@@ -17,7 +17,7 @@ export const ISSUE = {
  */
 export const CONTENTS = [
   { id: 'space', number: '01', title: 'The Space', line: 'A room that built itself around a lamp', folio: '04' },
-  { id: 'coffee', number: '02', title: 'The Coffee', line: 'Four farms, one bar, and no shortcuts', folio: '18' },
+  { id: 'coffee', number: '02', title: 'The Coffee', line: 'Four hills, one bar, and no shortcuts', folio: '18' },
   { id: 'menu', number: '03', title: 'The Menu', line: 'A short menu, read slowly', folio: '32' },
   { id: 'experience', number: '04', title: 'The Experience', line: 'The people, the regulars, the hours', folio: '44' },
   { id: 'visit', number: '05', title: 'Visit', line: 'Your table is waiting', folio: '60' },

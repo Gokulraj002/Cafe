@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import cafe from '@/data/cafe';
+import { formatPrice } from '@/lib/format';
 import Button from '@/components/common/Button';
 
 /**
@@ -41,7 +42,7 @@ export default function WorkshopTicket({ event, poster }) {
           </div>
           <div>
             <dt>Per person</dt>
-            <dd>{event.price}</dd>
+            <dd>{formatPrice(event.price)}</dd>
           </div>
         </dl>
         <Button href={requestHref} variant="outline" className="cinema-ticket__cta">

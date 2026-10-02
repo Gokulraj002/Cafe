@@ -22,7 +22,7 @@ export default function Origins() {
               id="origins-title"
               eyebrow="Behind the film — Origins"
               title="Where it begins."
-              intro="Four coffees on the bar this season, from growers we know by name. Each began as a cherry like the one in the film — ripening slowly, at altitude."
+              intro="Four coffees on the bar this season, from Karnataka and Andhra growers we know by name. Each began as a cherry like the one in the film — shade-grown, high in the Ghats."
             />
 
             <div className="cinema-origins__media">

@@ -12,13 +12,13 @@ import DayCard from './DayCard';
 
 /** The picture for each hour — photographs mixed with frames from the café films. */
 const MEDIA_BY_TIME = {
-  '06:15': { photo: photos.espressoExtraction },
-  '07:00': { photo: photos.croissantsBakingTray },
-  '09:30': { photo: photos.pourOverKettle },
-  '12:30': { video: cafeVideos.concept1, moment: 'room' },
-  '15:00': { photo: photos.bookAndLatte },
-  '17:30': { video: cafeVideos.concept3, moment: 'lamp' },
-  '18:30': { photo: photos.latteArtPour },
+  '06:45': { photo: photos.espressoExtraction },
+  '07:30': { photo: photos.croissantsBakingTray },
+  '10:00': { photo: photos.pourOverKettle },
+  '13:00': { video: cafeVideos.concept1, moment: 'room' },
+  '16:00': { photo: photos.bookAndLatte },
+  '18:30': { video: cafeVideos.concept3, moment: 'lamp' },
+  '21:30': { photo: photos.latteArtPour },
 };
 
 const hours = dayTimeline.map((hour) => ({ ...hour, media: MEDIA_BY_TIME[hour.time] }));
@@ -108,7 +108,7 @@ export default function DayTimeline() {
               id="day-title"
               eyebrow="A day at Kela-Cafe"
               title="From first grind to last pour."
-              intro="A weekday at the café, hour by hour — the same slow pace from the morning dial-in to the final cup."
+              intro="A weekday at the café, hour by hour — the same slow pace from the morning dial-in to the last cup of the evening."
             />
             <div className="imm-day__clock" aria-hidden="true">
               <span className="imm-day__clock-now">{firstTime}</span>

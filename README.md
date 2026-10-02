@@ -85,6 +85,27 @@ persists across client-side navigation.
 
 ## Content to replace before launch
 
-`src/data/cafe.js` holds placeholder address, phone and email details. The reservation form opens the visitor's
-email app, addressed to `contact.reservationsEmail`. Swap `handleSubmit` in `components/sections/Reservation.jsx`
-for a booking provider when one is chosen.
+The copy is written for a café in Indiranagar, Bengaluru: prices in Indian Rupees (whole numbers in the data,
+inclusive of GST, rendered through `formatPrice()` in `src/lib/format.js`), dates in en-IN style and Indian
+specialty coffee from Karnataka and Andhra Pradesh. These details are placeholders and must be confirmed or
+replaced before launch:
+
+- **Address** (`src/data/cafe.js`, `address`): 'No. 12, 12th Main Road, HAL 2nd Stage, Indiranagar, Bengaluru
+  560038' and the Metro and parking directions. The Editorial Visit heading ('Just off 12th Main, in
+  Indiranagar.') in `components/editorial/VisitSpread.jsx` names the street too.
+- **Phone and email** (`src/data/cafe.js`, `contact`): '+91 80 4000 0000' and the `kelacafe.example` addresses.
+  They appear in Visit, the footer and the reservation form.
+- **Hours, seats and prices** (`src/data/cafe.js`, `src/data/menu.js`, `src/data/content.js`): confirm the
+  opening hours, the 42 seats, every menu, bag, workshop and private hire price, and the GST-inclusive wording.
+- **Estates and producers** (`src/data/content.js`, `origins` and `beans`): the regions are real, but the estate,
+  producer and cooperative names (Kavikal Ridge, Kaveri Bend, Kanive Forest, Hillfold Growers' Cooperative) are
+  fictional, as are the altitudes and tasting notes. Replace them with the real sourcing partners.
+- **Team** (`src/data/content.js`, `team`, plus event hosts and the Coorg journal letter): the names, roles and
+  years with the house are samples.
+- **Guest notes** (`src/data/content.js`, `guestNotes`): sample quotes written for the design. Replace them with
+  real reviews, quoted with the guests' consent. No press or awards are claimed anywhere; keep it that way unless
+  they are real.
+- **Journal** (`src/data/content.js`, `journal`): titles, dates and excerpts are samples.
+
+The reservation form opens the visitor's email app, addressed to `contact.reservationsEmail`. Swap `handleSubmit`
+in `components/sections/ReservationForm.jsx` for a booking provider when one is chosen.

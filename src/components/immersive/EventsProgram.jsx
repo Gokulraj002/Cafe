@@ -20,7 +20,7 @@ export default function EventsProgram() {
             <div className="imm-events__aside">
               <SectionHeading
                 id="events-title"
-                eyebrow="Evenings at the roastery"
+                eyebrow="Workshops at the roastery"
                 title="Learn the slow way."
                 intro="Small classes in the room behind the bar, taught by the people who roast, pour and bake here every day."
               />

@@ -22,7 +22,7 @@ export default function Footer({ theme = 'theme-charcoal', homeHref = '#top' }) 
               <br />
               {address.area}
               <br />
-              {address.city}
+              {address.city}&nbsp;{address.postcode}
             </p>
           </div>
 

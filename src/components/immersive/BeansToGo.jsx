@@ -1,5 +1,6 @@
 import { beans, events } from '@/data/content';
 import photos from '@/data/images';
+import { formatPrice } from '@/lib/format';
 import SectionHeading from '@/components/common/SectionHeading';
 import FadeReveal from '@/components/animations/FadeReveal';
 import SwipeRail from '@/components/mobile/SwipeRail';
@@ -20,10 +21,10 @@ export default function BeansToGo() {
               id="beans-title"
               eyebrow="Beans to take home"
               title="Take the moment with you."
-              intro="The four coffees on our bar this season, roasted weekly in small batches and sold at the counter by the bag."
+              intro="The four Indian coffees on our bar this season, roasted weekly in Bengaluru and sold at the counter by the bag."
             />
             <FadeReveal as="p" className="imm-beans__tip type-caption mt-4 mb-0" delay={0.2}>
-              Taste them first: the {cupping.title} fee, {cupping.price} per guest, comes back as credit on any bag.
+              Taste them first: the {cupping.title} fee, {formatPrice(cupping.price)} per guest, includes a bag of your favourite.
             </FadeReveal>
           </div>
           <div className="col-lg-6 offset-lg-1">

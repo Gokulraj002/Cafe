@@ -1,3 +1,4 @@
+import { formatPrice } from '@/lib/format';
 import FrameReveal from './FrameReveal';
 import MomentMedia from './MomentMedia';
 
@@ -35,11 +36,11 @@ export default function PairingCard({ number, name, description, pairing, pairin
       <dl className="imm-pairing__prices mb-0">
         <div>
           <dt>Cup</dt>
-          <dd>{price}</dd>
+          <dd>{formatPrice(price)}</dd>
         </div>
         <div>
           <dt>Plate</dt>
-          <dd>{platePrice}</dd>
+          <dd>{formatPrice(platePrice)}</dd>
         </div>
       </dl>
     </article>

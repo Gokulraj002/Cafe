@@ -28,7 +28,7 @@ export default function TakeHomeBeans() {
               id="beans-title"
               eyebrow="Intermission — To take home"
               title="The film’s beans, for your kitchen."
-              intro="Every coffee on the bar, roasted weekly and rested until it is ready — in 250 g bags at the counter."
+              intro={`Every coffee on the bar, roasted weekly in Bengaluru and rested until it is ready — in ${beans[0].weight} bags at the counter.`}
             />
           </div>
           <div className="col-lg-5 offset-lg-1">
@@ -50,8 +50,8 @@ export default function TakeHomeBeans() {
       <div className="container">
         <FadeReveal className="cinema-beans__cupping">
           <p className="mb-0">
-            Not sure which? Taste them side by side at <strong>{cupping.title}</strong>, on the {cuppingDay} — the fee
-            returns as credit on any bag.
+            Not sure which? Taste them side by side at <strong>{cupping.title}</strong>, on the {cuppingDay} — and take
+            home a bag of the one you liked best.
           </p>
           <Button href="#workshops" arrow>
             See the workshops

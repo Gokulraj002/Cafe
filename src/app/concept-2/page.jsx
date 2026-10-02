@@ -17,7 +17,7 @@ import VisitCredits from '@/components/scroll-cinema/VisitCredits';
 export const metadata = {
   title: 'Scroll Cinema',
   description:
-    'From cherry to cup in five chapters — a café film that moves only as fast as you scroll, then the origins, beans, workshops and table behind it.',
+    'From Chikmagalur cherry to Bengaluru cup in five chapters — a café film that moves only as fast as you scroll, then the Indian origins, beans, workshops and table behind it.',
 };
 
 const NAV_LINKS = [
@@ -50,7 +50,7 @@ export default function ScrollCinemaPage() {
         <Reservation
           theme="theme-coffee"
           title="Save a seat for the next showing."
-          intro="Walk-ins are always welcome — a third of our tables are never booked. For weekend mornings, the long table or groups of six or more, send us a note."
+          intro="Walk-ins are always welcome, and most of our tables are kept for them. For weekend mornings, the long table or groups of six or more, send us a note."
         />
       </main>
       <Footer />

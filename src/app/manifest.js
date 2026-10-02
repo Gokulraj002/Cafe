@@ -6,6 +6,7 @@ export default function manifest() {
     name: cafe.name,
     short_name: cafe.shortName,
     description: cafe.description,
+    lang: 'en-IN',
     start_url: '/',
     scope: '/',
     display: 'standalone',

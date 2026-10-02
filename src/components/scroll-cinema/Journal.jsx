@@ -8,7 +8,7 @@ import JournalEntry from './JournalEntry';
 const COVERS = {
   'why-we-rest-our-espresso': photos.roasterCoolingTray,
   'seventy-two-hours-of-croissant': photos.croissantsBakingTray,
-  'a-letter-from-huila': photos.greenBeans,
+  'a-letter-from-coorg': photos.greenBeans,
 };
 
 /**

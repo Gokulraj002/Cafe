@@ -20,8 +20,8 @@ export default function Events() {
             <SectionHeading
               id="events-title"
               eyebrow="At the roastery"
-              title="Evenings behind the bar."
-              intro="Small classes in the roastery room, taught by the people who roast and bake for the café. Every place includes what you make."
+              title="A place behind the bar."
+              intro="Small classes in the roastery room, taught by the people who roast and bake for the café. Every place includes what you taste or make."
             />
             <RevealFrame
               media={photos.pourOverKettle}

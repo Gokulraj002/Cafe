@@ -12,10 +12,10 @@ import SignatureCard from './SignatureCard';
 
 /** The photograph that sells each drink, keyed by signature id. */
 const SIGNATURE_MEDIA = {
-  'lente-latte': photos.latteGreenCup,
+  'kela-latte': photos.latteGreenCup,
   'flat-white': photos.latteArtPour,
   siphon: photos.chemexSlowBar,
-  'espresso-tonic': photos.espressoExtraction,
+  'elaichi-cortado': photos.espressoExtraction,
 };
 
 const drinks = signatures.map((drink, index) => ({ ...drink, number: index + 1, media: SIGNATURE_MEDIA[drink.id] }));
@@ -77,7 +77,7 @@ export default function SignatureCoffee() {
 
       <div className="container">
         <div className="lux-signature__footer">
-          <p className="type-caption mb-0">Oat, whole or skimmed milk in any of them, at no extra cost.</p>
+          <p className="type-caption mb-0">Full-cream, oat or almond milk in any of them, at no extra cost.</p>
           <Button href="#menu" variant="text" arrow>
             See the full menu
           </Button>

@@ -1,7 +1,7 @@
 /** Growing facts shown on every origin card, in reading order. */
 const FACTS = [
   { key: 'producer', label: 'Grown by' },
-  { key: 'farm', label: 'Farm' },
+  { key: 'farm', label: 'Estate' },
   { key: 'altitude', label: 'Altitude' },
   { key: 'variety', label: 'Variety' },
   { key: 'process', label: 'Process' },
@@ -9,8 +9,8 @@ const FACTS = [
 ];
 
 /**
- * One single origin in the coffee sidebar: where it grows, who grows it, how
- * it tastes, and a line on how it is handled at the farm.
+ * One origin in the coffee sidebar: where it grows, who grows it, how it
+ * tastes, and a line on how it is handled where it is grown.
  *
  * @param {object} origin Entry from `origins` in data/content.js
  * @param {number} index  Position in the sidebar, printed as "No. 01"

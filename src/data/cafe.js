@@ -6,18 +6,18 @@ const cafe = {
   name: 'Kela-Cafe',
   shortName: 'Kela',
   tagline: 'Coffee, crafted slowly.',
-  description: 'A space for coffee, conversation and quiet moments.',
+  description: 'A Bengaluru space for Indian coffee, conversation and quiet moments.',
   established: 2026,
   /** The roastery came first: seven years of roasting before the café opened its doors. */
   roastingSince: 2019,
   seats: 42,
 
   manifesto:
-    'We roast, bake and pour at the pace good things take. Four coffees from growers we know by name, a bakery that starts before dawn, and a room built for staying — not for turning tables.',
+    'We roast, bake and pour at the pace good things take. Four Indian coffees from growers we know by name, a bakery that starts before dawn, and a room built for staying — not for turning tables.',
 
   story: [
-    'Kela-Cafe began with a single oak table and one rule: nothing leaves the bar until it is right.',
-    'We roast in small batches, dial in every morning and pour each cup by hand — because the best things in a day are rarely the fastest.',
+    'Kela-Cafe began with a single teak table and one rule: nothing leaves the bar until it is right.',
+    'We roast in small batches in Bengaluru, a morning’s drive from Chikmagalur and Coorg, dial in every morning and pour each cup by hand — because the best things in a day are rarely the fastest.',
   ],
 
   philosophy: [
@@ -27,40 +27,45 @@ const cafe = {
     },
     {
       title: 'Sourced with care',
-      text: 'Single-origin lots from growers we know by name, paid well above fair-trade minimums and roasted within the week.',
+      text: 'Lots from Chikmagalur, Coorg, BR Hills and Araku, paid well above the market rate and roasted within the week.',
     },
     {
       title: 'Made to linger',
-      text: 'No laptops-off rules, no rush to turn tables. Stay for a chapter, a conversation or the whole afternoon.',
+      text: 'Laptops welcome on weekdays, and no rush to turn tables. Stay for a chapter, a conversation or the whole afternoon.',
     },
   ],
 
   /** Short practical facts for visit sections and the reservation sheet. */
   amenities: [
-    'Free Wi-Fi, with sockets along the window bench',
-    'Step-free entrance and an accessible toilet',
-    'Dogs welcome, water bowls by the door',
-    'Oat, whole or skimmed milk at no extra cost',
+    'Free Wi-Fi, with charging points along the window bench',
+    'Step-free entrance and an accessible washroom',
+    'Pets welcome on the verandah, water bowls by the door',
+    'Full-cream, oat or almond milk at no extra cost',
+    'Eggless and vegan bakes on the counter every day',
+    'UPI, cards and cash; every price includes GST',
   ],
 
+  /** Placeholder address — replace with the real premises before launch. */
   address: {
-    street: '12 Linden Row',
-    area: 'Old Quarter',
-    city: 'Your City',
-    postcode: '00000',
-    mapsQuery: 'Kela-Cafe café',
-    directions: 'Five minutes on foot from the central station, on the corner of the old market square.',
+    street: 'No. 12, 12th Main Road',
+    area: 'HAL 2nd Stage, Indiranagar',
+    city: 'Bengaluru',
+    postcode: '560038',
+    state: 'Karnataka',
+    mapsQuery: 'Kela-Cafe, Indiranagar',
+    directions:
+      'A few minutes’ walk from Indiranagar Metro on the Purple Line. Paid parking nearby, two-wheeler parking out front.',
   },
 
   hours: [
-    { days: 'Monday – Friday', time: '7:00 – 19:00' },
-    { days: 'Saturday', time: '8:00 – 20:00' },
-    { days: 'Sunday', time: '8:00 – 17:00' },
+    { days: 'Monday – Friday', time: '7:30 – 22:00' },
+    { days: 'Saturday – Sunday', time: '8:00 – 23:00' },
   ],
-  hoursNote: 'Last orders thirty minutes before closing. Public holidays 9:00 – 16:00.',
+  hoursNote: 'Last orders thirty minutes before closing. Open on most public holidays.',
 
+  /** Placeholder phone number and example-domain emails — replace before launch. */
   contact: {
-    phone: '+00 000 000 000',
+    phone: '+91 80 4000 0000',
     email: 'hello@kelacafe.example',
     reservationsEmail: 'reservations@kelacafe.example',
     eventsEmail: 'events@kelacafe.example',

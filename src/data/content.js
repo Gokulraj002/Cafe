@@ -1,10 +1,12 @@
 import cafe from './cafe.js';
 import menu from './menu.js';
+import { formatPrice } from '../lib/format.js';
 
 /**
  * Long-form copy shared by the four concepts: figures, origins, process,
  * people, events and practical answers. Each concept picks what it needs and
- * presents it its own way. Prices follow menu.js: local currency, no symbol.
+ * presents it its own way. Prices follow menu.js: whole rupees as plain numeric
+ * strings, inclusive of GST, rendered through formatPrice().
  */
 
 const menuItems = menu.flatMap((category) => category.items);
@@ -23,71 +25,73 @@ function menuPrice(name) {
 export const stats = [
   { value: '72', unit: 'h', label: 'laminated croissant dough' },
   { value: '12', unit: 'kg', label: 'per roast, never more' },
-  { value: '4', unit: '', label: 'single origins on the bar this season' },
+  { value: '4', unit: '', label: 'Indian coffees on the bar this season' },
   { value: '45', unit: 'min', label: 'of dial-in before the doors open' },
   { value: '18', unit: 'h', label: 'steep for every batch of cold brew' },
   { value: String(cafe.seats), unit: '', label: 'seats, and no rush to leave them' },
 ];
 
 /**
- * The four coffees on the bar this season. Producer and farm names are
- * illustrative — replace them with the real sourcing partners before launch.
+ * The four coffees on the bar this season, all grown in south India. The
+ * regions are real; producer and estate names are placeholders — replace them
+ * with the real sourcing partners before launch. `country` holds the growing
+ * region shown as each entry's heading.
  *
  * @type {{ id: string, country: string, region: string, producer: string, farm: string, altitude: string,
  *   variety: string, process: string, notes: string[], story: string, harvest: string }[]}
  */
 export const origins = [
   {
-    id: 'ethiopia-guji',
-    country: 'Ethiopia',
-    region: 'Guji, Oromia',
-    producer: 'Tigist A. and 312 smallholder families',
-    farm: 'Dawa Ridge washing station',
-    altitude: '2,100–2,300 m',
-    variety: 'JARC 74110 and local landraces',
+    id: 'chikmagalur',
+    country: 'Chikmagalur',
+    region: 'Baba Budangiri',
+    producer: 'Lakshmi G. and family',
+    farm: 'Kavikal Ridge Estate',
+    altitude: '1,450–1,600 m',
+    variety: 'Selection 795 and Chandragiri',
     process: 'Washed',
-    notes: ['Jasmine', 'Bergamot', 'White peach'],
-    story: 'Cherries are sorted by hand, pulped the same evening and dried on raised beds for twelve days.',
+    notes: ['Jasmine', 'Orange blossom', 'Ripe apricot'],
+    story: 'Cherries are picked by hand under silver oak shade, pulped the same evening and dried on raised beds for twelve days.',
     harvest: 'November – January',
   },
   {
-    id: 'colombia-huila',
-    country: 'Colombia',
-    region: 'Huila',
-    producer: 'Marisol V.',
-    farm: 'Finca Las Nubes Altas',
-    altitude: '1,850 m',
-    variety: 'Pink Bourbon',
-    process: 'Washed, 36-hour dry fermentation',
-    notes: ['Red grape', 'Panela', 'Blood orange'],
-    story: 'A second-generation farm where every lot is fermented in small tanks and tasted before it is dried.',
-    harvest: 'October – December',
+    id: 'coorg',
+    country: 'Coorg',
+    region: 'Kodagu district',
+    producer: 'Bopanna C.',
+    farm: 'Kaveri Bend Estate',
+    altitude: '1,100–1,200 m',
+    variety: 'SLN 9',
+    process: 'Anaerobic natural, sealed 72\u00a0hours',
+    notes: ['Red grape', 'Jaggery', 'Blood orange'],
+    story: 'A second-generation estate where every lot is fermented in small sealed tanks and tasted before it is dried.',
+    harvest: 'December – February',
   },
   {
-    id: 'guatemala-huehuetenango',
-    country: 'Guatemala',
-    region: 'Huehuetenango',
-    producer: 'Aurelio M. and family',
-    farm: 'Finca Tres Cumbres',
-    altitude: '1,750–1,900 m',
-    variety: 'Bourbon and Caturra',
-    process: 'Washed',
-    notes: ['Milk chocolate', 'Toffee', 'Red apple'],
-    story: 'Warm, dry winds from the Mexican lowlands keep frost off the high slopes and give the cup its clean finish.',
-    harvest: 'January – March',
+    id: 'br-hills',
+    country: 'BR Hills',
+    region: 'Biligiri hills',
+    producer: 'Ramesh N. and family',
+    farm: 'Kanive Forest Estate',
+    altitude: '1,200–1,400 m',
+    variety: 'Chandragiri and Catimor',
+    process: 'Monsooned Malabar',
+    notes: ['Dark cocoa', 'Nutmeg', 'Toasted malt'],
+    story: 'Sun-dried beans spend the monsoon in open warehouses on the Mangaluru coast, swelling in the wet sea wind until they turn pale gold.',
+    harvest: 'November – January',
   },
   {
-    id: 'brazil-mantiqueira',
-    country: 'Brazil',
-    region: 'Mantiqueira de Minas',
-    producer: 'The Andrade family',
-    farm: 'Sítio Alto da Serra',
-    altitude: '1,250 m',
-    variety: 'Yellow Catuaí',
+    id: 'araku',
+    country: 'Araku Valley',
+    region: 'Eastern Ghats',
+    producer: 'A cooperative of 140 tribal farming families',
+    farm: 'Hillfold Growers’ Cooperative',
+    altitude: '1,000–1,100 m',
+    variety: 'Selection 795',
     process: 'Natural',
     notes: ['Hazelnut', 'Cocoa', 'Dried fig'],
     story: 'Whole cherries dry on raised beds for three weeks, turned by hand through the day until they rattle.',
-    harvest: 'May – August',
+    harvest: 'December – February',
   },
 ];
 
@@ -101,7 +105,7 @@ export const ritual = [
     id: 'select',
     title: 'Select',
     text: 'Every lot is cupped twice — as a sample from origin and again when it lands. We only buy what we would drink every day.',
-    detail: 'Scored 86+ on arrival',
+    detail: 'Scored 84+ on arrival',
   },
   {
     id: 'roast',
@@ -130,7 +134,7 @@ export const ritual = [
   {
     id: 'serve',
     title: 'Serve',
-    text: 'Brought to your table with a glass of water and the name of the farm — never left waiting on the counter.',
+    text: 'Brought to your table with a glass of water and the name of the estate — never left waiting on the counter.',
     detail: 'At the table within a minute',
   },
 ];
@@ -143,7 +147,7 @@ export const ritual = [
  */
 export const signatures = [
   {
-    id: 'lente-latte',
+    id: 'kela-latte',
     name: 'Kela Latte',
     description: 'The house espresso with milk steamed through browned butter and a few flakes of sea salt. Rich, never sweet.',
     pairing: 'Cardamom Bun',
@@ -159,16 +163,16 @@ export const signatures = [
   {
     id: 'siphon',
     name: 'Siphon',
-    description: 'Brewed in glass over a halogen burner with the washed Ethiopian from Dawa Ridge. Floral, tea-like, entirely unhurried.',
+    description: 'Brewed in glass over a halogen burner with the washed Chikmagalur from Kavikal Ridge. Floral, tea-like, entirely unhurried.',
     pairing: 'Basque Cheesecake',
-    pairingNote: 'Burnt caramel against jasmine and bergamot.',
+    pairingNote: 'Burnt caramel against jasmine and apricot.',
   },
   {
-    id: 'espresso-tonic',
-    name: 'Espresso Tonic',
-    description: 'A single-origin shot poured slowly over citrus tonic and ice, so the layers hold until the first sip.',
+    id: 'elaichi-cortado',
+    name: 'Elaichi Cortado',
+    description: 'Green cardamom ground at the bar, a little jaggery and steamed oat milk under a single-estate shot. Fragrant and short.',
     pairing: 'Almond Croissant',
-    pairingNote: 'Bitter orange and toasted almond for a warm afternoon.',
+    pairingNote: 'Toasted almond and elaichi for a warm Bengaluru afternoon.',
   },
 ].map((drink) => ({ ...drink, price: menuPrice(drink.name) }));
 
@@ -180,29 +184,29 @@ export const signatures = [
  */
 export const team = [
   {
-    id: 'elodie',
-    name: 'Élodie R.',
+    id: 'ananya',
+    name: 'Ananya R.',
     role: 'Founder & Head Roaster',
     philosophy: 'A roast is finished when the sweetness is, not when the timer says so.',
     years: 7,
   },
   {
-    id: 'tomas',
-    name: 'Tomas K.',
+    id: 'karthik',
+    name: 'Karthik S.',
     role: 'Head of Coffee',
     philosophy: 'The last shot of the day deserves the same attention as the first.',
     years: 5,
   },
   {
-    id: 'noor',
-    name: 'Noor H.',
+    id: 'farah',
+    name: 'Farah K.',
     role: 'Head Baker',
-    philosophy: 'Butter, cold hands and time. Everything else is patience.',
+    philosophy: 'Butter, cold hands and a room cooler than Bengaluru. Everything else is patience.',
     years: 3,
   },
   {
-    id: 'daniel',
-    name: 'Daniel O.',
+    id: 'joseph',
+    name: 'Joseph M.',
     role: 'Front of House',
     philosophy: 'Nobody should ever feel like a table number.',
     years: 1,
@@ -219,39 +223,39 @@ export const team = [
  */
 export const guestNotes = [
   {
-    id: 'amara',
+    id: 'priya',
     quote: 'The only café where I have been asked how I like my coffee to taste, not how big.',
-    name: 'Amara',
-    context: 'Sunday regular',
+    name: 'Priya',
+    context: 'Weekday regular, Indiranagar',
   },
   {
-    id: 'jonas',
-    quote: 'I came in for a flat white and stayed for two chapters and a cardamom bun.',
-    name: 'Jonas',
+    id: 'arjun',
+    quote: 'I came in for a filter kaapi and stayed for two chapters and a cardamom bun.',
+    name: 'Arjun',
     context: 'Weekday mornings',
   },
   {
-    id: 'mei',
-    quote: 'They told me the name of the farm with my pour-over. It changed how I drank it.',
-    name: 'Mei',
+    id: 'meera',
+    quote: 'They told me the name of the estate with my pour-over. It changed how I drank it.',
+    name: 'Meera',
     context: 'First visit',
   },
   {
-    id: 'rafael',
+    id: 'nikhil',
     quote: 'Quiet enough to think, warm enough to stay. That is rarer than good coffee.',
-    name: 'Rafael',
+    name: 'Nikhil',
     context: 'Works from the window bench',
   },
   {
-    id: 'clara',
+    id: 'sneha',
     quote: 'The croissant shatters exactly as it should, and the espresso is better still.',
-    name: 'Clara',
-    context: 'Saturday bakery run',
+    name: 'Sneha',
+    context: 'Saturday bakery run, from Koramangala',
   },
   {
-    id: 'idris',
+    id: 'imran',
     quote: 'We booked the long table for my mother’s seventieth. They made it feel like her own room.',
-    name: 'Idris',
+    name: 'Imran',
     context: 'Private hire',
   },
 ];
@@ -269,10 +273,10 @@ export const events = [
     title: 'Espresso at Home',
     day: 'Tuesdays',
     time: '19:30',
-    duration: '2 hours',
-    price: '65',
+    duration: '2\u00a0hours',
+    price: '2500',
     seats: 6,
-    host: 'Tomas K.',
+    host: 'Karthik S.',
     description: 'Dose, grind, yield and time: taste what each one changes, one at a time, on the machine behind our bar. You leave with a recipe written for your own grinder.',
   },
   {
@@ -280,33 +284,33 @@ export const events = [
     title: 'Filter, Side by Side',
     day: 'Thursdays',
     time: '19:30',
-    duration: '90 minutes',
-    price: '45',
+    duration: '90\u00a0minutes',
+    price: '1800',
     seats: 8,
-    host: 'Tomas K.',
-    description: 'One coffee through V60, Chemex and siphon, tasted together so the differences are impossible to miss. Includes 250 g of the single origin of the week.',
+    host: 'Karthik S.',
+    description: 'One coffee through V60, Chemex and a South Indian filter, tasted together so the differences are impossible to miss. Includes 250 g of the single estate of the week.',
   },
   {
     id: 'sunday-cupping',
     title: 'Sunday Cupping',
     day: 'Last Sunday of the month',
     time: '09:00',
-    duration: '1 hour',
-    price: '12',
+    duration: '1\u00a0hour',
+    price: '1200',
     seats: 12,
-    host: 'Élodie R.',
-    description: 'Taste new arrivals the way we buy them — side by side, from a spoon, without labels. No experience needed, and the fee returns as credit on any bag of beans.',
+    host: 'Ananya R.',
+    description: 'Taste new arrivals the way we buy them — side by side, from a spoon, without labels. No experience needed, and you take home a bag of the one you liked best.',
   },
   {
     id: 'three-day-croissant',
     title: 'The Three-Day Croissant',
     day: 'First Saturday of the month',
     time: '14:00',
-    duration: '3 hours',
-    price: '85',
+    duration: '3\u00a0hours',
+    price: '2500',
     seats: 6,
-    host: 'Noor H.',
-    description: 'Détrempe, butter block, turns and shaping — all seventy-two hours explained in one afternoon. You bake a tray here and take a laminated dough home.',
+    host: 'Farah K.',
+    description: 'Détrempe, butter block, turns and shaping — all seventy-two hours explained in one afternoon, with an eggless variation. You bake a tray here and take a laminated dough home.',
   },
 ];
 
@@ -318,44 +322,44 @@ export const events = [
  */
 export const beans = [
   {
-    id: 'dawa-ridge',
-    name: 'Dawa Ridge',
-    origin: 'Guji, Ethiopia',
+    id: 'kavikal-ridge',
+    name: 'Kavikal Ridge',
+    origin: 'Baba Budangiri, Chikmagalur',
     process: 'Washed',
-    notes: ['Jasmine', 'Bergamot', 'White peach'],
+    notes: ['Jasmine', 'Orange blossom', 'Ripe apricot'],
     roast: 'Light, for filter',
     weight: '250 g',
-    price: '17',
+    price: '950',
   },
   {
-    id: 'las-nubes-altas',
-    name: 'Las Nubes Altas',
-    origin: 'Huila, Colombia',
-    process: 'Washed, 36-hour dry fermentation',
-    notes: ['Red grape', 'Panela', 'Blood orange'],
+    id: 'kaveri-bend',
+    name: 'Kaveri Bend',
+    origin: 'Coorg, Karnataka',
+    process: 'Anaerobic natural, sealed 72\u00a0hours',
+    notes: ['Red grape', 'Jaggery', 'Blood orange'],
     roast: 'Light, for filter',
     weight: '250 g',
-    price: '19',
+    price: '1250',
   },
   {
-    id: 'tres-cumbres',
-    name: 'Tres Cumbres',
-    origin: 'Huehuetenango, Guatemala',
-    process: 'Washed',
-    notes: ['Milk chocolate', 'Toffee', 'Red apple'],
-    roast: 'Medium-light, for filter or espresso',
+    id: 'kanive-monsooned',
+    name: 'Kanive Monsooned',
+    origin: 'BR Hills, Karnataka',
+    process: 'Monsooned Malabar',
+    notes: ['Dark cocoa', 'Nutmeg', 'Toasted malt'],
+    roast: 'Medium, for espresso or French press',
     weight: '250 g',
-    price: '15',
+    price: '850',
   },
   {
     id: 'house-espresso',
     name: 'Kela House Espresso',
-    origin: 'Mantiqueira de Minas, Brazil & Huehuetenango, Guatemala',
-    process: 'Natural and washed',
+    origin: 'Araku Valley & BR Hills',
+    process: 'Natural and Monsooned Malabar',
     notes: ['Hazelnut', 'Cocoa', 'Dark cherry'],
     roast: 'Medium, for espresso',
     weight: '250 g',
-    price: '14',
+    price: '750',
   },
 ];
 
@@ -376,15 +380,15 @@ export const journal = [
   {
     slug: 'seventy-two-hours-of-croissant',
     title: 'Seventy-two hours of croissant',
-    excerpt: 'From détrempe to the final fold: a timeline of the pastry that takes three days to make and about four minutes to eat.',
+    excerpt: 'From détrempe to the final fold — and keeping butter cold through a Bengaluru April — for a pastry that takes three days to make.',
     category: 'Bakery',
     readTime: '6 min',
     date: '2026-08-27',
   },
   {
-    slug: 'a-letter-from-huila',
-    title: 'A letter from Huila',
-    excerpt: 'Marisol V. on Pink Bourbon, dry fermentation and why this year’s harvest arrived three weeks late — and tasted better for it.',
+    slug: 'a-letter-from-coorg',
+    title: 'A letter from Coorg',
+    excerpt: 'Bopanna C. on SLN 9, sealed-tank fermentation and how a late blossom shower gave last season’s best lot three extra weeks on the branch.',
     category: 'Origins',
     readTime: '5 min',
     date: '2026-07-09',
@@ -400,32 +404,37 @@ export const faq = [
   {
     id: 'milk',
     question: 'Do you offer plant-based milk?',
-    answer: 'Yes. Oat milk is always available at no extra cost, alongside whole and skimmed, and any milk drink can be made with it. Allergen details for every pastry are kept at the bar — just ask.',
+    answer: 'Yes. Oat and almond milk are always available at no extra cost, alongside full-cream, and any milk drink can be made with either. Eggless and vegan bakes are marked at the counter, and allergen details are kept at the bar — just ask.',
   },
   {
     id: 'laptops',
     question: 'Can I work from the café?',
-    answer: 'Please do. The Wi-Fi is free, the window bench has sockets and there is no time limit. On busy weekend mornings we may ask you to share a table.',
+    answer: 'On weekdays, please do. The Wi-Fi is free, the window bench has charging points and there is no time limit. On weekends a few tables are kept laptop-free, and on busy mornings we may ask you to share.',
   },
   {
     id: 'groups',
     question: 'Can you seat larger groups?',
-    answer: 'We can usually seat up to eight without notice. For nine or more, reserve the long table — it seats fourteen — or ask about hiring the café for an evening.',
+    answer: 'We can usually seat up to five without notice. For six or more, reserve the long table — it seats fourteen — or ask about hiring the café for an evening.',
   },
   {
     id: 'dogs',
-    question: 'Are dogs welcome?',
-    answer: 'Always. There are water bowls by the door and treats behind the bar; we only ask that dogs stay on the floor rather than the banquettes.',
+    question: 'Are pets welcome?',
+    answer: 'On the verandah, always. There are water bowls by the door and treats behind the bar; we only ask that pets stay outside, for guests with allergies.',
   },
   {
     id: 'accessibility',
     question: 'Is the café accessible?',
-    answer: 'The entrance is step-free, there is an accessible toilet on the ground floor and the window tables suit wheelchairs. If you need anything else, call ahead and we will have it ready.',
+    answer: 'The entrance is step-free, there is an accessible washroom on the ground floor and the window tables suit wheelchairs. If you need anything else, call ahead and we will have it ready.',
   },
   {
     id: 'bookings',
     question: 'Do I need to book?',
-    answer: 'Not for coffee — a third of our tables are always kept for walk-ins. For weekend mornings, the long table or groups of six or more, reserve up to four weeks ahead.',
+    answer: 'Not for coffee — walk-ins are always welcome, and a third of our tables are never booked. For groups of six or more, the long table or weekend mornings, reserve up to four weeks ahead.',
+  },
+  {
+    id: 'payments',
+    question: 'How can I pay?',
+    answer: 'UPI, all major cards and cash. Every price on the menu includes GST, so what you see is what you pay.',
   },
 ];
 
@@ -435,13 +444,13 @@ export const faq = [
  * @type {{ time: string, title: string, line: string }[]}
  */
 export const dayTimeline = [
-  { time: '06:15', title: 'Dial-in', line: 'The grinders are adjusted shot by shot until one tastes right.' },
-  { time: '07:00', title: 'Doors open', line: 'The first croissants are still warm, and the regulars already know their seats.' },
-  { time: '09:30', title: 'The slow bar', line: 'Pour-overs and siphons for anyone with ten minutes to spare. Most people find them.' },
-  { time: '12:30', title: 'Midday light', line: 'Sun crosses the oak tables while the cheesecake softens on the counter.' },
-  { time: '15:00', title: 'The quiet hour', line: 'Books come out, the music drops a notch, cold brew goes over one clear cube.' },
-  { time: '17:30', title: 'Lamps on', line: 'The lamps come on one by one as the bakery folds dough for the day after tomorrow.' },
-  { time: '18:30', title: 'Last pour', line: 'Made with exactly the same care as the first one this morning.' },
+  { time: '06:45', title: 'Dial-in', line: 'The grinders are adjusted shot by shot until one tastes right.' },
+  { time: '07:30', title: 'Doors open', line: 'The first croissants are still warm, the decoction is dripping and the regulars know their seats.' },
+  { time: '10:00', title: 'The slow bar', line: 'Pour-overs and siphons for anyone with ten minutes to spare. Most people find them.' },
+  { time: '13:00', title: 'Midday light', line: 'Sun crosses the teak tables while the cheesecake softens on the counter.' },
+  { time: '16:00', title: 'Kaapi hour', line: 'Books come out, the music drops a notch and the davara tumblers start to stack up.' },
+  { time: '18:30', title: 'Lamps on', line: 'The room turns amber as the bakery folds dough for the day after tomorrow.' },
+  { time: '21:30', title: 'Last pour', line: 'Made with exactly the same care as the first one this morning.' },
 ];
 
 /**
@@ -452,12 +461,12 @@ export const dayTimeline = [
  */
 export const chapterNotes = {
   bean: {
-    line: 'It begins as a cherry, ripening slowly at altitude.',
-    fact: 'Our coffees grow between 1,250 and 2,300 metres, where cherries ripen slowly and build more sugar.',
+    line: 'It begins as a cherry, ripening slowly in the Chikmagalur hills.',
+    fact: 'Our coffees grow under shade at 1,000–1,600 metres in the Ghats, where cherries ripen slowly and build more sugar.',
   },
   roast: {
     line: 'Heat, time and attention — twelve kilos at a time.',
-    fact: 'Each origin has its own roast profile, logged and cupped the following morning before it goes on sale.',
+    fact: 'Each estate has its own roast profile, logged and cupped in Bengaluru the following morning before it goes on sale.',
   },
   craft: {
     line: 'Eighteen grams, ground to order, weighed to the tenth.',
@@ -488,12 +497,12 @@ export const spaceStory = [
   {
     key: 'table',
     title: 'The table',
-    text: 'Beneath it, the oak table the roastery started with. It is oiled by hand every Monday and still carries the rings of seven years of cups.',
+    text: 'Beneath it, the teak table the roastery started with. It is oiled by hand every Monday and still carries the rings of seven years of cups.',
   },
   {
     key: 'glass',
     title: 'The glass',
-    text: 'Tall steel-framed windows on two sides, so the morning reaches the bar before we do.',
+    text: 'Tall steel-framed windows on two sides, under the rain trees, so the morning reaches the bar before we do.',
   },
   {
     key: 'room',
@@ -503,25 +512,25 @@ export const spaceStory = [
   {
     key: 'light',
     title: 'The light',
-    text: 'By mid-afternoon the sun has crossed the whole floor, and the hall turns the colour of a well-made flat white.',
+    text: 'By mid-afternoon the sun has crossed the whole floor, and the hall turns the colour of a well-made filter kaapi.',
   },
 ];
 
 /** Copy for the private hire block. `email` is where enquiries go. */
 export const privateHire = {
   eyebrow: 'Private hire',
-  title: 'The room is yours after hours.',
-  text: 'On weekday evenings the café closes at seven and opens again for you — birthdays, book launches, supper clubs and quiet team offsites. We plan the menu with you and run the bar ourselves.',
+  title: 'The room is yours for the evening.',
+  text: 'Take the long table for an afternoon, or the whole café on a weeknight — birthdays, book launches, supper clubs and quiet team offsites. We plan the menu with you and run the bar ourselves.',
   spaces: [
     { name: 'The long table', capacity: 'Up to 14 seated', availability: 'Daytime or evening' },
-    { name: 'The whole café', capacity: `${cafe.seats} seated · 60 standing`, availability: 'Weekday evenings from 19:30' },
+    { name: 'The whole café', capacity: `${cafe.seats} seated · 60 standing`, availability: 'Mon – Thu evenings from 18:30' },
   ],
   includes: [
     'A barista and a host for the evening',
-    'Coffee, cold brew and a menu planned with our baker',
+    'Filter kaapi, cold brew and a menu planned with our baker',
     'Your own playlist, and the lamps turned low',
   ],
-  note: 'Menus from 38 per guest. We reply to every enquiry within one working day.',
+  note: `Menus from ${formatPrice('1800')} per guest, inclusive of GST. We reply to every enquiry within one working day.`,
   ctaLabel: 'Enquire about a date',
   email: cafe.contact.eventsEmail,
   emailSubject: 'Private hire enquiry',
@@ -531,7 +540,7 @@ export const privateHire = {
 export const newsletter = {
   eyebrow: 'The Kela letter',
   title: 'One letter a month. Nothing more.',
-  text: 'New arrivals from origin, workshop dates a week before they go public, and the occasional recipe from the bakery.',
+  text: 'New arrivals from the estates, workshop dates a week before they go public, and the occasional recipe from the bakery.',
   fieldLabel: 'Email address',
   placeholder: 'you@example.com',
   submitLabel: 'Subscribe',

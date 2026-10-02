@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import useGsap from '@/hooks/useGsap';
 import { gsap, EASE } from '@/lib/animations';
+import cafe from '@/data/cafe';
 import VideoStill from '@/components/video/VideoStill';
 import TextReveal from '@/components/animations/TextReveal';
 import { padNumber } from './formatters';
@@ -52,7 +53,7 @@ export default function CinemaIntro({ film }) {
       </div>
 
       <div className="cinema-intro__copy container">
-        <p className="cinema-intro__reveal reveal-pending type-eyebrow mb-3 mb-md-4">Kela-Cafe presents</p>
+        <p className="cinema-intro__reveal reveal-pending type-eyebrow mb-3 mb-md-4">{cafe.name} presents</p>
         <TextReveal as="h1" id="top-title" immediate className="cinema-intro__title type-display">
           From cherry to cup.
         </TextReveal>

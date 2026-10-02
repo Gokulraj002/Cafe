@@ -1,4 +1,5 @@
 import cafe from '@/data/cafe';
+import { formatPrice } from '@/lib/format';
 
 /**
  * One workshop, laid out like a ticket stub: when on the left, what in the
@@ -29,7 +30,7 @@ export default function EventTicket({ title, day, time, duration, price, seats, 
 
       <div className="imm-ticket__stub">
         <p className="imm-ticket__price mb-0">
-          {price}
+          {formatPrice(price)}
           <span className="imm-ticket__per"> per guest</span>
         </p>
         <a href={requestHref} className="btn-cafe imm-btn" aria-label={`Request a seat at ${title}`}>

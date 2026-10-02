@@ -22,7 +22,7 @@ export default function PrivateScreening() {
       </div>
 
       <FadeReveal className="cinema-screening__body col-lg-6">
-        <p className="type-eyebrow mb-3">{privateHire.eyebrow} — Private screenings</p>
+        <p className="type-eyebrow mb-3">{privateHire.eyebrow} — Your own screening</p>
         <h3 className="type-title mb-3">{privateHire.title}</h3>
         <p className="type-body mb-0">{privateHire.text}</p>
 
